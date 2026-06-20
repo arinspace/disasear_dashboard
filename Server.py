@@ -19,6 +19,9 @@ from typing import Optional
 app = Flask(__name__, static_folder=".")
 CORS(app)
 
+# Global storage for hazards
+GLOBAL_HAZARDS = []
+
 # ──────────────────────────────────────────────
 # OPTIMIZATION CORE  (ย่อจาก disaster_ai.py)
 # ──────────────────────────────────────────────
@@ -240,7 +243,8 @@ def optimize():
     dmap = DisasterMap()
 
     # แปลง lat/lng → coordinate scale (ใช้ lat/lng โดยตรง)
-    for h in data.get("hazards", []):
+    all_hazards = data.get("hazards", []) + GLOBAL_HAZARDS
+    for h in all_hazards:
         # แปลง radius จากเมตร → องศาประมาณ
         radius_deg = h.get("radius_m", 200) / 111320
         dmap.add_hazard(Hazard(
@@ -356,16 +360,25 @@ def report_flood():
     เก็บ hazard ใหม่และส่งกลับ
     """
     data = request.json
+    new_hazard = {
+        "type": "flood",
+        "lat": data.get("lat", 13.7563),
+        "lng": data.get("lng", 100.5018),
+        "severity": data.get("severity", 5),
+        "radius_m": int(200 + data.get("severity", 5) * 30),
+        "confidence": data.get("confidence", 0),
+        "level_label": data.get("level_label", "Unknown")
+    }
+    GLOBAL_HAZARDS.append(new_hazard)
+    
     return jsonify({
         "status"   : "received",
-        "hazard"   : {
-            "type"    : "flood",
-            "lat"     : data["lat"],
-            "lng"     : data["lng"],
-            "severity": data.get("severity", 5),
-            "radius_m": int(200 + data.get("severity",5) * 30),
-        }
+        "hazard"   : new_hazard
     })
+
+@app.route("/api/hazards", methods=["GET"])
+def get_hazards():
+    return jsonify(GLOBAL_HAZARDS)
 
 
 if __name__ == "__main__":
