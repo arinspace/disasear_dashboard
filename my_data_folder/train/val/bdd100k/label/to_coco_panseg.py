@@ -19,7 +19,7 @@ from scalabel.label.coco_typing import (
 )
 from tqdm import tqdm
 
-from bdd100k.common.utils import list_files
+from my_data_folder.train.val.bdd100k.common.utils import list_files
 
 from ..common.logger import logger
 from .label import labels

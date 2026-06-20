@@ -11,7 +11,7 @@ from PIL import Image
 from scalabel.common.parallel import NPROC
 from tqdm import tqdm
 
-from bdd100k.common.utils import group_and_sort_files, list_files
+from my_data_folder.train.val.bdd100k.common.utils import group_and_sort_files, list_files
 
 from ..common.logger import logger
 from .palette import get_palette

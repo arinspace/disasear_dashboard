@@ -21,7 +21,7 @@ from scalabel.eval.mot import (
 from scalabel.label.typing import Config
 from scalabel.label.utils import get_leaf_categories, get_parent_categories
 
-from bdd100k.common.utils import reorder_preds
+from my_data_folder.train.val.bdd100k.common.utils import reorder_preds
 
 from ..common.bitmask import (
     bitmask_intersection_rate,

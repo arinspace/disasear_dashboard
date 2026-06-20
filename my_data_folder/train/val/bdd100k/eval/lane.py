@@ -72,7 +72,7 @@ from scalabel.eval.result import AVERAGE, Result, Scores, ScoresList
 from skimage.morphology import binary_dilation, disk
 from tqdm import tqdm
 
-from bdd100k.common.utils import reorder_preds
+from my_data_folder.train.val.bdd100k.common.utils import reorder_preds
 
 from ..common.logger import logger
 from ..label.label import lane_categories, lane_directions, lane_styles

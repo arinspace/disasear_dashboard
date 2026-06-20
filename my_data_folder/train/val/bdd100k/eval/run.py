@@ -19,7 +19,7 @@ from scalabel.eval.sem_seg import evaluate_sem_seg as sc_eval_sem_seg
 from scalabel.label.io import group_and_sort, load
 from scalabel.label.typing import Frame
 
-from bdd100k.common.utils import (
+from my_data_folder.train.val.bdd100k.common.utils import (
     group_and_sort_files,
     list_files,
     load_bdd100k_config,

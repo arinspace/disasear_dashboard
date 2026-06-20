@@ -21,7 +21,7 @@ from scalabel.label.utils import (
 )
 from tqdm import tqdm
 
-from bdd100k.common.utils import get_bdd100k_instance_id, load_bdd100k_config
+from my_data_folder.train.val.bdd100k.common.utils import get_bdd100k_instance_id, load_bdd100k_config
 
 from ..common.logger import logger
 from ..common.typing import BDD100KConfig

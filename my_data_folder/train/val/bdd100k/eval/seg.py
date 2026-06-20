@@ -16,7 +16,7 @@ from scalabel.common.typing import NDArrayF64, NDArrayI32, NDArrayU8
 from scalabel.eval.result import AVERAGE, Result, Scores
 from tqdm import tqdm
 
-from bdd100k.common.utils import reorder_preds
+from my_data_folder.train.val.bdd100k.common.utils import reorder_preds
 
 from ..common.logger import logger
 from ..common.typing import NDArrayI64
