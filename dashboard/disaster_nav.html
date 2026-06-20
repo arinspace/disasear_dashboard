@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RescuOpt AI - Disaster Navigation Optimization</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+body, html { height: 100%; background: #1a1a1a; color: #e0e0e0; }
+.container { display: flex; height: 100vh; }
+
+.sidebar { width: 380px; min-width: 380px; background: #222; display: flex; flex-direction: column; overflow: hidden; border-right: 2px solid #333; }
+.sidebar-header { background: linear-gradient(135deg, #1a1a2e, #16213e); padding: 16px 20px; border-bottom: 2px solid #e94560; }
+.sidebar-header h1 { font-size: 22px; color: #e94560; letter-spacing: 1px; }
+.sidebar-header p { font-size: 12px; color: #888; margin-top: 4px; }
+.sidebar-body { flex: 1; overflow-y: auto; padding: 14px 16px; }
+
+.control-group { background: #2a2a2a; border-radius: 8px; padding: 14px; margin-bottom: 12px; border-left: 3px solid #e94560; }
+.control-group h3 { font-size: 13px; color: #e94560; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+.row { display: flex; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+.row > * { flex: 1; min-width: 0; }
+
+label { display: block; font-size: 11px; color: #aaa; margin-bottom: 2px; }
+select, input[type="range"], input[type="number"] { width: 100%; padding: 7px 10px; background: #3a3a3a; border: 1px solid #555; color: #fff; border-radius: 4px; font-size: 12px; outline: none; }
+select:focus, input:focus { border-color: #e94560; }
+input[type="range"] { padding: 0; height: 6px; background: #444; -webkit-appearance: none; border-radius: 3px; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #e94560; cursor: pointer; }
+.range-value { font-size: 12px; color: #e94560; font-weight: bold; text-align: right; }
+
+.btn { padding: 10px 16px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px; transition: all 0.2s; width: 100%; }
+.btn-primary { background: #e94560; color: #fff; }
+.btn-primary:hover { background: #d63851; box-shadow: 0 0 15px rgba(233,69,96,0.4); }
+.btn-success { background: #2ecc71; color: #fff; }
+.btn-success:hover { background: #27ae60; }
+.btn-warning { background: #f39c12; color: #fff; }
+.btn-outline { background: transparent; border: 1px solid #555; color: #ccc; }
+.btn-outline:hover { border-color: #e94560; color: #e94560; }
+.btn-sm { padding: 5px 10px; font-size: 11px; width: auto; }
+.btn-group { display: flex; gap: 6px; margin-top: 8px; }
+.btn-group .btn { flex: 1; }
+
+.mode-indicator { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: bold; }
+.mode-hazard { background: rgba(231,76,60,0.2); color: #e74c3c; }
+.mode-survivor { background: rgba(46,204,113,0.2); color: #2ecc71; }
+.mode-exit { background: rgba(52,152,219,0.2); color: #3498db; }
+.mode-none { background: rgba(255,255,255,0.1); color: #888; }
+
+.item-list { max-height: 140px; overflow-y: auto; font-size: 11px; }
+.item-entry { display: flex; justify-content: space-between; align-items: center; padding: 4px 8px; background: #333; border-radius: 4px; margin-bottom: 3px; }
+.item-entry .del { color: #e74c3c; cursor: pointer; font-weight: bold; padding: 0 4px; }
+.item-entry .del:hover { text-shadow: 0 0 8px #e74c3c; }
+
+.results-panel { display: none; }
+.results-panel.show { display: block; }
+
+.result-card { background: #2a2a2a; border-radius: 6px; padding: 12px; margin-bottom: 8px; font-size: 12px; }
+.result-card h4 { color: #e94560; margin-bottom: 6px; font-size: 13px; }
+.result-card .stat { display: flex; justify-content: space-between; padding: 2px 0; border-bottom: 1px solid #333; }
+.result-card .stat:last-child { border-bottom: none; }
+
+#map { flex: 1; height: 100vh; }
+
+.leaflet-popup-content { font-size: 12px; line-height: 1.4; min-width: 160px; }
+.leaflet-popup-content strong { color: #e94560; }
+
+.tip-item { padding: 4px 8px; margin: 2px 0; border-radius: 3px; font-size: 11px; }
+.tip-fire { background: rgba(231,76,60,0.15); border-left: 3px solid #e74c3c; }
+.tip-flood { background: rgba(52,152,219,0.15); border-left: 3px solid #3498db; }
+.tip-collapse { background: rgba(230,126,34,0.15); border-left: 3px solid #e67e22; }
+.tip-toxic { background: rgba(155,89,182,0.15); border-left: 3px solid #9b59b6; }
+.tip-earthquake { background: rgba(141,101,47,0.15); border-left: 3px solid #8d652f; }
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #222; }
+::-webkit-scrollbar-thumb { background: #555; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #888; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h1>RESCUOPT AI</h1>
+      <p>Disaster Evacuation Optimization Engine</p>
+    </div>
+    <div class="sidebar-body">
+
+      <!-- Mode selector -->
+      <div class="control-group">
+        <h3>วางจุดบนแผนที่</h3>
+        <div class="btn-group">
+          <button class="btn btn-sm btn-primary" onclick="setMode('hazard')">🔥 ภัยพิบัติ</button>
+          <button class="btn btn-sm btn-success" onclick="setMode('survivor')">👤 ผู้รอดชีวิต</button>
+          <button class="btn btn-sm btn-warning" onclick="setMode('exit')">🚪 ทางออก</button>
+        </div>
+        <div style="margin-top:6px;text-align:center">
+          <span id="modeIndicator" class="mode-indicator mode-none">คลิกปุ่มเพื่อเลือกโหมด</span>
+        </div>
+      </div>
+
+      <!-- Hazard config -->
+      <div class="control-group" id="hazardConfig">
+        <h3>🔥 กำหนดค่าภัยพิบัติ</h3>
+        <div class="row">
+          <div>
+            <label>ประเภท</label>
+            <select id="hazardType">
+              <option value="fire">ไฟไหม้</option>
+              <option value="flood">น้ำท่วม</option>
+              <option value="collapse">อาคารถล่ม</option>
+              <option value="toxic">สารพิษ</option>
+              <option value="earthquake">แผ่นดินไหว</option>
+            </select>
+          </div>
+          <div>
+            <label>ความรุนแรง</label>
+            <input type="range" id="hazardSeverity" min="1" max="10" value="7">
+            <div class="range-value" id="hazardSeverityVal">7</div>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label>รัศมี (ม.)</label>
+            <input type="range" id="hazardRadius" min="50" max="500" value="200" step="10">
+            <div class="range-value" id="hazardRadiusVal">200</div>
+          </div>
+        </div>
+        <p style="font-size:11px;color:#888;margin-top:4px">คลิกที่แผนที่เพื่อวาง</p>
+      </div>
+
+      <!-- Survivor config -->
+      <div class="control-group" id="survivorConfig" style="display:none">
+        <h3>👤 กำหนดค่าผู้รอดชีวิต</h3>
+        <div class="row">
+          <div><label>ชื่อ</label><input type="text" id="survivorName" value="คนที่ 1" style="width:100%;padding:7px 10px;background:#3a3a3a;border:1px solid #555;color:#fff;border-radius:4px;font-size:12px"></div>
+        </div>
+        <div class="row">
+          <div><label>สุขภาพ</label><input type="range" id="survivorHealth" min="0" max="100" value="60"></div>
+          <div><label>การเคลื่อนที่</label><input type="range" id="survivorMobility" min="0" max="100" value="70"></div>
+        </div>
+        <div class="row">
+          <div><label>เสบียง/น้ำ</label><input type="range" id="survivorSupplies" min="0" max="100" value="50"></div>
+        </div>
+        <p style="font-size:11px;color:#888;margin-top:4px">คลิกที่แผนที่เพื่อวาง</p>
+      </div>
+
+      <!-- Placed items -->
+      <div class="control-group">
+        <h3>📍 จุดที่วางแล้ว</h3>
+        <div style="display:flex;gap:10px;margin-bottom:6px;font-size:11px">
+          <span>🔥 <span id="hazardCount">0</span></span>
+          <span>👤 <span id="survivorCount">0</span></span>
+          <span>🚪 <span id="exitCount">0</span></span>
+        </div>
+        <div id="itemList" class="item-list"></div>
+        <button class="btn btn-sm btn-outline" onclick="clearAll()" style="margin-top:6px">🗑 ล้างทั้งหมด</button>
+      </div>
+
+      <!-- Algorithm & Run -->
+      <div class="control-group">
+        <h3>⚙️ Optimization Settings</h3>
+        <div class="row">
+          <div>
+            <label>Algorithm</label>
+            <select id="algorithm">
+              <option value="astar">A* Search (Grid)</option>
+              <option value="sa">Simulated Annealing</option>
+              <option value="hc">Hill Climbing (Steepest)</option>
+              <option value="hc_restart">Hill Climbing (Random Restart)</option>
+            </select>
+          </div>
+          <div>
+            <label>Grid Step (ม.)</label>
+            <input type="range" id="gridStep" min="10" max="100" value="40" step="5">
+            <div class="range-value" id="gridStepVal">40</div>
+          </div>
+        </div>
+        <div class="row" style="margin-top:6px">
+          <div>
+            <label>ยา / เวชภัณฑ์</label>
+            <input type="number" id="medkits" value="5" min="0" max="20" style="width:100%;padding:7px 10px;background:#3a3a3a;border:1px solid #555;color:#fff;border-radius:4px;font-size:12px">
+          </div>
+          <div>
+            <label>อาหาร / น้ำ</label>
+            <input type="number" id="food" value="5" min="0" max="20" style="width:100%;padding:7px 10px;background:#3a3a3a;border:1px solid #555;color:#fff;border-radius:4px;font-size:12px">
+          </div>
+          <div>
+            <label>ทีมกู้ภัย</label>
+            <input type="number" id="rescueTeams" value="3" min="0" max="20" style="width:100%;padding:7px 10px;background:#3a3a3a;border:1px solid #555;color:#fff;border-radius:4px;font-size:12px">
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="runOptimization()" style="margin-top:10px">⚡ RUN OPTIMIZATION</button>
+      </div>
+
+      <!-- Results -->
+      <div id="resultsPanel" class="results-panel">
+        <div class="control-group" style="border-left-color:#2ecc71">
+          <h3 style="color:#2ecc71">📊 ผลลัพธ์การ Optimize</h3>
+          <div id="resultsContent"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div id="map"></div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+<script>
+// =====================================================================
+// 1. COORDINATE SYSTEM
+// =====================================================================
+const REF_LAT = 13.7563;
+const REF_LNG = 100.5018;
+const DEG_M_LAT = 111320;
+
+function toMeters(lat, lng) {
+  const dx = (lng - REF_LNG) * DEG_M_LAT * Math.cos(REF_LAT * Math.PI / 180);
+  const dy = (lat - REF_LAT) * DEG_M_LAT;
+  return { x: Math.round(dx), y: Math.round(dy) };
+}
+function toLatLng(x, y) {
+  const lng = REF_LNG + x / (DEG_M_LAT * Math.cos(REF_LAT * Math.PI / 180));
+  const lat = REF_LAT + y / DEG_M_LAT;
+  return [lat, lng];
+}
+
+// =====================================================================
+// 2. STATE
+// =====================================================================
+const state = {
+  mode: null, // 'hazard' | 'survivor' | 'exit'
+  hazards: [],
+  survivors: [],
+  exit: null,
+};
+
+// =====================================================================
+// 3. MAP
+// =====================================================================
+const map = L.map('map').setView([REF_LAT, REF_LNG], 14);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+const hazardLayers = L.layerGroup().addTo(map);
+const survivorLayers = L.layerGroup().addTo(map);
+const exitLayers = L.layerGroup().addTo(map);
+const routeLayers = L.layerGroup().addTo(map);
+
+const HAZARD_COLORS = {
+  fire: '#e74c3c', flood: '#3498db', collapse: '#e67e22',
+  toxic: '#9b59b6', earthquake: '#8d652f'
+};
+const HAZARD_ICONS = {
+  fire: '🔥', flood: '🌊', collapse: '🧱', toxic: '☣️', earthquake: '🌍'
+};
+
+// =====================================================================
+// 4. MODE
+// =====================================================================
+function setMode(m) {
+  state.mode = m;
+  const ind = document.getElementById('modeIndicator');
+  if (m === 'hazard') {
+    ind.className = 'mode-indicator mode-hazard';
+    ind.textContent = '🔥 กำลังวางภัยพิบัติ';
+    document.getElementById('hazardConfig').style.display = 'block';
+    document.getElementById('survivorConfig').style.display = 'none';
+    map.getContainer().style.cursor = 'crosshair';
+  } else if (m === 'survivor') {
+    ind.className = 'mode-indicator mode-survivor';
+    ind.textContent = '👤 กำลังวางผู้รอดชีวิต';
+    document.getElementById('hazardConfig').style.display = 'none';
+    document.getElementById('survivorConfig').style.display = 'block';
+    map.getContainer().style.cursor = 'crosshair';
+  } else if (m === 'exit') {
+    ind.className = 'mode-indicator mode-exit';
+    ind.textContent = '🚪 วางทางออก';
+    document.getElementById('hazardConfig').style.display = 'none';
+    document.getElementById('survivorConfig').style.display = 'none';
+    map.getContainer().style.cursor = 'crosshair';
+  } else {
+    ind.className = 'mode-indicator mode-none';
+    ind.textContent = 'คลิกปุ่มเพื่อเลือกโหมด';
+    map.getContainer().style.cursor = '';
+  }
+}
+
+// =====================================================================
+// 5. MAP CLICK
+// =====================================================================
+map.on('click', function(e) {
+  const { lat, lng } = e.latlng;
+  if (state.mode === 'hazard') {
+    const type = document.getElementById('hazardType').value;
+    const severity = parseInt(document.getElementById('hazardSeverity').value);
+    const radius = parseInt(document.getElementById('hazardRadius').value);
+    state.hazards.push({ lat, lng, type, severity, radius });
+    renderHazards();
+    updateItemList();
+  } else if (state.mode === 'survivor') {
+    const name = document.getElementById('survivorName').value || 'ไม่ระบุ';
+    const health = parseInt(document.getElementById('survivorHealth').value);
+    const mobility = parseInt(document.getElementById('survivorMobility').value);
+    const supplies = parseInt(document.getElementById('survivorSupplies').value);
+    const id = 'S_' + (state.survivors.length + 1);
+    state.survivors.push({ id, name, lat, lng, health, mobility, supplies });
+    renderSurvivors();
+    updateItemList();
+  } else if (state.mode === 'exit') {
+    state.exit = { lat, lng };
+    renderExit();
+    updateItemList();
+  }
+});
+
+// =====================================================================
+// 6. RENDERERS
+// =====================================================================
+function renderHazards() {
+  hazardLayers.clearLayers();
+  state.hazards.forEach((h, i) => {
+    const c = HAZARD_COLORS[h.type] || '#e74c3c';
+    const circle = L.circle([h.lat, h.lng], {
+      color: c, fillColor: c, fillOpacity: 0.2, radius: h.radius, weight: 2
+    }).addTo(hazardLayers);
+    circle.bindPopup(`<b>${HAZARD_ICONS[h.type]} ${h.type.toUpperCase()}</b><br>
+      Severity: ${h.severity}/10<br>Radius: ${h.radius} ม.<br>
+      <span style="color:#e74c3c;font-size:11px">คลิกขวาเพื่อลบ</span>`);
+    circle.on('contextmenu', function() {
+      state.hazards.splice(i, 1);
+      renderHazards();
+      updateItemList();
+    });
+  });
+}
+
+function renderSurvivors() {
+  survivorLayers.clearLayers();
+  state.survivors.forEach((s, i) => {
+    const urgency = (100 - s.health) * 0.5 + (100 - s.mobility) * 0.3 + (100 - s.supplies) * 0.2;
+    const status = urgency >= 60 ? 'CRITICAL' : urgency >= 35 ? 'URGENT' : 'STABLE';
+    const color = urgency >= 60 ? '#e74c3c' : urgency >= 35 ? '#f39c12' : '#2ecc71';
+    const m = L.circleMarker([s.lat, s.lng], {
+      color, fillColor: color, fillOpacity: 0.7, radius: 8, weight: 2
+    }).addTo(survivorLayers);
+    m.bindPopup(`<b>${s.id}: ${s.name}</b><br>
+      HP:${s.health} Mob:${s.mobility} Sup:${s.supplies}<br>
+      Urgency: ${urgency.toFixed(1)} (${status})<br>
+      <span style="color:#e74c3c;font-size:11px">คลิกขวาเพื่อลบ</span>`);
+    m.on('contextmenu', function() {
+      state.survivors.splice(i, 1);
+      renderSurvivors();
+      updateItemList();
+    });
+  });
+}
+
+function renderExit() {
+  exitLayers.clearLayers();
+  if (!state.exit) return;
+  const m = L.marker([state.exit.lat, state.exit.lng], {
+    icon: L.divIcon({
+      className: '',
+      html: '<div style="font-size:28px;text-shadow:0 0 10px #3498db">🚪</div>',
+      iconSize: [30, 30], iconAnchor: [15, 15]
+    })
+  }).addTo(exitLayers);
+  m.bindPopup('<b>🚪 ทางออก</b><br><span style="color:#e74c3c;font-size:11px">คลิกขวาเพื่อลบ</span>');
+  m.on('contextmenu', function() {
+    state.exit = null;
+    renderExit();
+    updateItemList();
+  });
+}
+
+function renderRoute(pathLatLngs, color = '#2ecc71') {
+  routeLayers.clearLayers();
+  if (!pathLatLngs || pathLatLngs.length < 2) return;
+  const polyline = L.polyline(pathLatLngs, {
+    color, weight: 5, opacity: 0.8, dashArray: '10, 6'
+  }).addTo(routeLayers);
+
+  // Start marker
+  L.circleMarker(pathLatLngs[0], {
+    color: '#e94560', fillColor: '#e94560', fillOpacity: 0.8, radius: 7
+  }).addTo(routeLayers).bindTooltip('START', {permanent:true,direction:'right'});
+
+  // End marker
+  L.circleMarker(pathLatLngs[pathLatLngs.length - 1], {
+    color: '#2ecc71', fillColor: '#2ecc71', fillOpacity: 0.8, radius: 7
+  }).addTo(routeLayers).bindTooltip('GOAL', {permanent:true,direction:'right'});
+
+  map.fitBounds(polyline.getBounds().pad(0.2));
+}
+
+// =====================================================================
+// 7. UI HELPERS
+// =====================================================================
+function updateItemList() {
+  document.getElementById('hazardCount').textContent = state.hazards.length;
+  document.getElementById('survivorCount').textContent = state.survivors.length;
+  document.getElementById('exitCount').textContent = state.exit ? 1 : 0;
+
+  let html = '';
+  state.hazards.forEach((h, i) => {
+    html += `<div class="item-entry"><span>${HAZARD_ICONS[h.type]} ${h.type} (sev:${h.severity})</span><span class="del" onclick="removeHazard(${i})">✕</span></div>`;
+  });
+  state.survivors.forEach((s, i) => {
+    html += `<div class="item-entry"><span>👤 ${s.id} (HP:${s.health})</span><span class="del" onclick="removeSurvivor(${i})">✕</span></div>`;
+  });
+  if (state.exit) {
+    html += `<div class="item-entry"><span>🚪 ทางออก</span><span class="del" onclick="removeExit()">✕</span></div>`;
+  }
+  document.getElementById('itemList').innerHTML = html || '<div style="color:#666;font-style:italic">ยังไม่มีจุด</div>';
+}
+
+function removeHazard(i) { state.hazards.splice(i, 1); renderHazards(); updateItemList(); }
+function removeSurvivor(i) { state.survivors.splice(i, 1); renderSurvivors(); updateItemList(); }
+function removeExit() { state.exit = null; renderExit(); updateItemList(); }
+function clearAll() {
+  state.hazards = []; state.survivors = []; state.exit = null;
+  hazardLayers.clearLayers(); survivorLayers.clearLayers();
+  exitLayers.clearLayers(); routeLayers.clearLayers();
+  document.getElementById('resultsPanel').classList.remove('show');
+  updateItemList();
+}
+
+// Range display sync
+['hazardSeverity','hazardRadius','gridStep'].forEach(id => {
+  const el = document.getElementById(id);
+  el.addEventListener('input', () => {
+    document.getElementById(id + 'Val').textContent = el.value;
+  });
+});
+['survivorHealth','survivorMobility','survivorSupplies'].forEach(id => {
+  const el = document.getElementById(id);
+  el.addEventListener('input', () => {
+    document.getElementById(id + 'Val').textContent = el.value;
+  });
+});
+
+// =====================================================================
+// 8. HAZARD KNOWLEDGE BASE
+// =====================================================================
+const SURVIVAL_TIPS = {
+  fire: [
+    'เคลื่อนที่ทวนลม (upwind) ออกจากแนวไฟเสมอ',
+    'ลงต่ำใกล้พื้น — ออกซิเจนอยู่ใต้ระดับควัน',
+    'ปิดปากจมูกด้วยผ้าชุ่มน้ำป้องกันควันพิษ',
+    'หลีกเลี่ยงอาคารที่อาจพังเพราะความร้อน',
+    'อย่าเปิดประตูร้อน ตรวจสอบด้วยหลังมือก่อน',
+  ],
+  flood: [
+    'อย่าเดินลุยน้ำที่ไหลเร็ว แม้ระดับตื้นก็พาล้มได้',
+    'มุ่งสู่พื้นที่สูง ห่างจากร่องน้ำและถนนต่ำ',
+    'ระวังสายไฟฟ้าที่ขาดตกลงในน้ำ',
+    'หากติดในอาคาร ขึ้นชั้นบนสุดและส่งสัญญาณ',
+    'อย่าขับรถฝ่าน้ำท่วม — น้ำ 60 ซม. พัดรถยนต์ได้',
+  ],
+  collapse: [
+    'DROP-COVER-HOLD: หมอบ หลบใต้โต๊ะแข็ง ยึดให้มั่น',
+    'ห่างจากกระจก ของหนัก และชั้นวางของ',
+    'อย่าใช้ลิฟต์ ใช้บันไดฉุกเฉินเท่านั้น',
+    'หากติดใต้ซาก เคาะท่อเป็นจังหวะส่งสัญญาณ',
+    'ระวัง aftershock อย่าเข้าอาคารเสียหาย',
+  ],
+  toxic: [
+    'ปิดปากจมูกด้วยผ้าหลายชั้นชุบน้ำ',
+    'เคลื่อนที่ตั้งฉากกับทิศทางลมออกจากกลุ่มควัน',
+    'อย่าสัมผัสสิ่งที่อาจปนเปื้อน ใช้เสื้อผ้าคลุมผิว',
+    'ล้างร่างกายด้วยน้ำสะอาดทันทีหากสัมผัสสาร',
+    'ปิดประตูหน้าต่างและอุดช่องลมหากต้องอยู่ในอาคาร',
+  ],
+  earthquake: [
+    'อยู่ห่างจากอาคาร ต้นไม้ เสาไฟ และสายไฟ',
+    'หากนอกอาคาร — ออกสู่พื้นที่โล่งหมอบราบกับพื้น',
+    'ระวัง aftershock ที่อาจรุนแรงกว่าครั้งแรก',
+    'ปิดวาล์วแก๊สทันทีหลังเกิดเหตุ',
+    'อย่าเข้าอาคารแตกร้าวจนกว่าผู้เชี่ยวชาญตรวจสอบ',
+  ],
+};
+
+// =====================================================================
+// 9. OPTIMIZATION CORE
+// =====================================================================
+
+function totalDanger(mx, my, hazards) {
+  let total = 0;
+  for (const h of hazards) {
+    const hm = toMeters(h.lat, h.lng);
+    const dist = Math.hypot(mx - hm.x, my - hm.y);
+    if (dist < h.radius) {
+      total += (h.severity / 10) * (1 - dist / h.radius);
+    }
+  }
+  return Math.min(total, 1);
+}
+
+function movementCost(ax, ay, bx, by, hazards) {
+  const dist = Math.hypot(bx - ax, by - ay);
+  const danger = totalDanger((ax + bx) / 2, (ay + by) / 2, hazards);
+  return dist * (1 + 4 * danger);
+}
+
+function computeBounds() {
+  const allPoints = [];
+  for (const h of state.hazards) {
+    const m = toMeters(h.lat, h.lng);
+    allPoints.push({ x: m.x - h.radius, y: m.y - h.radius });
+    allPoints.push({ x: m.x + h.radius, y: m.y + h.radius });
+  }
+  for (const s of state.survivors) {
+    const m = toMeters(s.lat, s.lng);
+    allPoints.push({ x: m.x, y: m.y });
+  }
+  if (state.exit) {
+    const m = toMeters(state.exit.lat, state.exit.lng);
+    allPoints.push({ x: m.x, y: m.y });
+  }
+  if (allPoints.length === 0) return { minX: -500, maxX: 500, minY: -500, maxY: 500 };
+  const margin = 200;
+  return {
+    minX: Math.min(...allPoints.map(p => p.x)) - margin,
+    maxX: Math.max(...allPoints.map(p => p.x)) + margin,
+    minY: Math.min(...allPoints.map(p => p.y)) - margin,
+    maxY: Math.max(...allPoints.map(p => p.y)) + margin,
+  };
+}
+
+// ---- A* Search ----
+function astarSearch(startM, goalM, hazards, gridStep) {
+  const b = computeBounds();
+
+  function snap(v) { return Math.round(v / gridStep); }
+  function unsnap(g) { return g * gridStep; }
+  const sg = { x: snap(startM.x), y: snap(startM.y) };
+  const gg = { x: snap(goalM.x), y: snap(goalM.y) };
+
+  function key(p) { return p.x * 100000 + p.y; }
+
+  const DIRS = [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,1],[1,-1],[-1,1]];
+
+  const openSet = [];
+  const startF = Math.hypot(startM.x - goalM.x, startM.y - goalM.y);
+  heapqPush(openSet, { f: startF, g: 0, p: sg });
+
+  const cameFrom = {};
+  const gScore = {};
+  gScore[key(sg)] = 0;
+  const visited = new Set();
+
+  while (openSet.length > 0) {
+    const cur = heapqPop(openSet);
+    const ck = key(cur.p);
+    if (visited.has(ck)) continue;
+    visited.add(ck);
+    if (cur.p.x === gg.x && cur.p.y === gg.y) break;
+
+    const cx = unsnap(cur.p.x);
+    const cy = unsnap(cur.p.y);
+
+    for (const [dx, dy] of DIRS) {
+      const np = { x: cur.p.x + dx, y: cur.p.y + dy };
+      const nx = unsnap(np.x);
+      const ny = unsnap(np.y);
+      if (nx < b.minX || nx > b.maxX || ny < b.minY || ny > b.maxY) continue;
+      const nk = key(np);
+      const move = movementCost(cx, cy, nx, ny, hazards);
+      const newG = cur.g + move;
+      if (gScore[nk] === undefined || newG < gScore[nk]) {
+        gScore[nk] = newG;
+        cameFrom[nk] = ck;
+        const h = Math.hypot(nx - goalM.x, ny - goalM.y);
+        heapqPush(openSet, { f: newG + h, g: newG, p: np });
+      }
+    }
+  }
+
+  // Reconstruct
+  const pathGrid = [];
+  let node = gg;
+  while (key(node) in cameFrom) {
+    pathGrid.push(node);
+    const ck = key(node);
+    const px = cameFrom[ck];
+    // Find the actual grid node from key
+    node = { x: Math.floor(px / 100000), y: px % 100000 };
+  }
+  pathGrid.push(sg);
+  pathGrid.reverse();
+
+  const pathMeters = [{ x: startM.x, y: startM.y }];
+  for (const g of pathGrid) {
+    const px = unsnap(g.x);
+    const py = unsnap(g.y);
+    pathMeters.push({ x: px, y: py });
+  }
+  pathMeters.push({ x: goalM.x, y: goalM.y });
+
+  // Dedup
+  const dedup = [pathMeters[0]];
+  for (let i = 1; i < pathMeters.length; i++) {
+    const last = dedup[dedup.length - 1];
+    if (Math.abs(pathMeters[i].x - last.x) > 0.01 || Math.abs(pathMeters[i].y - last.y) > 0.01) {
+      dedup.push(pathMeters[i]);
+    }
+  }
+
+  let totalCost = 0;
+  for (let i = 0; i < dedup.length - 1; i++) {
+    totalCost += movementCost(dedup[i].x, dedup[i].y, dedup[i+1].x, dedup[i+1].y, hazards);
+  }
+  return { path: dedup, cost: totalCost };
+}
+
+// Min-heap helpers
+function heapqPush(arr, item) {
+  arr.push(item);
+  let i = arr.length - 1;
+  while (i > 0) {
+    const p = (i - 1) >> 1;
+    if (arr[p].f <= arr[i].f) break;
+    [arr[p], arr[i]] = [arr[i], arr[p]];
+    i = p;
+  }
+}
+function heapqPop(arr) {
+  const r = arr[0];
+  const last = arr.pop();
+  if (arr.length > 0) {
+    arr[0] = last;
+    let i = 0;
+    const n = arr.length;
+    while (true) {
+      let smallest = i;
+      const l = i * 2 + 1;
+      const r = i * 2 + 2;
+      if (l < n && arr[l].f < arr[smallest].f) smallest = l;
+      if (r < n && arr[r].f < arr[smallest].f) smallest = r;
+      if (smallest === i) break;
+      [arr[i], arr[smallest]] = [arr[smallest], arr[i]];
+      i = smallest;
+    }
+  }
+  return r;
+}
+
+// ---- Hill Climbing ----
+function hillClimbing(startM, goalM, hazards, variant, restarts, maxIter) {
+  const b = computeBounds();
+  const step = 10;
+  const DIRS = [[step,0],[-step,0],[0,step],[0,-step],[step,step],[-step,step],[step,-step],[-step,-step]];
+
+  function obj(x, y) {
+    return movementCost(x, y, goalM.x, goalM.y, hazards) + totalDanger(x, y, hazards) * 20;
+  }
+
+  function climb(sx, sy) {
+    let cx = sx, cy = sy;
+    const path = [{ x: cx, y: cy }];
+    let curVal = obj(cx, cy);
+
+    for (let iter = 0; iter < maxIter; iter++) {
+      const nbrs = DIRS.map(d => ({ x: Math.max(b.minX, Math.min(b.maxX, cx + d[0])), y: Math.max(b.minY, Math.min(b.maxY, cy + d[1])) }));
+
+      let chosen, chosenVal;
+      if (variant === 'stochastic') {
+        const better = nbrs.filter(n => obj(n.x, n.y) < curVal);
+        if (better.length === 0) break;
+        chosen = better[Math.floor(Math.random() * better.length)];
+        chosenVal = obj(chosen.x, chosen.y);
+      } else {
+        chosen = nbrs.reduce((a, b) => obj(a.x, a.y) < obj(b.x, b.y) ? a : b);
+        chosenVal = obj(chosen.x, chosen.y);
+        if (chosenVal >= curVal) break;
+      }
+      cx = chosen.x; cy = chosen.y;
+      curVal = chosenVal;
+      path.push({ x: cx, y: cy });
+    }
+    path.push({ x: goalM.x, y: goalM.y });
+    return { path, cost: curVal };
+  }
+
+  let best = climb(startM.x, startM.y);
+  if (variant === 'random_restart') {
+    for (let r = 1; r < restarts; r++) {
+      const rx = b.minX + Math.random() * (b.maxX - b.minX);
+      const ry = b.minY + Math.random() * (b.maxY - b.minY);
+      const cand = climb(rx, ry);
+      if (cand.cost < best.cost) best = cand;
+    }
+  }
+
+  // Recalculate actual movement cost
+  let totalCost = 0;
+  for (let i = 0; i < best.path.length - 1; i++) {
+    totalCost += movementCost(best.path[i].x, best.path[i].y, best.path[i+1].x, best.path[i+1].y, hazards);
+  }
+  best.cost = totalCost;
+  return best;
+}
+
+// ---- Simulated Annealing ----
+function simulatedAnnealing(startM, goalM, hazards, maxIter, initialT, cooling) {
+  const b = computeBounds();
+
+  function obj(x, y) {
+    return movementCost(x, y, goalM.x, goalM.y, hazards) + totalDanger(x, y, hazards) * 20;
+  }
+
+  let cx = startM.x, cy = startM.y;
+  const path = [{ x: cx, y: cy }];
+  let T = initialT;
+  const stepSize = 15;
+
+  for (let iter = 0; iter < maxIter; iter++) {
+    T *= cooling;
+    const angle = Math.random() * 2 * Math.PI;
+    const dist = stepSize * (0.5 + Math.random() * 0.5);
+    let nx = cx + Math.cos(angle) * dist;
+    let ny = cy + Math.sin(angle) * dist;
+    nx = Math.max(b.minX, Math.min(b.maxX, nx));
+    ny = Math.max(b.minY, Math.min(b.maxY, ny));
+
+    const curVal = obj(cx, cy);
+    const newVal = obj(nx, ny);
+    const deltaE = newVal - curVal;
+
+    if (deltaE < 0 || (T > 1e-6 && Math.random() < Math.exp(-deltaE / T))) {
+      cx = nx; cy = ny;
+      path.push({ x: cx, y: cy });
+    }
+  }
+  path.push({ x: goalM.x, y: goalM.y });
+
+  // Dedup
+  const dedup = [path[0]];
+  for (let i = 1; i < path.length; i++) {
+    const last = dedup[dedup.length - 1];
+    if (Math.abs(path[i].x - last.x) > 0.5 || Math.abs(path[i].y - last.y) > 0.5) {
+      dedup.push(path[i]);
+    }
+  }
+
+  let totalCost = 0;
+  for (let i = 0; i < dedup.length - 1; i++) {
+    totalCost += movementCost(dedup[i].x, dedup[i].y, dedup[i+1].x, dedup[i+1].y, hazards);
+  }
+  return { path: dedup, cost: totalCost };
+}
+
+// ---- Resource Allocation (Greedy LP) ----
+function allocateResources(survivors, medkits, food, rescueTeams) {
+  const sorted = [...survivors].sort((a, b) => {
+    const ua = (100 - a.health) * 0.5 + (100 - a.mobility) * 0.3 + (100 - a.supplies) * 0.2;
+    const ub = (100 - b.health) * 0.5 + (100 - b.mobility) * 0.3 + (100 - b.supplies) * 0.2;
+    return ub - ua;
+  });
+  const result = {};
+  let mk = medkits, f = food, rt = rescueTeams;
+  for (const s of sorted) {
+    const alloc = { medkit: 0, food: 0, rescue_team: 0 };
+    if (s.health < 50 && mk > 0) { alloc.medkit = 1; mk--; }
+    if (s.supplies < 40 && f > 0) { alloc.food = 1; f--; }
+    if ((s.mobility < 30 || s.health < 30) && rt > 0) { alloc.rescue_team = 1; rt--; }
+    result[s.id] = alloc;
+  }
+  return result;
+}
+
+// =====================================================================
+// 10. MAIN OPTIMIZATION RUNNER
+// =====================================================================
+function runOptimization() {
+  routeLayers.clearLayers();
+  document.getElementById('resultsPanel').classList.remove('show');
+
+  if (state.survivors.length === 0) { alert('กรุณาวางผู้รอดชีวิตอย่างน้อย 1 คน'); return; }
+  if (!state.exit) { alert('กรุณาวางทางออก'); return; }
+
+  const algorithm = document.getElementById('algorithm').value;
+  const gridStep = parseInt(document.getElementById('gridStep').value);
+  const medkits = parseInt(document.getElementById('medkits').value);
+  const food = parseInt(document.getElementById('food').value);
+  const rescueTeams = parseInt(document.getElementById('rescueTeams').value);
+
+  const startM = toMeters(state.survivors[0].lat, state.survivors[0].lng);
+  const exitM = toMeters(state.exit.lat, state.exit.lng);
+
+  const t0 = performance.now();
+  let result;
+  switch (algorithm) {
+    case 'astar':
+      result = astarSearch(startM, exitM, state.hazards, gridStep);
+      result.algoName = 'A* Search (Grid)';
+      break;
+    case 'sa':
+      result = simulatedAnnealing(startM, exitM, state.hazards, 1500, 80, 0.995);
+      result.algoName = 'Simulated Annealing';
+      break;
+    case 'hc':
+      result = hillClimbing(startM, exitM, state.hazards, 'steepest', 6, 300);
+      result.algoName = 'Hill Climbing (Steepest)';
+      break;
+    case 'hc_restart':
+      result = hillClimbing(startM, exitM, state.hazards, 'random_restart', 8, 300);
+      result.algoName = 'Hill Climbing (Random Restart)';
+      break;
+  }
+  const elapsed = performance.now() - t0;
+
+  // Convert path to lat/lng
+  const pathLatLngs = result.path.map(p => toLatLng(p.x, p.y));
+
+  // Danger stats
+  const dangers = result.path.map(p => totalDanger(p.x, p.y, state.hazards));
+  const maxDanger = Math.max(...dangers);
+  const avgDanger = dangers.reduce((a, b) => a + b, 0) / dangers.length;
+  const highDangerCount = dangers.filter(d => d > 0.4).length;
+
+  // Resource allocation
+  const resourceAlloc = allocateResources(state.survivors, medkits, food, rescueTeams);
+
+  // Survival tips
+  const hazardTypes = [...new Set(state.hazards.map(h => h.type))];
+  const tips = [];
+  for (const ht of hazardTypes) {
+    const tipsList = SURVIVAL_TIPS[ht] || [];
+    tips.push({ type: ht, items: tipsList });
+  }
+
+  // Survivor priority
+  const sortedSurvivors = [...state.survivors].sort((a, b) => {
+    const ua = (100 - a.health) * 0.5 + (100 - a.mobility) * 0.3 + (100 - a.supplies) * 0.2;
+    const ub = (100 - b.health) * 0.5 + (100 - b.mobility) * 0.3 + (100 - b.supplies) * 0.2;
+    return ub - ua;
+  });
+
+  // Render route
+  renderRoute(pathLatLngs);
+
+  // Danger heatmap on path
+  for (let i = 0; i < result.path.length; i += Math.max(1, Math.floor(result.path.length / 20))) {
+    const d = dangers[i];
+    if (d > 0.3) {
+      const [lat, lng] = toLatLng(result.path[i].x, result.path[i].y);
+      L.circleMarker([lat, lng], {
+        color: d > 0.6 ? '#e74c3c' : '#f39c12',
+        fillColor: d > 0.6 ? '#e74c3c' : '#f39c12',
+        fillOpacity: d * 0.6,
+        radius: 4 + d * 6
+      }).addTo(routeLayers).bindTooltip(`danger: ${(d*100).toFixed(0)}%`);
+    }
+  }
+
+  // Display results
+  showResults({
+    algoName: result.algoName,
+    cost: result.cost,
+    waypoints: result.path.length,
+    elapsed,
+    maxDanger,
+    avgDanger,
+    highDangerCount,
+    exitDanger: totalDanger(exitM.x, exitM.y, state.hazards),
+    hazardTypes,
+    tips,
+    sortedSurvivors,
+    resourceAlloc,
+  });
+}
+
+// =====================================================================
+// 11. RESULTS DISPLAY
+// =====================================================================
+function showResults(data) {
+  const panel = document.getElementById('resultsPanel');
+  panel.classList.add('show');
+
+  const html = `
+    <div class="result-card">
+      <h4>🤖 Algorithm: ${data.algoName}</h4>
+      <div class="stat"><span>⏱ เวลาคำนวณ</span><span>${(data.elapsed / 1000).toFixed(3)} วินาที</span></div>
+      <div class="stat"><span>📍 Waypoints</span><span>${data.waypoints} จุด</span></div>
+      <div class="stat"><span>💰 Path Cost</span><span style="color:#e94560;font-weight:bold">${data.cost.toFixed(1)}</span></div>
+    </div>
+    <div class="result-card">
+      <h4>⚠️ อันตรายตลอดเส้นทาง</h4>
+      <div class="stat"><span>🔴 Max Danger</span><span style="color:${data.maxDanger > 0.6 ? '#e74c3c' : '#f39c12'}">${(data.maxDanger * 100).toFixed(1)}%</span></div>
+      <div class="stat"><span>🟡 Avg Danger</span><span>${(data.avgDanger * 100).toFixed(1)}%</span></div>
+      <div class="stat"><span>⚠️ จุดอันตรายสูง (<40%)</span><span>${data.highDangerCount} จุด</span></div>
+      <div class="stat"><span>🚪 อันตรายที่ทางออก</span><span>${(data.exitDanger * 100).toFixed(1)}%</span></div>
+    </div>
+    <div class="result-card">
+      <h4>👥 ลำดับผู้รอดชีวิต (Urgency)</h4>
+      ${data.sortedSurvivors.map(s => {
+        const u = (100 - s.health) * 0.5 + (100 - s.mobility) * 0.3 + (100 - s.supplies) * 0.2;
+        const alloc = data.resourceAlloc[s.id] || {};
+        const parts = [];
+        if (alloc.medkit) parts.push('💊 ยา');
+        if (alloc.food) parts.push('🍞 อาหาร');
+        if (alloc.rescue_team) parts.push('🚑 ทีมกู้ภัย');
+        const resStr = parts.length ? parts.join(', ') : '❌ ไม่ได้รับ';
+        return `<div class="stat"><span>${s.id} [${u.toFixed(1)}]</span><span style="font-size:10px">HP:${s.health} M:${s.mobility} S:${s.supplies} | ${resStr}</span></div>`;
+      }).join('')}
+    </div>
+    <div class="result-card">
+      <h4>💡 คำแนะนำการเอาชีวิตรอด</h4>
+      ${data.tips.map(t => `
+        <div style="margin:4px 0">
+          <strong style="color:${HAZARD_COLORS[t.type]}">${HAZARD_ICONS[t.type]} ${t.type.toUpperCase()}</strong>
+          ${t.items.map(tip => `<div class="tip-item tip-${t.type}">• ${tip}</div>`).join('')}
+        </div>
+      `).join('')}
+    </div>
+  `;
+  document.getElementById('resultsContent').innerHTML = html;
+  document.querySelector('.sidebar-body').scrollTop = document.querySelector('.sidebar-body').scrollHeight;
+}
+
+// =====================================================================
+// 12. DEMO DATA
+// =====================================================================
+function loadDemo() {
+  clearAll();
+  // Hazards
+  const demoHazards = [
+    { lat: 13.7557, lng: 100.5125, type: 'fire', severity: 8, radius: 200 },
+    { lat: 13.7495, lng: 100.4950, type: 'flood', severity: 6, radius: 250 },
+    { lat: 13.7602, lng: 100.5024, type: 'collapse', severity: 7, radius: 150 },
+  ];
+  state.hazards.push(...demoHazards);
+  renderHazards();
+
+  // Survivors
+  const demoSuvivors = [
+    { id: 'S_1', name: 'คนที่ 1', lat: 13.7563, lng: 100.5018, health: 70, mobility: 85, supplies: 50 },
+    { id: 'S_2', name: 'คนที่ 2', lat: 13.7520, lng: 100.4985, health: 25, mobility: 20, supplies: 15 },
+    { id: 'S_3', name: 'คนที่ 3', lat: 13.7585, lng: 100.5080, health: 55, mobility: 60, supplies: 30 },
+  ];
+  state.survivors.push(...demoSuvivors);
+  renderSurvivors();
+
+  // Exit
+  state.exit = { lat: 13.7650, lng: 100.5250 };
+  renderExit();
+
+  updateItemList();
+  setMode(null);
+}
+
+// Load demo on page load
+window.addEventListener('DOMContentLoaded', loadDemo);
+</script>
+</body>
+</html>
