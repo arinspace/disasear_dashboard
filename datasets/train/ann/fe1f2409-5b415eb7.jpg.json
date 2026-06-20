@@ -1,0 +1,138 @@
+{
+    "description": "",
+    "tags": [],
+    "size": {
+        "height": 720,
+        "width": 1280
+    },
+    "objects": [
+        {
+            "id": 92425203,
+            "classId": 6509137,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:14:30.540Z",
+            "updatedAt": "2023-12-02T11:14:30.540Z",
+            "tags": [],
+            "classTitle": "motorcycle",
+            "points": {
+                "exterior": [
+                    [
+                        820,
+                        340
+                    ],
+                    [
+                        818,
+                        342
+                    ],
+                    [
+                        818,
+                        381
+                    ],
+                    [
+                        819,
+                        382
+                    ],
+                    [
+                        828,
+                        382
+                    ],
+                    [
+                        828,
+                        381
+                    ],
+                    [
+                        829,
+                        380
+                    ],
+                    [
+                        829,
+                        378
+                    ],
+                    [
+                        830,
+                        377
+                    ],
+                    [
+                        830,
+                        375
+                    ],
+                    [
+                        831,
+                        374
+                    ],
+                    [
+                        831,
+                        352
+                    ],
+                    [
+                        830,
+                        351
+                    ],
+                    [
+                        830,
+                        350
+                    ],
+                    [
+                        829,
+                        349
+                    ],
+                    [
+                        829,
+                        347
+                    ],
+                    [
+                        828,
+                        346
+                    ],
+                    [
+                        828,
+                        345
+                    ],
+                    [
+                        827,
+                        344
+                    ],
+                    [
+                        827,
+                        342
+                    ],
+                    [
+                        826,
+                        341
+                    ],
+                    [
+                        826,
+                        340
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92425202,
+            "classId": 6509137,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:14:30.539Z",
+            "updatedAt": "2023-12-02T11:14:30.539Z",
+            "tags": [],
+            "classTitle": "motorcycle",
+            "points": {
+                "exterior": [
+                    [
+                        818,
+                        340
+                    ],
+                    [
+                        831,
+                        382
+                    ]
+                ],
+                "interior": []
+            }
+        }
+    ]
+}

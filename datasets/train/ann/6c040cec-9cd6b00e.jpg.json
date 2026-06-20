@@ -1,0 +1,429 @@
+{
+    "description": "",
+    "tags": [],
+    "size": {
+        "height": 720,
+        "width": 1280
+    },
+    "objects": [
+        {
+            "id": 92371089,
+            "classId": 6509134,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:04:36.234Z",
+            "updatedAt": "2023-12-02T11:04:36.234Z",
+            "tags": [],
+            "classTitle": "rider",
+            "points": {
+                "exterior": [
+                    [
+                        598,
+                        447
+                    ],
+                    [
+                        598,
+                        448
+                    ],
+                    [
+                        597,
+                        449
+                    ],
+                    [
+                        588,
+                        449
+                    ],
+                    [
+                        598,
+                        449
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92371088,
+            "classId": 6509134,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:04:36.234Z",
+            "updatedAt": "2023-12-02T11:04:36.234Z",
+            "tags": [],
+            "classTitle": "rider",
+            "points": {
+                "exterior": [
+                    [
+                        593,
+                        421
+                    ],
+                    [
+                        592,
+                        422
+                    ],
+                    [
+                        591,
+                        422
+                    ],
+                    [
+                        589,
+                        424
+                    ],
+                    [
+                        589,
+                        427
+                    ],
+                    [
+                        588,
+                        428
+                    ],
+                    [
+                        588,
+                        437
+                    ],
+                    [
+                        593,
+                        437
+                    ],
+                    [
+                        594,
+                        436
+                    ],
+                    [
+                        598,
+                        436
+                    ],
+                    [
+                        599,
+                        437
+                    ],
+                    [
+                        599,
+                        438
+                    ],
+                    [
+                        599,
+                        428
+                    ],
+                    [
+                        598,
+                        427
+                    ],
+                    [
+                        598,
+                        425
+                    ],
+                    [
+                        597,
+                        424
+                    ],
+                    [
+                        597,
+                        423
+                    ],
+                    [
+                        595,
+                        421
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92371087,
+            "classId": 6509134,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:04:36.234Z",
+            "updatedAt": "2023-12-02T11:04:36.234Z",
+            "tags": [],
+            "classTitle": "rider",
+            "points": {
+                "exterior": [
+                    [
+                        588,
+                        421
+                    ],
+                    [
+                        599,
+                        449
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92371086,
+            "classId": 6509134,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:04:36.233Z",
+            "updatedAt": "2023-12-02T11:04:36.233Z",
+            "tags": [],
+            "classTitle": "rider",
+            "points": {
+                "exterior": [
+                    [
+                        571,
+                        427
+                    ],
+                    [
+                        571,
+                        430
+                    ],
+                    [
+                        570,
+                        431
+                    ],
+                    [
+                        570,
+                        443
+                    ],
+                    [
+                        571,
+                        444
+                    ],
+                    [
+                        571,
+                        448
+                    ],
+                    [
+                        578,
+                        448
+                    ],
+                    [
+                        578,
+                        430
+                    ],
+                    [
+                        577,
+                        429
+                    ],
+                    [
+                        577,
+                        428
+                    ],
+                    [
+                        576,
+                        427
+                    ]
+                ],
+                "interior": [
+                    [
+                        [
+                            571,
+                            438
+                        ],
+                        [
+                            572,
+                            437
+                        ],
+                        [
+                            575,
+                            437
+                        ],
+                        [
+                            578,
+                            440
+                        ],
+                        [
+                            578,
+                            447
+                        ],
+                        [
+                            577,
+                            448
+                        ],
+                        [
+                            573,
+                            448
+                        ],
+                        [
+                            571,
+                            446
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "id": 92371085,
+            "classId": 6509134,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:04:36.233Z",
+            "updatedAt": "2023-12-02T11:04:36.233Z",
+            "tags": [],
+            "classTitle": "rider",
+            "points": {
+                "exterior": [
+                    [
+                        570,
+                        427
+                    ],
+                    [
+                        578,
+                        448
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92371084,
+            "classId": 6509135,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:04:36.232Z",
+            "updatedAt": "2023-12-02T11:04:36.232Z",
+            "tags": [],
+            "classTitle": "bicycle",
+            "points": {
+                "exterior": [
+                    [
+                        572,
+                        438
+                    ],
+                    [
+                        572,
+                        446
+                    ],
+                    [
+                        573,
+                        447
+                    ],
+                    [
+                        577,
+                        447
+                    ],
+                    [
+                        577,
+                        440
+                    ],
+                    [
+                        575,
+                        438
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92371083,
+            "classId": 6509135,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:04:36.232Z",
+            "updatedAt": "2023-12-02T11:04:36.232Z",
+            "tags": [],
+            "classTitle": "bicycle",
+            "points": {
+                "exterior": [
+                    [
+                        572,
+                        438
+                    ],
+                    [
+                        577,
+                        447
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92371082,
+            "classId": 6509135,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:04:36.232Z",
+            "updatedAt": "2023-12-02T11:04:36.232Z",
+            "tags": [],
+            "classTitle": "bicycle",
+            "points": {
+                "exterior": [
+                    [
+                        594,
+                        437
+                    ],
+                    [
+                        593,
+                        438
+                    ],
+                    [
+                        588,
+                        438
+                    ],
+                    [
+                        588,
+                        448
+                    ],
+                    [
+                        597,
+                        448
+                    ],
+                    [
+                        597,
+                        446
+                    ],
+                    [
+                        596,
+                        445
+                    ],
+                    [
+                        596,
+                        442
+                    ],
+                    [
+                        597,
+                        441
+                    ],
+                    [
+                        597,
+                        440
+                    ],
+                    [
+                        598,
+                        439
+                    ],
+                    [
+                        598,
+                        437
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92371081,
+            "classId": 6509135,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:04:36.231Z",
+            "updatedAt": "2023-12-02T11:04:36.231Z",
+            "tags": [],
+            "classTitle": "bicycle",
+            "points": {
+                "exterior": [
+                    [
+                        588,
+                        437
+                    ],
+                    [
+                        598,
+                        448
+                    ]
+                ],
+                "interior": []
+            }
+        }
+    ]
+}

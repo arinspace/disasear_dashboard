@@ -1,0 +1,90 @@
+{
+    "description": "",
+    "tags": [],
+    "size": {
+        "height": 720,
+        "width": 1280
+    },
+    "objects": [
+        {
+            "id": 92358639,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:01:41.076Z",
+            "updatedAt": "2023-12-02T11:01:41.076Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        767,
+                        290
+                    ],
+                    [
+                        767,
+                        291
+                    ],
+                    [
+                        766,
+                        292
+                    ],
+                    [
+                        766,
+                        299
+                    ],
+                    [
+                        767,
+                        299
+                    ],
+                    [
+                        769,
+                        297
+                    ],
+                    [
+                        772,
+                        297
+                    ],
+                    [
+                        773,
+                        298
+                    ],
+                    [
+                        775,
+                        298
+                    ],
+                    [
+                        775,
+                        290
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92358638,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:01:41.075Z",
+            "updatedAt": "2023-12-02T11:01:41.075Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        766,
+                        290
+                    ],
+                    [
+                        775,
+                        299
+                    ]
+                ],
+                "interior": []
+            }
+        }
+    ]
+}

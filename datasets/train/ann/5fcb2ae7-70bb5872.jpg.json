@@ -1,0 +1,778 @@
+{
+    "description": "",
+    "tags": [],
+    "size": {
+        "height": 720,
+        "width": 1280
+    },
+    "objects": [
+        {
+            "id": 92359617,
+            "classId": 6509136,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:01:50.605Z",
+            "updatedAt": "2023-12-02T11:01:50.605Z",
+            "tags": [],
+            "classTitle": "bus",
+            "points": {
+                "exterior": [
+                    [
+                        487,
+                        445
+                    ],
+                    [
+                        486,
+                        446
+                    ],
+                    [
+                        475,
+                        446
+                    ],
+                    [
+                        474,
+                        447
+                    ],
+                    [
+                        463,
+                        447
+                    ],
+                    [
+                        463,
+                        453
+                    ],
+                    [
+                        464,
+                        454
+                    ],
+                    [
+                        464,
+                        459
+                    ],
+                    [
+                        465,
+                        460
+                    ],
+                    [
+                        465,
+                        465
+                    ],
+                    [
+                        466,
+                        466
+                    ],
+                    [
+                        466,
+                        470
+                    ],
+                    [
+                        489,
+                        470
+                    ],
+                    [
+                        489,
+                        446
+                    ],
+                    [
+                        488,
+                        445
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92359616,
+            "classId": 6509136,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:01:50.605Z",
+            "updatedAt": "2023-12-02T11:01:50.605Z",
+            "tags": [],
+            "classTitle": "bus",
+            "points": {
+                "exterior": [
+                    [
+                        463,
+                        445
+                    ],
+                    [
+                        489,
+                        470
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92359615,
+            "classId": 6509131,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:01:50.605Z",
+            "updatedAt": "2023-12-02T11:01:50.605Z",
+            "tags": [],
+            "classTitle": "truck",
+            "points": {
+                "exterior": [
+                    [
+                        625,
+                        453
+                    ],
+                    [
+                        624,
+                        454
+                    ],
+                    [
+                        623,
+                        454
+                    ],
+                    [
+                        623,
+                        462
+                    ],
+                    [
+                        636,
+                        462
+                    ],
+                    [
+                        636,
+                        454
+                    ],
+                    [
+                        635,
+                        453
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92359614,
+            "classId": 6509131,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:01:50.604Z",
+            "updatedAt": "2023-12-02T11:01:50.604Z",
+            "tags": [],
+            "classTitle": "truck",
+            "points": {
+                "exterior": [
+                    [
+                        623,
+                        453
+                    ],
+                    [
+                        636,
+                        462
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92359613,
+            "classId": 6509136,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:01:50.604Z",
+            "updatedAt": "2023-12-02T11:01:50.604Z",
+            "tags": [],
+            "classTitle": "bus",
+            "points": {
+                "exterior": [
+                    [
+                        594,
+                        450
+                    ],
+                    [
+                        594,
+                        463
+                    ],
+                    [
+                        602,
+                        463
+                    ],
+                    [
+                        602,
+                        459
+                    ],
+                    [
+                        601,
+                        458
+                    ],
+                    [
+                        601,
+                        454
+                    ],
+                    [
+                        600,
+                        453
+                    ],
+                    [
+                        600,
+                        450
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92359612,
+            "classId": 6509136,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:01:50.604Z",
+            "updatedAt": "2023-12-02T11:01:50.604Z",
+            "tags": [],
+            "classTitle": "bus",
+            "points": {
+                "exterior": [
+                    [
+                        594,
+                        450
+                    ],
+                    [
+                        602,
+                        463
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92359611,
+            "classId": 6509136,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:01:50.603Z",
+            "updatedAt": "2023-12-02T11:01:50.603Z",
+            "tags": [],
+            "classTitle": "bus",
+            "points": {
+                "exterior": [
+                    [
+                        623,
+                        463
+                    ],
+                    [
+                        622,
+                        464
+                    ],
+                    [
+                        594,
+                        464
+                    ],
+                    [
+                        594,
+                        468
+                    ],
+                    [
+                        613,
+                        468
+                    ],
+                    [
+                        614,
+                        467
+                    ],
+                    [
+                        632,
+                        467
+                    ],
+                    [
+                        633,
+                        466
+                    ],
+                    [
+                        652,
+                        466
+                    ],
+                    [
+                        653,
+                        465
+                    ],
+                    [
+                        671,
+                        465
+                    ],
+                    [
+                        672,
+                        464
+                    ],
+                    [
+                        677,
+                        464
+                    ],
+                    [
+                        677,
+                        463
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92359610,
+            "classId": 6509136,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:01:50.603Z",
+            "updatedAt": "2023-12-02T11:01:50.603Z",
+            "tags": [],
+            "classTitle": "bus",
+            "points": {
+                "exterior": [
+                    [
+                        594,
+                        463
+                    ],
+                    [
+                        677,
+                        468
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92359609,
+            "classId": 6509136,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:01:50.603Z",
+            "updatedAt": "2023-12-02T11:01:50.603Z",
+            "tags": [],
+            "classTitle": "bus",
+            "points": {
+                "exterior": [
+                    [
+                        511,
+                        438
+                    ],
+                    [
+                        511,
+                        458
+                    ],
+                    [
+                        512,
+                        459
+                    ],
+                    [
+                        512,
+                        466
+                    ],
+                    [
+                        518,
+                        466
+                    ],
+                    [
+                        519,
+                        465
+                    ],
+                    [
+                        519,
+                        458
+                    ],
+                    [
+                        520,
+                        457
+                    ],
+                    [
+                        523,
+                        457
+                    ],
+                    [
+                        523,
+                        448
+                    ],
+                    [
+                        522,
+                        447
+                    ],
+                    [
+                        522,
+                        439
+                    ],
+                    [
+                        521,
+                        439
+                    ],
+                    [
+                        520,
+                        438
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92359608,
+            "classId": 6509136,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:01:50.602Z",
+            "updatedAt": "2023-12-02T11:01:50.602Z",
+            "tags": [],
+            "classTitle": "bus",
+            "points": {
+                "exterior": [
+                    [
+                        511,
+                        438
+                    ],
+                    [
+                        523,
+                        466
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92359607,
+            "classId": 6509137,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:01:50.602Z",
+            "updatedAt": "2023-12-02T11:01:50.602Z",
+            "tags": [],
+            "classTitle": "motorcycle",
+            "points": {
+                "exterior": [
+                    [
+                        593,
+                        470
+                    ],
+                    [
+                        592,
+                        471
+                    ],
+                    [
+                        591,
+                        471
+                    ],
+                    [
+                        590,
+                        472
+                    ],
+                    [
+                        589,
+                        472
+                    ],
+                    [
+                        588,
+                        473
+                    ],
+                    [
+                        579,
+                        473
+                    ],
+                    [
+                        582,
+                        473
+                    ],
+                    [
+                        583,
+                        474
+                    ],
+                    [
+                        583,
+                        481
+                    ],
+                    [
+                        582,
+                        482
+                    ],
+                    [
+                        582,
+                        483
+                    ],
+                    [
+                        581,
+                        484
+                    ],
+                    [
+                        581,
+                        486
+                    ],
+                    [
+                        590,
+                        486
+                    ],
+                    [
+                        590,
+                        483
+                    ],
+                    [
+                        591,
+                        482
+                    ],
+                    [
+                        591,
+                        478
+                    ],
+                    [
+                        592,
+                        477
+                    ],
+                    [
+                        592,
+                        474
+                    ],
+                    [
+                        593,
+                        473
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92359606,
+            "classId": 6509137,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:01:50.601Z",
+            "updatedAt": "2023-12-02T11:01:50.601Z",
+            "tags": [],
+            "classTitle": "motorcycle",
+            "points": {
+                "exterior": [
+                    [
+                        579,
+                        470
+                    ],
+                    [
+                        593,
+                        486
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92359605,
+            "classId": 6509134,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:01:50.601Z",
+            "updatedAt": "2023-12-02T11:01:50.601Z",
+            "tags": [],
+            "classTitle": "rider",
+            "points": {
+                "exterior": [
+                    [
+                        587,
+                        459
+                    ],
+                    [
+                        584,
+                        462
+                    ],
+                    [
+                        584,
+                        463
+                    ],
+                    [
+                        583,
+                        464
+                    ],
+                    [
+                        583,
+                        465
+                    ],
+                    [
+                        582,
+                        466
+                    ],
+                    [
+                        582,
+                        468
+                    ],
+                    [
+                        579,
+                        471
+                    ],
+                    [
+                        579,
+                        472
+                    ],
+                    [
+                        588,
+                        472
+                    ],
+                    [
+                        589,
+                        471
+                    ],
+                    [
+                        590,
+                        471
+                    ],
+                    [
+                        591,
+                        470
+                    ],
+                    [
+                        592,
+                        470
+                    ],
+                    [
+                        593,
+                        469
+                    ],
+                    [
+                        593,
+                        464
+                    ],
+                    [
+                        588,
+                        459
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92359604,
+            "classId": 6509134,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:01:50.600Z",
+            "updatedAt": "2023-12-02T11:01:50.600Z",
+            "tags": [],
+            "classTitle": "rider",
+            "points": {
+                "exterior": [
+                    [
+                        579,
+                        459
+                    ],
+                    [
+                        593,
+                        472
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92359603,
+            "classId": 6509136,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:01:50.600Z",
+            "updatedAt": "2023-12-02T11:01:50.600Z",
+            "tags": [],
+            "classTitle": "bus",
+            "points": {
+                "exterior": [
+                    [
+                        162,
+                        448
+                    ],
+                    [
+                        162,
+                        466
+                    ],
+                    [
+                        184,
+                        466
+                    ],
+                    [
+                        184,
+                        448
+                    ],
+                    [
+                        181,
+                        448
+                    ],
+                    [
+                        180,
+                        449
+                    ],
+                    [
+                        178,
+                        449
+                    ],
+                    [
+                        177,
+                        450
+                    ],
+                    [
+                        174,
+                        450
+                    ],
+                    [
+                        173,
+                        451
+                    ],
+                    [
+                        169,
+                        451
+                    ],
+                    [
+                        168,
+                        450
+                    ],
+                    [
+                        167,
+                        450
+                    ],
+                    [
+                        166,
+                        449
+                    ],
+                    [
+                        165,
+                        449
+                    ],
+                    [
+                        164,
+                        448
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92359602,
+            "classId": 6509136,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:01:50.600Z",
+            "updatedAt": "2023-12-02T11:01:50.600Z",
+            "tags": [],
+            "classTitle": "bus",
+            "points": {
+                "exterior": [
+                    [
+                        162,
+                        448
+                    ],
+                    [
+                        184,
+                        466
+                    ]
+                ],
+                "interior": []
+            }
+        }
+    ]
+}

@@ -1,0 +1,1810 @@
+{
+    "description": "",
+    "tags": [],
+    "size": {
+        "height": 720,
+        "width": 1280
+    },
+    "objects": [
+        {
+            "id": 92415953,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.235Z",
+            "updatedAt": "2023-12-02T11:13:05.235Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        452,
+                        352
+                    ],
+                    [
+                        451,
+                        353
+                    ],
+                    [
+                        449,
+                        353
+                    ],
+                    [
+                        447,
+                        355
+                    ],
+                    [
+                        447,
+                        356
+                    ],
+                    [
+                        444,
+                        359
+                    ],
+                    [
+                        444,
+                        361
+                    ],
+                    [
+                        442,
+                        363
+                    ],
+                    [
+                        440,
+                        363
+                    ],
+                    [
+                        441,
+                        363
+                    ],
+                    [
+                        442,
+                        364
+                    ],
+                    [
+                        442,
+                        365
+                    ],
+                    [
+                        439,
+                        368
+                    ],
+                    [
+                        438,
+                        368
+                    ],
+                    [
+                        438,
+                        373
+                    ],
+                    [
+                        439,
+                        374
+                    ],
+                    [
+                        439,
+                        379
+                    ],
+                    [
+                        440,
+                        380
+                    ],
+                    [
+                        440,
+                        386
+                    ],
+                    [
+                        442,
+                        386
+                    ],
+                    [
+                        443,
+                        385
+                    ],
+                    [
+                        444,
+                        385
+                    ],
+                    [
+                        444,
+                        383
+                    ],
+                    [
+                        445,
+                        382
+                    ],
+                    [
+                        453,
+                        382
+                    ],
+                    [
+                        454,
+                        383
+                    ],
+                    [
+                        454,
+                        385
+                    ],
+                    [
+                        458,
+                        385
+                    ],
+                    [
+                        458,
+                        383
+                    ],
+                    [
+                        459,
+                        382
+                    ],
+                    [
+                        472,
+                        382
+                    ],
+                    [
+                        474,
+                        384
+                    ],
+                    [
+                        479,
+                        384
+                    ],
+                    [
+                        479,
+                        381
+                    ],
+                    [
+                        480,
+                        380
+                    ],
+                    [
+                        484,
+                        380
+                    ],
+                    [
+                        485,
+                        381
+                    ],
+                    [
+                        485,
+                        383
+                    ],
+                    [
+                        486,
+                        384
+                    ],
+                    [
+                        488,
+                        384
+                    ],
+                    [
+                        489,
+                        383
+                    ],
+                    [
+                        489,
+                        379
+                    ],
+                    [
+                        490,
+                        378
+                    ],
+                    [
+                        490,
+                        369
+                    ],
+                    [
+                        489,
+                        368
+                    ],
+                    [
+                        489,
+                        362
+                    ],
+                    [
+                        488,
+                        361
+                    ],
+                    [
+                        488,
+                        357
+                    ],
+                    [
+                        485,
+                        354
+                    ],
+                    [
+                        484,
+                        354
+                    ],
+                    [
+                        482,
+                        352
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415952,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.235Z",
+            "updatedAt": "2023-12-02T11:13:05.235Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        438,
+                        352
+                    ],
+                    [
+                        490,
+                        386
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415951,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.235Z",
+            "updatedAt": "2023-12-02T11:13:05.235Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        612,
+                        347
+                    ],
+                    [
+                        607,
+                        352
+                    ],
+                    [
+                        607,
+                        353
+                    ],
+                    [
+                        606,
+                        354
+                    ],
+                    [
+                        606,
+                        355
+                    ],
+                    [
+                        605,
+                        356
+                    ],
+                    [
+                        602,
+                        356
+                    ],
+                    [
+                        602,
+                        359
+                    ],
+                    [
+                        603,
+                        360
+                    ],
+                    [
+                        603,
+                        382
+                    ],
+                    [
+                        609,
+                        382
+                    ],
+                    [
+                        609,
+                        380
+                    ],
+                    [
+                        610,
+                        379
+                    ],
+                    [
+                        611,
+                        379
+                    ],
+                    [
+                        612,
+                        378
+                    ],
+                    [
+                        634,
+                        378
+                    ],
+                    [
+                        635,
+                        379
+                    ],
+                    [
+                        635,
+                        381
+                    ],
+                    [
+                        636,
+                        382
+                    ],
+                    [
+                        640,
+                        382
+                    ],
+                    [
+                        641,
+                        381
+                    ],
+                    [
+                        641,
+                        362
+                    ],
+                    [
+                        640,
+                        361
+                    ],
+                    [
+                        640,
+                        360
+                    ],
+                    [
+                        638,
+                        358
+                    ],
+                    [
+                        638,
+                        356
+                    ],
+                    [
+                        637,
+                        355
+                    ],
+                    [
+                        637,
+                        353
+                    ],
+                    [
+                        636,
+                        352
+                    ],
+                    [
+                        636,
+                        351
+                    ],
+                    [
+                        632,
+                        347
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415950,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.234Z",
+            "updatedAt": "2023-12-02T11:13:05.234Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        602,
+                        347
+                    ],
+                    [
+                        641,
+                        382
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415949,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.233Z",
+            "updatedAt": "2023-12-02T11:13:05.233Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        673,
+                        353
+                    ],
+                    [
+                        672,
+                        354
+                    ],
+                    [
+                        672,
+                        355
+                    ],
+                    [
+                        671,
+                        356
+                    ],
+                    [
+                        671,
+                        357
+                    ],
+                    [
+                        670,
+                        358
+                    ],
+                    [
+                        670,
+                        370
+                    ],
+                    [
+                        673,
+                        370
+                    ],
+                    [
+                        675,
+                        368
+                    ],
+                    [
+                        689,
+                        368
+                    ],
+                    [
+                        690,
+                        369
+                    ],
+                    [
+                        690,
+                        371
+                    ],
+                    [
+                        692,
+                        371
+                    ],
+                    [
+                        692,
+                        362
+                    ],
+                    [
+                        691,
+                        361
+                    ],
+                    [
+                        691,
+                        355
+                    ],
+                    [
+                        689,
+                        353
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415948,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.233Z",
+            "updatedAt": "2023-12-02T11:13:05.233Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        670,
+                        353
+                    ],
+                    [
+                        692,
+                        371
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415947,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.232Z",
+            "updatedAt": "2023-12-02T11:13:05.232Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        655,
+                        355
+                    ],
+                    [
+                        654,
+                        356
+                    ],
+                    [
+                        654,
+                        363
+                    ],
+                    [
+                        655,
+                        363
+                    ],
+                    [
+                        656,
+                        362
+                    ],
+                    [
+                        663,
+                        362
+                    ],
+                    [
+                        664,
+                        363
+                    ],
+                    [
+                        665,
+                        363
+                    ],
+                    [
+                        665,
+                        356
+                    ],
+                    [
+                        664,
+                        355
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415946,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.232Z",
+            "updatedAt": "2023-12-02T11:13:05.232Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        654,
+                        355
+                    ],
+                    [
+                        665,
+                        363
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415945,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.232Z",
+            "updatedAt": "2023-12-02T11:13:05.232Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        279,
+                        358
+                    ],
+                    [
+                        279,
+                        372
+                    ],
+                    [
+                        292,
+                        372
+                    ],
+                    [
+                        292,
+                        358
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415944,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.231Z",
+            "updatedAt": "2023-12-02T11:13:05.231Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        279,
+                        358
+                    ],
+                    [
+                        292,
+                        372
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415943,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.231Z",
+            "updatedAt": "2023-12-02T11:13:05.231Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        319,
+                        358
+                    ],
+                    [
+                        319,
+                        365
+                    ],
+                    [
+                        320,
+                        366
+                    ],
+                    [
+                        320,
+                        371
+                    ],
+                    [
+                        335,
+                        371
+                    ],
+                    [
+                        335,
+                        358
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415942,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.230Z",
+            "updatedAt": "2023-12-02T11:13:05.230Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        319,
+                        358
+                    ],
+                    [
+                        335,
+                        371
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415941,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.229Z",
+            "updatedAt": "2023-12-02T11:13:05.229Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        342,
+                        362
+                    ],
+                    [
+                        342,
+                        372
+                    ],
+                    [
+                        353,
+                        372
+                    ],
+                    [
+                        356,
+                        369
+                    ],
+                    [
+                        356,
+                        367
+                    ],
+                    [
+                        353,
+                        367
+                    ],
+                    [
+                        352,
+                        366
+                    ],
+                    [
+                        348,
+                        366
+                    ],
+                    [
+                        346,
+                        364
+                    ],
+                    [
+                        345,
+                        364
+                    ],
+                    [
+                        343,
+                        362
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415940,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.229Z",
+            "updatedAt": "2023-12-02T11:13:05.229Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        342,
+                        362
+                    ],
+                    [
+                        356,
+                        372
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415939,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.229Z",
+            "updatedAt": "2023-12-02T11:13:05.229Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        312,
+                        361
+                    ],
+                    [
+                        311,
+                        362
+                    ],
+                    [
+                        311,
+                        363
+                    ],
+                    [
+                        310,
+                        364
+                    ],
+                    [
+                        304,
+                        364
+                    ],
+                    [
+                        304,
+                        372
+                    ],
+                    [
+                        311,
+                        372
+                    ],
+                    [
+                        311,
+                        367
+                    ],
+                    [
+                        312,
+                        366
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415938,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.229Z",
+            "updatedAt": "2023-12-02T11:13:05.229Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        304,
+                        361
+                    ],
+                    [
+                        312,
+                        372
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415937,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.228Z",
+            "updatedAt": "2023-12-02T11:13:05.228Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        368,
+                        362
+                    ],
+                    [
+                        367,
+                        363
+                    ],
+                    [
+                        363,
+                        363
+                    ],
+                    [
+                        362,
+                        364
+                    ],
+                    [
+                        359,
+                        364
+                    ],
+                    [
+                        357,
+                        366
+                    ],
+                    [
+                        357,
+                        369
+                    ],
+                    [
+                        353,
+                        373
+                    ],
+                    [
+                        351,
+                        373
+                    ],
+                    [
+                        350,
+                        374
+                    ],
+                    [
+                        349,
+                        374
+                    ],
+                    [
+                        344,
+                        379
+                    ],
+                    [
+                        344,
+                        385
+                    ],
+                    [
+                        345,
+                        386
+                    ],
+                    [
+                        345,
+                        387
+                    ],
+                    [
+                        346,
+                        388
+                    ],
+                    [
+                        346,
+                        391
+                    ],
+                    [
+                        347,
+                        392
+                    ],
+                    [
+                        351,
+                        392
+                    ],
+                    [
+                        351,
+                        391
+                    ],
+                    [
+                        352,
+                        390
+                    ],
+                    [
+                        363,
+                        390
+                    ],
+                    [
+                        364,
+                        391
+                    ],
+                    [
+                        367,
+                        391
+                    ],
+                    [
+                        367,
+                        389
+                    ],
+                    [
+                        368,
+                        388
+                    ],
+                    [
+                        377,
+                        388
+                    ],
+                    [
+                        378,
+                        389
+                    ],
+                    [
+                        378,
+                        390
+                    ],
+                    [
+                        382,
+                        390
+                    ],
+                    [
+                        384,
+                        388
+                    ],
+                    [
+                        386,
+                        388
+                    ],
+                    [
+                        387,
+                        387
+                    ],
+                    [
+                        389,
+                        387
+                    ],
+                    [
+                        390,
+                        386
+                    ],
+                    [
+                        391,
+                        386
+                    ],
+                    [
+                        392,
+                        387
+                    ],
+                    [
+                        392,
+                        388
+                    ],
+                    [
+                        398,
+                        388
+                    ],
+                    [
+                        399,
+                        387
+                    ],
+                    [
+                        399,
+                        373
+                    ],
+                    [
+                        391,
+                        365
+                    ],
+                    [
+                        390,
+                        365
+                    ],
+                    [
+                        387,
+                        362
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415936,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.228Z",
+            "updatedAt": "2023-12-02T11:13:05.228Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        344,
+                        362
+                    ],
+                    [
+                        399,
+                        392
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415935,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.227Z",
+            "updatedAt": "2023-12-02T11:13:05.227Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        415,
+                        358
+                    ],
+                    [
+                        415,
+                        366
+                    ],
+                    [
+                        428,
+                        366
+                    ],
+                    [
+                        428,
+                        360
+                    ],
+                    [
+                        427,
+                        360
+                    ],
+                    [
+                        426,
+                        359
+                    ],
+                    [
+                        425,
+                        359
+                    ],
+                    [
+                        424,
+                        358
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415934,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.227Z",
+            "updatedAt": "2023-12-02T11:13:05.227Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        415,
+                        358
+                    ],
+                    [
+                        428,
+                        366
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415933,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.227Z",
+            "updatedAt": "2023-12-02T11:13:05.227Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        432,
+                        360
+                    ],
+                    [
+                        432,
+                        367
+                    ],
+                    [
+                        439,
+                        367
+                    ],
+                    [
+                        441,
+                        365
+                    ],
+                    [
+                        441,
+                        364
+                    ],
+                    [
+                        440,
+                        364
+                    ],
+                    [
+                        439,
+                        363
+                    ],
+                    [
+                        440,
+                        362
+                    ],
+                    [
+                        442,
+                        362
+                    ],
+                    [
+                        443,
+                        361
+                    ],
+                    [
+                        443,
+                        360
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415932,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.227Z",
+            "updatedAt": "2023-12-02T11:13:05.227Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        432,
+                        360
+                    ],
+                    [
+                        443,
+                        367
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415931,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.226Z",
+            "updatedAt": "2023-12-02T11:13:05.226Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        692,
+                        356
+                    ],
+                    [
+                        692,
+                        361
+                    ],
+                    [
+                        693,
+                        362
+                    ],
+                    [
+                        693,
+                        364
+                    ],
+                    [
+                        695,
+                        364
+                    ],
+                    [
+                        695,
+                        357
+                    ],
+                    [
+                        694,
+                        356
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415930,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.226Z",
+            "updatedAt": "2023-12-02T11:13:05.226Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        692,
+                        356
+                    ],
+                    [
+                        695,
+                        364
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415929,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.225Z",
+            "updatedAt": "2023-12-02T11:13:05.225Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        648,
+                        353
+                    ],
+                    [
+                        648,
+                        355
+                    ],
+                    [
+                        647,
+                        356
+                    ],
+                    [
+                        647,
+                        360
+                    ],
+                    [
+                        653,
+                        360
+                    ],
+                    [
+                        653,
+                        353
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415928,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.225Z",
+            "updatedAt": "2023-12-02T11:13:05.225Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        647,
+                        353
+                    ],
+                    [
+                        653,
+                        360
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415927,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.224Z",
+            "updatedAt": "2023-12-02T11:13:05.224Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        643,
+                        353
+                    ],
+                    [
+                        641,
+                        355
+                    ],
+                    [
+                        641,
+                        361
+                    ],
+                    [
+                        643,
+                        361
+                    ],
+                    [
+                        644,
+                        360
+                    ],
+                    [
+                        646,
+                        360
+                    ],
+                    [
+                        646,
+                        356
+                    ],
+                    [
+                        647,
+                        355
+                    ],
+                    [
+                        647,
+                        353
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415926,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.224Z",
+            "updatedAt": "2023-12-02T11:13:05.224Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        641,
+                        353
+                    ],
+                    [
+                        647,
+                        361
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415925,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.224Z",
+            "updatedAt": "2023-12-02T11:13:05.224Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        720,
+                        354
+                    ],
+                    [
+                        716,
+                        358
+                    ],
+                    [
+                        712,
+                        358
+                    ],
+                    [
+                        712,
+                        361
+                    ],
+                    [
+                        713,
+                        361
+                    ],
+                    [
+                        714,
+                        362
+                    ],
+                    [
+                        714,
+                        363
+                    ],
+                    [
+                        718,
+                        363
+                    ],
+                    [
+                        719,
+                        362
+                    ],
+                    [
+                        721,
+                        362
+                    ],
+                    [
+                        721,
+                        354
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415924,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.223Z",
+            "updatedAt": "2023-12-02T11:13:05.223Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        712,
+                        354
+                    ],
+                    [
+                        721,
+                        363
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415923,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.223Z",
+            "updatedAt": "2023-12-02T11:13:05.223Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        542,
+                        352
+                    ],
+                    [
+                        540,
+                        354
+                    ],
+                    [
+                        539,
+                        354
+                    ],
+                    [
+                        538,
+                        355
+                    ],
+                    [
+                        536,
+                        355
+                    ],
+                    [
+                        536,
+                        361
+                    ],
+                    [
+                        538,
+                        361
+                    ],
+                    [
+                        539,
+                        362
+                    ],
+                    [
+                        539,
+                        364
+                    ],
+                    [
+                        540,
+                        364
+                    ],
+                    [
+                        541,
+                        365
+                    ],
+                    [
+                        544,
+                        365
+                    ],
+                    [
+                        544,
+                        352
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415922,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.223Z",
+            "updatedAt": "2023-12-02T11:13:05.223Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        536,
+                        352
+                    ],
+                    [
+                        544,
+                        365
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415921,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.223Z",
+            "updatedAt": "2023-12-02T11:13:05.223Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        551,
+                        352
+                    ],
+                    [
+                        551,
+                        360
+                    ],
+                    [
+                        560,
+                        360
+                    ],
+                    [
+                        560,
+                        352
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415920,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.222Z",
+            "updatedAt": "2023-12-02T11:13:05.222Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        551,
+                        352
+                    ],
+                    [
+                        560,
+                        360
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415919,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.221Z",
+            "updatedAt": "2023-12-02T11:13:05.221Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        521,
+                        350
+                    ],
+                    [
+                        521,
+                        363
+                    ],
+                    [
+                        523,
+                        365
+                    ],
+                    [
+                        528,
+                        365
+                    ],
+                    [
+                        531,
+                        362
+                    ],
+                    [
+                        531,
+                        361
+                    ],
+                    [
+                        532,
+                        360
+                    ],
+                    [
+                        532,
+                        358
+                    ],
+                    [
+                        534,
+                        356
+                    ],
+                    [
+                        534,
+                        354
+                    ],
+                    [
+                        533,
+                        354
+                    ],
+                    [
+                        532,
+                        353
+                    ],
+                    [
+                        531,
+                        353
+                    ],
+                    [
+                        530,
+                        352
+                    ],
+                    [
+                        528,
+                        352
+                    ],
+                    [
+                        527,
+                        351
+                    ],
+                    [
+                        525,
+                        351
+                    ],
+                    [
+                        524,
+                        350
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92415918,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:13:05.221Z",
+            "updatedAt": "2023-12-02T11:13:05.221Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        521,
+                        350
+                    ],
+                    [
+                        534,
+                        365
+                    ]
+                ],
+                "interior": []
+            }
+        }
+    ]
+}

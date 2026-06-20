@@ -1,0 +1,258 @@
+{
+    "description": "",
+    "tags": [],
+    "size": {
+        "height": 720,
+        "width": 1280
+    },
+    "objects": [
+        {
+            "id": 92378482,
+            "classId": 6509138,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:06:21.971Z",
+            "updatedAt": "2023-12-02T11:06:21.971Z",
+            "tags": [],
+            "classTitle": "caravan",
+            "points": {
+                "exterior": [
+                    [
+                        456,
+                        422
+                    ],
+                    [
+                        455,
+                        423
+                    ],
+                    [
+                        453,
+                        423
+                    ],
+                    [
+                        452,
+                        424
+                    ],
+                    [
+                        451,
+                        424
+                    ],
+                    [
+                        450,
+                        425
+                    ],
+                    [
+                        447,
+                        425
+                    ],
+                    [
+                        447,
+                        431
+                    ],
+                    [
+                        446,
+                        432
+                    ],
+                    [
+                        445,
+                        432
+                    ],
+                    [
+                        443,
+                        434
+                    ],
+                    [
+                        443,
+                        447
+                    ],
+                    [
+                        451,
+                        447
+                    ],
+                    [
+                        451,
+                        446
+                    ],
+                    [
+                        452,
+                        445
+                    ],
+                    [
+                        472,
+                        445
+                    ],
+                    [
+                        473,
+                        446
+                    ],
+                    [
+                        477,
+                        446
+                    ],
+                    [
+                        477,
+                        423
+                    ],
+                    [
+                        476,
+                        423
+                    ],
+                    [
+                        475,
+                        422
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92378481,
+            "classId": 6509138,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:06:21.971Z",
+            "updatedAt": "2023-12-02T11:06:21.971Z",
+            "tags": [],
+            "classTitle": "caravan",
+            "points": {
+                "exterior": [
+                    [
+                        443,
+                        422
+                    ],
+                    [
+                        477,
+                        447
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92378480,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:06:21.970Z",
+            "updatedAt": "2023-12-02T11:06:21.970Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        267,
+                        425
+                    ],
+                    [
+                        266,
+                        426
+                    ],
+                    [
+                        260,
+                        426
+                    ],
+                    [
+                        259,
+                        427
+                    ],
+                    [
+                        253,
+                        427
+                    ],
+                    [
+                        252,
+                        428
+                    ],
+                    [
+                        246,
+                        428
+                    ],
+                    [
+                        245,
+                        429
+                    ],
+                    [
+                        244,
+                        429
+                    ],
+                    [
+                        243,
+                        430
+                    ],
+                    [
+                        242,
+                        430
+                    ],
+                    [
+                        240,
+                        432
+                    ],
+                    [
+                        240,
+                        435
+                    ],
+                    [
+                        239,
+                        436
+                    ],
+                    [
+                        239,
+                        439
+                    ],
+                    [
+                        251,
+                        439
+                    ],
+                    [
+                        252,
+                        438
+                    ],
+                    [
+                        264,
+                        438
+                    ],
+                    [
+                        267,
+                        441
+                    ],
+                    [
+                        273,
+                        441
+                    ],
+                    [
+                        273,
+                        425
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92378479,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:06:21.967Z",
+            "updatedAt": "2023-12-02T11:06:21.967Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        239,
+                        425
+                    ],
+                    [
+                        273,
+                        441
+                    ]
+                ],
+                "interior": []
+            }
+        }
+    ]
+}

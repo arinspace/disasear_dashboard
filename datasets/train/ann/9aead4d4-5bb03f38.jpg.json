@@ -1,0 +1,146 @@
+{
+    "description": "",
+    "tags": [],
+    "size": {
+        "height": 720,
+        "width": 1280
+    },
+    "objects": [
+        {
+            "id": 92401448,
+            "classId": 6509135,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:10:42.329Z",
+            "updatedAt": "2023-12-02T11:10:42.329Z",
+            "tags": [],
+            "classTitle": "bicycle",
+            "points": {
+                "exterior": [
+                    [
+                        681,
+                        290
+                    ],
+                    [
+                        680,
+                        291
+                    ],
+                    [
+                        677,
+                        291
+                    ],
+                    [
+                        676,
+                        292
+                    ],
+                    [
+                        673,
+                        292
+                    ],
+                    [
+                        672,
+                        293
+                    ],
+                    [
+                        670,
+                        293
+                    ],
+                    [
+                        669,
+                        294
+                    ],
+                    [
+                        669,
+                        297
+                    ],
+                    [
+                        668,
+                        298
+                    ],
+                    [
+                        668,
+                        301
+                    ],
+                    [
+                        667,
+                        302
+                    ],
+                    [
+                        667,
+                        307
+                    ],
+                    [
+                        670,
+                        310
+                    ],
+                    [
+                        710,
+                        310
+                    ],
+                    [
+                        710,
+                        305
+                    ],
+                    [
+                        709,
+                        304
+                    ],
+                    [
+                        709,
+                        301
+                    ],
+                    [
+                        708,
+                        300
+                    ],
+                    [
+                        708,
+                        297
+                    ],
+                    [
+                        707,
+                        296
+                    ],
+                    [
+                        707,
+                        293
+                    ],
+                    [
+                        706,
+                        292
+                    ],
+                    [
+                        706,
+                        290
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92401447,
+            "classId": 6509135,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:10:42.328Z",
+            "updatedAt": "2023-12-02T11:10:42.328Z",
+            "tags": [],
+            "classTitle": "bicycle",
+            "points": {
+                "exterior": [
+                    [
+                        667,
+                        290
+                    ],
+                    [
+                        710,
+                        310
+                    ]
+                ],
+                "interior": []
+            }
+        }
+    ]
+}

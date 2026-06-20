@@ -1,0 +1,94 @@
+{
+    "description": "",
+    "tags": [],
+    "size": {
+        "height": 720,
+        "width": 1280
+    },
+    "objects": [
+        {
+            "id": 92327140,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:54:21.644Z",
+            "updatedAt": "2023-12-02T10:54:21.644Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        765,
+                        311
+                    ],
+                    [
+                        764,
+                        312
+                    ],
+                    [
+                        763,
+                        312
+                    ],
+                    [
+                        761,
+                        314
+                    ],
+                    [
+                        761,
+                        317
+                    ],
+                    [
+                        762,
+                        318
+                    ],
+                    [
+                        774,
+                        318
+                    ],
+                    [
+                        774,
+                        313
+                    ],
+                    [
+                        773,
+                        312
+                    ],
+                    [
+                        772,
+                        312
+                    ],
+                    [
+                        771,
+                        311
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92327139,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:54:21.643Z",
+            "updatedAt": "2023-12-02T10:54:21.643Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        761,
+                        311
+                    ],
+                    [
+                        774,
+                        318
+                    ]
+                ],
+                "interior": []
+            }
+        }
+    ]
+}

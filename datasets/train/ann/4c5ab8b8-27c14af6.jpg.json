@@ -1,0 +1,5362 @@
+{
+    "description": "",
+    "tags": [],
+    "size": {
+        "height": 720,
+        "width": 1280
+    },
+    "objects": [
+        {
+            "id": 92338628,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.192Z",
+            "updatedAt": "2023-12-02T10:56:46.192Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        632,
+                        440
+                    ],
+                    [
+                        629,
+                        443
+                    ],
+                    [
+                        629,
+                        450
+                    ],
+                    [
+                        630,
+                        451
+                    ],
+                    [
+                        631,
+                        451
+                    ],
+                    [
+                        632,
+                        452
+                    ],
+                    [
+                        632,
+                        453
+                    ],
+                    [
+                        635,
+                        453
+                    ],
+                    [
+                        633,
+                        453
+                    ],
+                    [
+                        632,
+                        452
+                    ],
+                    [
+                        632,
+                        446
+                    ],
+                    [
+                        635,
+                        443
+                    ],
+                    [
+                        636,
+                        443
+                    ],
+                    [
+                        637,
+                        442
+                    ],
+                    [
+                        646,
+                        442
+                    ],
+                    [
+                        649,
+                        445
+                    ],
+                    [
+                        649,
+                        452
+                    ],
+                    [
+                        650,
+                        452
+                    ],
+                    [
+                        651,
+                        451
+                    ],
+                    [
+                        652,
+                        451
+                    ],
+                    [
+                        653,
+                        450
+                    ],
+                    [
+                        658,
+                        450
+                    ],
+                    [
+                        659,
+                        449
+                    ],
+                    [
+                        659,
+                        443
+                    ],
+                    [
+                        661,
+                        441
+                    ],
+                    [
+                        661,
+                        440
+                    ],
+                    [
+                        650,
+                        440
+                    ],
+                    [
+                        649,
+                        441
+                    ],
+                    [
+                        644,
+                        441
+                    ],
+                    [
+                        643,
+                        440
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338627,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.192Z",
+            "updatedAt": "2023-12-02T10:56:46.192Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        629,
+                        440
+                    ],
+                    [
+                        661,
+                        453
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338626,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.192Z",
+            "updatedAt": "2023-12-02T10:56:46.192Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        662,
+                        441
+                    ],
+                    [
+                        660,
+                        443
+                    ],
+                    [
+                        660,
+                        450
+                    ],
+                    [
+                        663,
+                        450
+                    ],
+                    [
+                        663,
+                        449
+                    ],
+                    [
+                        664,
+                        448
+                    ],
+                    [
+                        667,
+                        448
+                    ],
+                    [
+                        669,
+                        450
+                    ],
+                    [
+                        672,
+                        450
+                    ],
+                    [
+                        672,
+                        445
+                    ],
+                    [
+                        670,
+                        443
+                    ],
+                    [
+                        670,
+                        441
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338625,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.191Z",
+            "updatedAt": "2023-12-02T10:56:46.191Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        660,
+                        441
+                    ],
+                    [
+                        672,
+                        450
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338624,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.191Z",
+            "updatedAt": "2023-12-02T10:56:46.191Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        637,
+                        443
+                    ],
+                    [
+                        636,
+                        444
+                    ],
+                    [
+                        635,
+                        444
+                    ],
+                    [
+                        633,
+                        446
+                    ],
+                    [
+                        633,
+                        452
+                    ],
+                    [
+                        636,
+                        452
+                    ],
+                    [
+                        637,
+                        451
+                    ],
+                    [
+                        644,
+                        451
+                    ],
+                    [
+                        645,
+                        452
+                    ],
+                    [
+                        648,
+                        452
+                    ],
+                    [
+                        648,
+                        445
+                    ],
+                    [
+                        646,
+                        443
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338623,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.191Z",
+            "updatedAt": "2023-12-02T10:56:46.191Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        633,
+                        443
+                    ],
+                    [
+                        648,
+                        452
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338622,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.191Z",
+            "updatedAt": "2023-12-02T10:56:46.191Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        614,
+                        441
+                    ],
+                    [
+                        613,
+                        442
+                    ],
+                    [
+                        613,
+                        443
+                    ],
+                    [
+                        612,
+                        444
+                    ],
+                    [
+                        612,
+                        446
+                    ],
+                    [
+                        613,
+                        447
+                    ],
+                    [
+                        613,
+                        450
+                    ],
+                    [
+                        614,
+                        451
+                    ],
+                    [
+                        616,
+                        451
+                    ],
+                    [
+                        616,
+                        450
+                    ],
+                    [
+                        617,
+                        449
+                    ],
+                    [
+                        622,
+                        449
+                    ],
+                    [
+                        623,
+                        450
+                    ],
+                    [
+                        625,
+                        450
+                    ],
+                    [
+                        625,
+                        442
+                    ],
+                    [
+                        624,
+                        441
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338621,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.190Z",
+            "updatedAt": "2023-12-02T10:56:46.190Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        612,
+                        441
+                    ],
+                    [
+                        625,
+                        451
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338620,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.190Z",
+            "updatedAt": "2023-12-02T10:56:46.190Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        682,
+                        426
+                    ],
+                    [
+                        681,
+                        427
+                    ],
+                    [
+                        680,
+                        427
+                    ],
+                    [
+                        674,
+                        433
+                    ],
+                    [
+                        674,
+                        445
+                    ],
+                    [
+                        675,
+                        446
+                    ],
+                    [
+                        675,
+                        448
+                    ],
+                    [
+                        676,
+                        449
+                    ],
+                    [
+                        676,
+                        451
+                    ],
+                    [
+                        694,
+                        451
+                    ],
+                    [
+                        695,
+                        452
+                    ],
+                    [
+                        699,
+                        452
+                    ],
+                    [
+                        702,
+                        449
+                    ],
+                    [
+                        702,
+                        442
+                    ],
+                    [
+                        701,
+                        441
+                    ],
+                    [
+                        701,
+                        429
+                    ],
+                    [
+                        698,
+                        426
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338619,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.190Z",
+            "updatedAt": "2023-12-02T10:56:46.190Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        674,
+                        426
+                    ],
+                    [
+                        702,
+                        452
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338618,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.190Z",
+            "updatedAt": "2023-12-02T10:56:46.190Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        724,
+                        440
+                    ],
+                    [
+                        723,
+                        441
+                    ],
+                    [
+                        727,
+                        445
+                    ],
+                    [
+                        727,
+                        451
+                    ],
+                    [
+                        730,
+                        451
+                    ],
+                    [
+                        731,
+                        452
+                    ],
+                    [
+                        731,
+                        453
+                    ],
+                    [
+                        732,
+                        454
+                    ],
+                    [
+                        735,
+                        454
+                    ],
+                    [
+                        735,
+                        453
+                    ],
+                    [
+                        736,
+                        452
+                    ],
+                    [
+                        736,
+                        450
+                    ],
+                    [
+                        735,
+                        449
+                    ],
+                    [
+                        735,
+                        445
+                    ],
+                    [
+                        736,
+                        444
+                    ],
+                    [
+                        736,
+                        443
+                    ],
+                    [
+                        733,
+                        440
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338617,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.190Z",
+            "updatedAt": "2023-12-02T10:56:46.190Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        723,
+                        440
+                    ],
+                    [
+                        736,
+                        454
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338616,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.190Z",
+            "updatedAt": "2023-12-02T10:56:46.190Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        709,
+                        440
+                    ],
+                    [
+                        708,
+                        441
+                    ],
+                    [
+                        708,
+                        442
+                    ],
+                    [
+                        705,
+                        445
+                    ],
+                    [
+                        705,
+                        456
+                    ],
+                    [
+                        710,
+                        456
+                    ],
+                    [
+                        711,
+                        455
+                    ],
+                    [
+                        721,
+                        455
+                    ],
+                    [
+                        722,
+                        456
+                    ],
+                    [
+                        722,
+                        457
+                    ],
+                    [
+                        726,
+                        457
+                    ],
+                    [
+                        726,
+                        445
+                    ],
+                    [
+                        721,
+                        440
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338615,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.189Z",
+            "updatedAt": "2023-12-02T10:56:46.189Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        705,
+                        440
+                    ],
+                    [
+                        726,
+                        457
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338614,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.189Z",
+            "updatedAt": "2023-12-02T10:56:46.189Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        748,
+                        436
+                    ],
+                    [
+                        747,
+                        437
+                    ],
+                    [
+                        742,
+                        437
+                    ],
+                    [
+                        739,
+                        440
+                    ],
+                    [
+                        739,
+                        442
+                    ],
+                    [
+                        738,
+                        443
+                    ],
+                    [
+                        738,
+                        444
+                    ],
+                    [
+                        737,
+                        445
+                    ],
+                    [
+                        736,
+                        445
+                    ],
+                    [
+                        736,
+                        449
+                    ],
+                    [
+                        737,
+                        450
+                    ],
+                    [
+                        737,
+                        452
+                    ],
+                    [
+                        736,
+                        453
+                    ],
+                    [
+                        736,
+                        455
+                    ],
+                    [
+                        737,
+                        456
+                    ],
+                    [
+                        742,
+                        456
+                    ],
+                    [
+                        742,
+                        455
+                    ],
+                    [
+                        743,
+                        454
+                    ],
+                    [
+                        753,
+                        454
+                    ],
+                    [
+                        754,
+                        455
+                    ],
+                    [
+                        754,
+                        456
+                    ],
+                    [
+                        759,
+                        456
+                    ],
+                    [
+                        760,
+                        455
+                    ],
+                    [
+                        760,
+                        439
+                    ],
+                    [
+                        758,
+                        437
+                    ],
+                    [
+                        757,
+                        437
+                    ],
+                    [
+                        756,
+                        436
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338613,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.189Z",
+            "updatedAt": "2023-12-02T10:56:46.189Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        736,
+                        436
+                    ],
+                    [
+                        760,
+                        456
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338612,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.189Z",
+            "updatedAt": "2023-12-02T10:56:46.189Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        582,
+                        436
+                    ],
+                    [
+                        581,
+                        437
+                    ],
+                    [
+                        581,
+                        440
+                    ],
+                    [
+                        582,
+                        440
+                    ],
+                    [
+                        583,
+                        439
+                    ],
+                    [
+                        586,
+                        439
+                    ],
+                    [
+                        588,
+                        441
+                    ],
+                    [
+                        588,
+                        442
+                    ],
+                    [
+                        590,
+                        444
+                    ],
+                    [
+                        591,
+                        444
+                    ],
+                    [
+                        592,
+                        445
+                    ],
+                    [
+                        592,
+                        446
+                    ],
+                    [
+                        591,
+                        447
+                    ],
+                    [
+                        590,
+                        447
+                    ],
+                    [
+                        590,
+                        453
+                    ],
+                    [
+                        593,
+                        453
+                    ],
+                    [
+                        594,
+                        454
+                    ],
+                    [
+                        598,
+                        454
+                    ],
+                    [
+                        598,
+                        445
+                    ],
+                    [
+                        597,
+                        444
+                    ],
+                    [
+                        597,
+                        440
+                    ],
+                    [
+                        594,
+                        437
+                    ],
+                    [
+                        593,
+                        437
+                    ],
+                    [
+                        592,
+                        436
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338611,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.189Z",
+            "updatedAt": "2023-12-02T10:56:46.189Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        581,
+                        436
+                    ],
+                    [
+                        598,
+                        454
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338610,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.188Z",
+            "updatedAt": "2023-12-02T10:56:46.188Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        583,
+                        440
+                    ],
+                    [
+                        582,
+                        441
+                    ],
+                    [
+                        574,
+                        441
+                    ],
+                    [
+                        573,
+                        442
+                    ],
+                    [
+                        573,
+                        443
+                    ],
+                    [
+                        575,
+                        445
+                    ],
+                    [
+                        575,
+                        446
+                    ],
+                    [
+                        576,
+                        447
+                    ],
+                    [
+                        576,
+                        448
+                    ],
+                    [
+                        577,
+                        449
+                    ],
+                    [
+                        577,
+                        450
+                    ],
+                    [
+                        578,
+                        451
+                    ],
+                    [
+                        578,
+                        455
+                    ],
+                    [
+                        586,
+                        455
+                    ],
+                    [
+                        587,
+                        456
+                    ],
+                    [
+                        590,
+                        456
+                    ],
+                    [
+                        590,
+                        455
+                    ],
+                    [
+                        589,
+                        454
+                    ],
+                    [
+                        589,
+                        447
+                    ],
+                    [
+                        590,
+                        446
+                    ],
+                    [
+                        591,
+                        446
+                    ],
+                    [
+                        591,
+                        445
+                    ],
+                    [
+                        590,
+                        445
+                    ],
+                    [
+                        587,
+                        442
+                    ],
+                    [
+                        587,
+                        441
+                    ],
+                    [
+                        586,
+                        440
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338609,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.188Z",
+            "updatedAt": "2023-12-02T10:56:46.188Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        573,
+                        440
+                    ],
+                    [
+                        591,
+                        456
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338608,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.187Z",
+            "updatedAt": "2023-12-02T10:56:46.187Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        569,
+                        443
+                    ],
+                    [
+                        569,
+                        444
+                    ],
+                    [
+                        571,
+                        446
+                    ],
+                    [
+                        571,
+                        447
+                    ],
+                    [
+                        572,
+                        448
+                    ],
+                    [
+                        572,
+                        450
+                    ],
+                    [
+                        573,
+                        451
+                    ],
+                    [
+                        573,
+                        453
+                    ],
+                    [
+                        574,
+                        454
+                    ],
+                    [
+                        574,
+                        458
+                    ],
+                    [
+                        577,
+                        458
+                    ],
+                    [
+                        577,
+                        451
+                    ],
+                    [
+                        576,
+                        450
+                    ],
+                    [
+                        576,
+                        449
+                    ],
+                    [
+                        575,
+                        448
+                    ],
+                    [
+                        575,
+                        447
+                    ],
+                    [
+                        574,
+                        446
+                    ],
+                    [
+                        574,
+                        445
+                    ],
+                    [
+                        572,
+                        443
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338607,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.187Z",
+            "updatedAt": "2023-12-02T10:56:46.187Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        569,
+                        443
+                    ],
+                    [
+                        577,
+                        458
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338606,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.187Z",
+            "updatedAt": "2023-12-02T10:56:46.187Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        567,
+                        444
+                    ],
+                    [
+                        567,
+                        445
+                    ],
+                    [
+                        568,
+                        446
+                    ],
+                    [
+                        568,
+                        447
+                    ],
+                    [
+                        569,
+                        448
+                    ],
+                    [
+                        569,
+                        460
+                    ],
+                    [
+                        570,
+                        461
+                    ],
+                    [
+                        572,
+                        461
+                    ],
+                    [
+                        573,
+                        460
+                    ],
+                    [
+                        573,
+                        454
+                    ],
+                    [
+                        572,
+                        453
+                    ],
+                    [
+                        572,
+                        451
+                    ],
+                    [
+                        571,
+                        450
+                    ],
+                    [
+                        571,
+                        448
+                    ],
+                    [
+                        570,
+                        447
+                    ],
+                    [
+                        570,
+                        446
+                    ],
+                    [
+                        568,
+                        444
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338605,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.187Z",
+            "updatedAt": "2023-12-02T10:56:46.187Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        567,
+                        444
+                    ],
+                    [
+                        573,
+                        461
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338604,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.187Z",
+            "updatedAt": "2023-12-02T10:56:46.187Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        543,
+                        431
+                    ],
+                    [
+                        542,
+                        432
+                    ],
+                    [
+                        535,
+                        432
+                    ],
+                    [
+                        533,
+                        434
+                    ],
+                    [
+                        533,
+                        435
+                    ],
+                    [
+                        532,
+                        436
+                    ],
+                    [
+                        532,
+                        437
+                    ],
+                    [
+                        531,
+                        438
+                    ],
+                    [
+                        531,
+                        453
+                    ],
+                    [
+                        532,
+                        454
+                    ],
+                    [
+                        532,
+                        457
+                    ],
+                    [
+                        533,
+                        458
+                    ],
+                    [
+                        533,
+                        459
+                    ],
+                    [
+                        534,
+                        460
+                    ],
+                    [
+                        534,
+                        463
+                    ],
+                    [
+                        536,
+                        463
+                    ],
+                    [
+                        536,
+                        462
+                    ],
+                    [
+                        537,
+                        461
+                    ],
+                    [
+                        538,
+                        461
+                    ],
+                    [
+                        539,
+                        462
+                    ],
+                    [
+                        542,
+                        462
+                    ],
+                    [
+                        542,
+                        460
+                    ],
+                    [
+                        543,
+                        459
+                    ],
+                    [
+                        556,
+                        459
+                    ],
+                    [
+                        557,
+                        460
+                    ],
+                    [
+                        557,
+                        461
+                    ],
+                    [
+                        558,
+                        462
+                    ],
+                    [
+                        564,
+                        462
+                    ],
+                    [
+                        565,
+                        461
+                    ],
+                    [
+                        567,
+                        461
+                    ],
+                    [
+                        568,
+                        460
+                    ],
+                    [
+                        568,
+                        448
+                    ],
+                    [
+                        567,
+                        447
+                    ],
+                    [
+                        567,
+                        446
+                    ],
+                    [
+                        566,
+                        445
+                    ],
+                    [
+                        566,
+                        444
+                    ],
+                    [
+                        567,
+                        443
+                    ],
+                    [
+                        568,
+                        443
+                    ],
+                    [
+                        569,
+                        442
+                    ],
+                    [
+                        570,
+                        442
+                    ],
+                    [
+                        570,
+                        440
+                    ],
+                    [
+                        565,
+                        440
+                    ],
+                    [
+                        564,
+                        439
+                    ],
+                    [
+                        564,
+                        438
+                    ],
+                    [
+                        563,
+                        437
+                    ],
+                    [
+                        563,
+                        436
+                    ],
+                    [
+                        558,
+                        431
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338603,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.186Z",
+            "updatedAt": "2023-12-02T10:56:46.186Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        531,
+                        431
+                    ],
+                    [
+                        570,
+                        463
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338602,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.186Z",
+            "updatedAt": "2023-12-02T10:56:46.186Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        507,
+                        441
+                    ],
+                    [
+                        506,
+                        442
+                    ],
+                    [
+                        508,
+                        442
+                    ],
+                    [
+                        509,
+                        443
+                    ],
+                    [
+                        510,
+                        443
+                    ],
+                    [
+                        514,
+                        447
+                    ],
+                    [
+                        514,
+                        448
+                    ],
+                    [
+                        515,
+                        448
+                    ],
+                    [
+                        518,
+                        451
+                    ],
+                    [
+                        518,
+                        453
+                    ],
+                    [
+                        519,
+                        454
+                    ],
+                    [
+                        519,
+                        456
+                    ],
+                    [
+                        520,
+                        457
+                    ],
+                    [
+                        520,
+                        469
+                    ],
+                    [
+                        523,
+                        469
+                    ],
+                    [
+                        523,
+                        467
+                    ],
+                    [
+                        524,
+                        466
+                    ],
+                    [
+                        525,
+                        466
+                    ],
+                    [
+                        526,
+                        467
+                    ],
+                    [
+                        526,
+                        468
+                    ],
+                    [
+                        529,
+                        468
+                    ],
+                    [
+                        530,
+                        467
+                    ],
+                    [
+                        530,
+                        460
+                    ],
+                    [
+                        531,
+                        459
+                    ],
+                    [
+                        531,
+                        454
+                    ],
+                    [
+                        530,
+                        453
+                    ],
+                    [
+                        530,
+                        452
+                    ],
+                    [
+                        529,
+                        451
+                    ],
+                    [
+                        529,
+                        450
+                    ],
+                    [
+                        528,
+                        449
+                    ],
+                    [
+                        528,
+                        448
+                    ],
+                    [
+                        525,
+                        448
+                    ],
+                    [
+                        524,
+                        447
+                    ],
+                    [
+                        524,
+                        446
+                    ],
+                    [
+                        523,
+                        445
+                    ],
+                    [
+                        523,
+                        444
+                    ],
+                    [
+                        520,
+                        441
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338601,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.185Z",
+            "updatedAt": "2023-12-02T10:56:46.185Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        506,
+                        441
+                    ],
+                    [
+                        531,
+                        469
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338600,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.185Z",
+            "updatedAt": "2023-12-02T10:56:46.185Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        493,
+                        443
+                    ],
+                    [
+                        497,
+                        447
+                    ],
+                    [
+                        497,
+                        452
+                    ],
+                    [
+                        497,
+                        450
+                    ],
+                    [
+                        498,
+                        449
+                    ],
+                    [
+                        502,
+                        449
+                    ],
+                    [
+                        504,
+                        451
+                    ],
+                    [
+                        504,
+                        453
+                    ],
+                    [
+                        503,
+                        454
+                    ],
+                    [
+                        501,
+                        454
+                    ],
+                    [
+                        501,
+                        456
+                    ],
+                    [
+                        502,
+                        457
+                    ],
+                    [
+                        502,
+                        458
+                    ],
+                    [
+                        503,
+                        459
+                    ],
+                    [
+                        503,
+                        461
+                    ],
+                    [
+                        504,
+                        462
+                    ],
+                    [
+                        504,
+                        464
+                    ],
+                    [
+                        505,
+                        465
+                    ],
+                    [
+                        505,
+                        466
+                    ],
+                    [
+                        507,
+                        468
+                    ],
+                    [
+                        507,
+                        472
+                    ],
+                    [
+                        508,
+                        473
+                    ],
+                    [
+                        512,
+                        473
+                    ],
+                    [
+                        513,
+                        472
+                    ],
+                    [
+                        513,
+                        471
+                    ],
+                    [
+                        514,
+                        470
+                    ],
+                    [
+                        516,
+                        472
+                    ],
+                    [
+                        519,
+                        472
+                    ],
+                    [
+                        519,
+                        457
+                    ],
+                    [
+                        518,
+                        456
+                    ],
+                    [
+                        518,
+                        454
+                    ],
+                    [
+                        517,
+                        453
+                    ],
+                    [
+                        517,
+                        451
+                    ],
+                    [
+                        515,
+                        449
+                    ],
+                    [
+                        514,
+                        449
+                    ],
+                    [
+                        513,
+                        448
+                    ],
+                    [
+                        513,
+                        447
+                    ],
+                    [
+                        510,
+                        444
+                    ],
+                    [
+                        509,
+                        444
+                    ],
+                    [
+                        508,
+                        443
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338599,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.185Z",
+            "updatedAt": "2023-12-02T10:56:46.185Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        493,
+                        443
+                    ],
+                    [
+                        519,
+                        473
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338598,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.182Z",
+            "updatedAt": "2023-12-02T10:56:46.182Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        462,
+                        440
+                    ],
+                    [
+                        461,
+                        441
+                    ],
+                    [
+                        459,
+                        441
+                    ],
+                    [
+                        458,
+                        442
+                    ],
+                    [
+                        456,
+                        442
+                    ],
+                    [
+                        455,
+                        443
+                    ],
+                    [
+                        453,
+                        443
+                    ],
+                    [
+                        452,
+                        444
+                    ],
+                    [
+                        451,
+                        444
+                    ],
+                    [
+                        448,
+                        447
+                    ],
+                    [
+                        448,
+                        448
+                    ],
+                    [
+                        449,
+                        449
+                    ],
+                    [
+                        449,
+                        463
+                    ],
+                    [
+                        450,
+                        464
+                    ],
+                    [
+                        450,
+                        467
+                    ],
+                    [
+                        451,
+                        468
+                    ],
+                    [
+                        451,
+                        481
+                    ],
+                    [
+                        452,
+                        482
+                    ],
+                    [
+                        453,
+                        482
+                    ],
+                    [
+                        454,
+                        483
+                    ],
+                    [
+                        454,
+                        484
+                    ],
+                    [
+                        460,
+                        484
+                    ],
+                    [
+                        460,
+                        483
+                    ],
+                    [
+                        461,
+                        482
+                    ],
+                    [
+                        461,
+                        481
+                    ],
+                    [
+                        464,
+                        478
+                    ],
+                    [
+                        466,
+                        478
+                    ],
+                    [
+                        467,
+                        479
+                    ],
+                    [
+                        467,
+                        480
+                    ],
+                    [
+                        470,
+                        480
+                    ],
+                    [
+                        470,
+                        479
+                    ],
+                    [
+                        471,
+                        478
+                    ],
+                    [
+                        489,
+                        478
+                    ],
+                    [
+                        491,
+                        480
+                    ],
+                    [
+                        491,
+                        481
+                    ],
+                    [
+                        495,
+                        481
+                    ],
+                    [
+                        496,
+                        480
+                    ],
+                    [
+                        496,
+                        478
+                    ],
+                    [
+                        497,
+                        477
+                    ],
+                    [
+                        498,
+                        477
+                    ],
+                    [
+                        499,
+                        478
+                    ],
+                    [
+                        503,
+                        478
+                    ],
+                    [
+                        505,
+                        476
+                    ],
+                    [
+                        505,
+                        474
+                    ],
+                    [
+                        506,
+                        473
+                    ],
+                    [
+                        506,
+                        468
+                    ],
+                    [
+                        504,
+                        466
+                    ],
+                    [
+                        504,
+                        465
+                    ],
+                    [
+                        503,
+                        464
+                    ],
+                    [
+                        503,
+                        462
+                    ],
+                    [
+                        502,
+                        461
+                    ],
+                    [
+                        502,
+                        459
+                    ],
+                    [
+                        501,
+                        458
+                    ],
+                    [
+                        501,
+                        457
+                    ],
+                    [
+                        500,
+                        456
+                    ],
+                    [
+                        500,
+                        454
+                    ],
+                    [
+                        501,
+                        453
+                    ],
+                    [
+                        503,
+                        453
+                    ],
+                    [
+                        503,
+                        451
+                    ],
+                    [
+                        502,
+                        450
+                    ],
+                    [
+                        498,
+                        450
+                    ],
+                    [
+                        498,
+                        452
+                    ],
+                    [
+                        497,
+                        453
+                    ],
+                    [
+                        496,
+                        452
+                    ],
+                    [
+                        496,
+                        447
+                    ],
+                    [
+                        490,
+                        441
+                    ],
+                    [
+                        486,
+                        441
+                    ],
+                    [
+                        485,
+                        440
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338597,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.181Z",
+            "updatedAt": "2023-12-02T10:56:46.181Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        448,
+                        440
+                    ],
+                    [
+                        506,
+                        484
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338596,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.180Z",
+            "updatedAt": "2023-12-02T10:56:46.180Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        383,
+                        416
+                    ],
+                    [
+                        382,
+                        417
+                    ],
+                    [
+                        374,
+                        417
+                    ],
+                    [
+                        373,
+                        418
+                    ],
+                    [
+                        365,
+                        418
+                    ],
+                    [
+                        364,
+                        419
+                    ],
+                    [
+                        357,
+                        419
+                    ],
+                    [
+                        356,
+                        420
+                    ],
+                    [
+                        350,
+                        420
+                    ],
+                    [
+                        349,
+                        421
+                    ],
+                    [
+                        345,
+                        421
+                    ],
+                    [
+                        344,
+                        422
+                    ],
+                    [
+                        340,
+                        422
+                    ],
+                    [
+                        339,
+                        423
+                    ],
+                    [
+                        337,
+                        423
+                    ],
+                    [
+                        336,
+                        424
+                    ],
+                    [
+                        335,
+                        424
+                    ],
+                    [
+                        334,
+                        425
+                    ],
+                    [
+                        334,
+                        426
+                    ],
+                    [
+                        333,
+                        427
+                    ],
+                    [
+                        333,
+                        429
+                    ],
+                    [
+                        332,
+                        430
+                    ],
+                    [
+                        332,
+                        432
+                    ],
+                    [
+                        331,
+                        433
+                    ],
+                    [
+                        331,
+                        435
+                    ],
+                    [
+                        330,
+                        436
+                    ],
+                    [
+                        330,
+                        442
+                    ],
+                    [
+                        329,
+                        443
+                    ],
+                    [
+                        329,
+                        478
+                    ],
+                    [
+                        328,
+                        479
+                    ],
+                    [
+                        326,
+                        479
+                    ],
+                    [
+                        326,
+                        484
+                    ],
+                    [
+                        325,
+                        485
+                    ],
+                    [
+                        324,
+                        485
+                    ],
+                    [
+                        321,
+                        488
+                    ],
+                    [
+                        321,
+                        491
+                    ],
+                    [
+                        335,
+                        491
+                    ],
+                    [
+                        338,
+                        494
+                    ],
+                    [
+                        338,
+                        498
+                    ],
+                    [
+                        339,
+                        499
+                    ],
+                    [
+                        340,
+                        499
+                    ],
+                    [
+                        341,
+                        500
+                    ],
+                    [
+                        350,
+                        500
+                    ],
+                    [
+                        351,
+                        499
+                    ],
+                    [
+                        351,
+                        498
+                    ],
+                    [
+                        352,
+                        497
+                    ],
+                    [
+                        352,
+                        493
+                    ],
+                    [
+                        353,
+                        492
+                    ],
+                    [
+                        353,
+                        491
+                    ],
+                    [
+                        354,
+                        490
+                    ],
+                    [
+                        354,
+                        489
+                    ],
+                    [
+                        355,
+                        488
+                    ],
+                    [
+                        408,
+                        488
+                    ],
+                    [
+                        411,
+                        491
+                    ],
+                    [
+                        411,
+                        495
+                    ],
+                    [
+                        412,
+                        496
+                    ],
+                    [
+                        413,
+                        496
+                    ],
+                    [
+                        414,
+                        497
+                    ],
+                    [
+                        422,
+                        497
+                    ],
+                    [
+                        424,
+                        495
+                    ],
+                    [
+                        424,
+                        485
+                    ],
+                    [
+                        425,
+                        484
+                    ],
+                    [
+                        430,
+                        484
+                    ],
+                    [
+                        431,
+                        483
+                    ],
+                    [
+                        436,
+                        483
+                    ],
+                    [
+                        437,
+                        484
+                    ],
+                    [
+                        437,
+                        485
+                    ],
+                    [
+                        438,
+                        486
+                    ],
+                    [
+                        438,
+                        488
+                    ],
+                    [
+                        441,
+                        491
+                    ],
+                    [
+                        447,
+                        491
+                    ],
+                    [
+                        449,
+                        489
+                    ],
+                    [
+                        449,
+                        487
+                    ],
+                    [
+                        450,
+                        486
+                    ],
+                    [
+                        450,
+                        468
+                    ],
+                    [
+                        449,
+                        467
+                    ],
+                    [
+                        449,
+                        464
+                    ],
+                    [
+                        448,
+                        463
+                    ],
+                    [
+                        448,
+                        449
+                    ],
+                    [
+                        445,
+                        446
+                    ],
+                    [
+                        445,
+                        445
+                    ],
+                    [
+                        446,
+                        444
+                    ],
+                    [
+                        448,
+                        444
+                    ],
+                    [
+                        448,
+                        438
+                    ],
+                    [
+                        447,
+                        437
+                    ],
+                    [
+                        447,
+                        435
+                    ],
+                    [
+                        446,
+                        434
+                    ],
+                    [
+                        443,
+                        434
+                    ],
+                    [
+                        443,
+                        435
+                    ],
+                    [
+                        441,
+                        437
+                    ],
+                    [
+                        440,
+                        437
+                    ],
+                    [
+                        439,
+                        436
+                    ],
+                    [
+                        439,
+                        435
+                    ],
+                    [
+                        438,
+                        434
+                    ],
+                    [
+                        438,
+                        433
+                    ],
+                    [
+                        437,
+                        432
+                    ],
+                    [
+                        437,
+                        431
+                    ],
+                    [
+                        436,
+                        430
+                    ],
+                    [
+                        436,
+                        429
+                    ],
+                    [
+                        434,
+                        427
+                    ],
+                    [
+                        434,
+                        426
+                    ],
+                    [
+                        433,
+                        425
+                    ],
+                    [
+                        433,
+                        424
+                    ],
+                    [
+                        432,
+                        423
+                    ],
+                    [
+                        432,
+                        422
+                    ],
+                    [
+                        430,
+                        420
+                    ],
+                    [
+                        429,
+                        420
+                    ],
+                    [
+                        428,
+                        419
+                    ],
+                    [
+                        426,
+                        419
+                    ],
+                    [
+                        425,
+                        418
+                    ],
+                    [
+                        421,
+                        418
+                    ],
+                    [
+                        420,
+                        417
+                    ],
+                    [
+                        416,
+                        417
+                    ],
+                    [
+                        415,
+                        416
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338595,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.180Z",
+            "updatedAt": "2023-12-02T10:56:46.180Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        321,
+                        416
+                    ],
+                    [
+                        450,
+                        500
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338594,
+            "classId": 6509133,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.180Z",
+            "updatedAt": "2023-12-02T10:56:46.180Z",
+            "tags": [],
+            "classTitle": "pedestrian",
+            "points": {
+                "exterior": [
+                    [
+                        211,
+                        419
+                    ],
+                    [
+                        210,
+                        420
+                    ],
+                    [
+                        210,
+                        430
+                    ],
+                    [
+                        209,
+                        431
+                    ],
+                    [
+                        208,
+                        431
+                    ],
+                    [
+                        207,
+                        432
+                    ],
+                    [
+                        205,
+                        432
+                    ],
+                    [
+                        202,
+                        435
+                    ],
+                    [
+                        202,
+                        437
+                    ],
+                    [
+                        201,
+                        438
+                    ],
+                    [
+                        201,
+                        440
+                    ],
+                    [
+                        199,
+                        442
+                    ],
+                    [
+                        199,
+                        443
+                    ],
+                    [
+                        198,
+                        444
+                    ],
+                    [
+                        198,
+                        447
+                    ],
+                    [
+                        197,
+                        448
+                    ],
+                    [
+                        197,
+                        449
+                    ],
+                    [
+                        196,
+                        450
+                    ],
+                    [
+                        196,
+                        455
+                    ],
+                    [
+                        197,
+                        456
+                    ],
+                    [
+                        200,
+                        456
+                    ],
+                    [
+                        200,
+                        453
+                    ],
+                    [
+                        201,
+                        452
+                    ],
+                    [
+                        201,
+                        450
+                    ],
+                    [
+                        202,
+                        449
+                    ],
+                    [
+                        203,
+                        449
+                    ],
+                    [
+                        204,
+                        448
+                    ],
+                    [
+                        205,
+                        449
+                    ],
+                    [
+                        205,
+                        454
+                    ],
+                    [
+                        206,
+                        455
+                    ],
+                    [
+                        206,
+                        460
+                    ],
+                    [
+                        209,
+                        463
+                    ],
+                    [
+                        209,
+                        474
+                    ],
+                    [
+                        211,
+                        476
+                    ],
+                    [
+                        211,
+                        478
+                    ],
+                    [
+                        210,
+                        479
+                    ],
+                    [
+                        210,
+                        487
+                    ],
+                    [
+                        209,
+                        488
+                    ],
+                    [
+                        209,
+                        489
+                    ],
+                    [
+                        208,
+                        490
+                    ],
+                    [
+                        208,
+                        492
+                    ],
+                    [
+                        210,
+                        494
+                    ],
+                    [
+                        210,
+                        495
+                    ],
+                    [
+                        212,
+                        497
+                    ],
+                    [
+                        215,
+                        497
+                    ],
+                    [
+                        216,
+                        496
+                    ],
+                    [
+                        217,
+                        496
+                    ],
+                    [
+                        218,
+                        495
+                    ],
+                    [
+                        218,
+                        493
+                    ],
+                    [
+                        219,
+                        492
+                    ],
+                    [
+                        219,
+                        484
+                    ],
+                    [
+                        220,
+                        483
+                    ],
+                    [
+                        220,
+                        470
+                    ],
+                    [
+                        221,
+                        469
+                    ],
+                    [
+                        221,
+                        465
+                    ],
+                    [
+                        222,
+                        464
+                    ],
+                    [
+                        222,
+                        463
+                    ],
+                    [
+                        224,
+                        461
+                    ],
+                    [
+                        224,
+                        459
+                    ],
+                    [
+                        225,
+                        458
+                    ],
+                    [
+                        226,
+                        458
+                    ],
+                    [
+                        227,
+                        459
+                    ],
+                    [
+                        230,
+                        459
+                    ],
+                    [
+                        231,
+                        458
+                    ],
+                    [
+                        232,
+                        458
+                    ],
+                    [
+                        232,
+                        457
+                    ],
+                    [
+                        231,
+                        456
+                    ],
+                    [
+                        231,
+                        455
+                    ],
+                    [
+                        230,
+                        454
+                    ],
+                    [
+                        230,
+                        453
+                    ],
+                    [
+                        229,
+                        453
+                    ],
+                    [
+                        227,
+                        451
+                    ],
+                    [
+                        227,
+                        444
+                    ],
+                    [
+                        228,
+                        443
+                    ],
+                    [
+                        228,
+                        442
+                    ],
+                    [
+                        229,
+                        441
+                    ],
+                    [
+                        229,
+                        438
+                    ],
+                    [
+                        228,
+                        437
+                    ],
+                    [
+                        228,
+                        436
+                    ],
+                    [
+                        226,
+                        434
+                    ],
+                    [
+                        226,
+                        433
+                    ],
+                    [
+                        224,
+                        431
+                    ],
+                    [
+                        223,
+                        431
+                    ],
+                    [
+                        222,
+                        430
+                    ],
+                    [
+                        220,
+                        430
+                    ],
+                    [
+                        219,
+                        429
+                    ],
+                    [
+                        219,
+                        422
+                    ],
+                    [
+                        217,
+                        420
+                    ],
+                    [
+                        217,
+                        419
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338593,
+            "classId": 6509133,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.179Z",
+            "updatedAt": "2023-12-02T10:56:46.179Z",
+            "tags": [],
+            "classTitle": "pedestrian",
+            "points": {
+                "exterior": [
+                    [
+                        196,
+                        419
+                    ],
+                    [
+                        232,
+                        497
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338592,
+            "classId": 6509133,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.178Z",
+            "updatedAt": "2023-12-02T10:56:46.178Z",
+            "tags": [],
+            "classTitle": "pedestrian",
+            "points": {
+                "exterior": [
+                    [
+                        242,
+                        422
+                    ],
+                    [
+                        239,
+                        425
+                    ],
+                    [
+                        239,
+                        432
+                    ],
+                    [
+                        237,
+                        434
+                    ],
+                    [
+                        237,
+                        435
+                    ],
+                    [
+                        236,
+                        436
+                    ],
+                    [
+                        235,
+                        436
+                    ],
+                    [
+                        229,
+                        442
+                    ],
+                    [
+                        229,
+                        443
+                    ],
+                    [
+                        228,
+                        444
+                    ],
+                    [
+                        228,
+                        451
+                    ],
+                    [
+                        229,
+                        452
+                    ],
+                    [
+                        230,
+                        452
+                    ],
+                    [
+                        231,
+                        453
+                    ],
+                    [
+                        231,
+                        454
+                    ],
+                    [
+                        232,
+                        455
+                    ],
+                    [
+                        232,
+                        456
+                    ],
+                    [
+                        233,
+                        457
+                    ],
+                    [
+                        233,
+                        459
+                    ],
+                    [
+                        234,
+                        460
+                    ],
+                    [
+                        234,
+                        464
+                    ],
+                    [
+                        235,
+                        465
+                    ],
+                    [
+                        235,
+                        468
+                    ],
+                    [
+                        236,
+                        469
+                    ],
+                    [
+                        236,
+                        470
+                    ],
+                    [
+                        237,
+                        471
+                    ],
+                    [
+                        237,
+                        472
+                    ],
+                    [
+                        238,
+                        473
+                    ],
+                    [
+                        238,
+                        474
+                    ],
+                    [
+                        239,
+                        475
+                    ],
+                    [
+                        239,
+                        476
+                    ],
+                    [
+                        240,
+                        477
+                    ],
+                    [
+                        240,
+                        493
+                    ],
+                    [
+                        239,
+                        494
+                    ],
+                    [
+                        239,
+                        495
+                    ],
+                    [
+                        237,
+                        497
+                    ],
+                    [
+                        237,
+                        498
+                    ],
+                    [
+                        240,
+                        498
+                    ],
+                    [
+                        241,
+                        497
+                    ],
+                    [
+                        247,
+                        497
+                    ],
+                    [
+                        248,
+                        496
+                    ],
+                    [
+                        248,
+                        494
+                    ],
+                    [
+                        250,
+                        492
+                    ],
+                    [
+                        250,
+                        487
+                    ],
+                    [
+                        252,
+                        485
+                    ],
+                    [
+                        258,
+                        485
+                    ],
+                    [
+                        258,
+                        475
+                    ],
+                    [
+                        259,
+                        474
+                    ],
+                    [
+                        259,
+                        457
+                    ],
+                    [
+                        258,
+                        456
+                    ],
+                    [
+                        258,
+                        447
+                    ],
+                    [
+                        259,
+                        446
+                    ],
+                    [
+                        259,
+                        440
+                    ],
+                    [
+                        258,
+                        439
+                    ],
+                    [
+                        258,
+                        438
+                    ],
+                    [
+                        257,
+                        437
+                    ],
+                    [
+                        257,
+                        436
+                    ],
+                    [
+                        255,
+                        434
+                    ],
+                    [
+                        253,
+                        434
+                    ],
+                    [
+                        251,
+                        432
+                    ],
+                    [
+                        250,
+                        432
+                    ],
+                    [
+                        249,
+                        431
+                    ],
+                    [
+                        249,
+                        423
+                    ],
+                    [
+                        248,
+                        422
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338591,
+            "classId": 6509133,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.178Z",
+            "updatedAt": "2023-12-02T10:56:46.178Z",
+            "tags": [],
+            "classTitle": "pedestrian",
+            "points": {
+                "exterior": [
+                    [
+                        228,
+                        422
+                    ],
+                    [
+                        259,
+                        498
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338590,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.178Z",
+            "updatedAt": "2023-12-02T10:56:46.178Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        771,
+                        438
+                    ],
+                    [
+                        770,
+                        439
+                    ],
+                    [
+                        769,
+                        439
+                    ],
+                    [
+                        768,
+                        440
+                    ],
+                    [
+                        768,
+                        441
+                    ],
+                    [
+                        766,
+                        443
+                    ],
+                    [
+                        766,
+                        444
+                    ],
+                    [
+                        765,
+                        445
+                    ],
+                    [
+                        765,
+                        446
+                    ],
+                    [
+                        764,
+                        447
+                    ],
+                    [
+                        763,
+                        447
+                    ],
+                    [
+                        763,
+                        453
+                    ],
+                    [
+                        762,
+                        454
+                    ],
+                    [
+                        762,
+                        459
+                    ],
+                    [
+                        763,
+                        460
+                    ],
+                    [
+                        770,
+                        460
+                    ],
+                    [
+                        770,
+                        459
+                    ],
+                    [
+                        772,
+                        457
+                    ],
+                    [
+                        773,
+                        457
+                    ],
+                    [
+                        773,
+                        452
+                    ],
+                    [
+                        774,
+                        451
+                    ],
+                    [
+                        774,
+                        450
+                    ],
+                    [
+                        777,
+                        447
+                    ],
+                    [
+                        778,
+                        447
+                    ],
+                    [
+                        779,
+                        446
+                    ],
+                    [
+                        779,
+                        443
+                    ],
+                    [
+                        781,
+                        441
+                    ],
+                    [
+                        784,
+                        441
+                    ],
+                    [
+                        783,
+                        440
+                    ],
+                    [
+                        783,
+                        439
+                    ],
+                    [
+                        781,
+                        439
+                    ],
+                    [
+                        780,
+                        438
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338589,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.178Z",
+            "updatedAt": "2023-12-02T10:56:46.178Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        762,
+                        438
+                    ],
+                    [
+                        784,
+                        460
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338588,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.177Z",
+            "updatedAt": "2023-12-02T10:56:46.177Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        781,
+                        442
+                    ],
+                    [
+                        780,
+                        443
+                    ],
+                    [
+                        780,
+                        446
+                    ],
+                    [
+                        778,
+                        448
+                    ],
+                    [
+                        777,
+                        448
+                    ],
+                    [
+                        775,
+                        450
+                    ],
+                    [
+                        775,
+                        451
+                    ],
+                    [
+                        774,
+                        452
+                    ],
+                    [
+                        774,
+                        460
+                    ],
+                    [
+                        776,
+                        460
+                    ],
+                    [
+                        777,
+                        459
+                    ],
+                    [
+                        779,
+                        461
+                    ],
+                    [
+                        784,
+                        461
+                    ],
+                    [
+                        785,
+                        460
+                    ],
+                    [
+                        785,
+                        458
+                    ],
+                    [
+                        786,
+                        457
+                    ],
+                    [
+                        792,
+                        457
+                    ],
+                    [
+                        792,
+                        454
+                    ],
+                    [
+                        793,
+                        453
+                    ],
+                    [
+                        793,
+                        443
+                    ],
+                    [
+                        792,
+                        442
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338587,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.177Z",
+            "updatedAt": "2023-12-02T10:56:46.177Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        774,
+                        442
+                    ],
+                    [
+                        793,
+                        461
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338586,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.177Z",
+            "updatedAt": "2023-12-02T10:56:46.177Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        800,
+                        435
+                    ],
+                    [
+                        798,
+                        437
+                    ],
+                    [
+                        798,
+                        438
+                    ],
+                    [
+                        797,
+                        439
+                    ],
+                    [
+                        797,
+                        442
+                    ],
+                    [
+                        796,
+                        443
+                    ],
+                    [
+                        795,
+                        443
+                    ],
+                    [
+                        794,
+                        444
+                    ],
+                    [
+                        794,
+                        453
+                    ],
+                    [
+                        793,
+                        454
+                    ],
+                    [
+                        793,
+                        459
+                    ],
+                    [
+                        794,
+                        460
+                    ],
+                    [
+                        794,
+                        461
+                    ],
+                    [
+                        795,
+                        461
+                    ],
+                    [
+                        796,
+                        460
+                    ],
+                    [
+                        797,
+                        460
+                    ],
+                    [
+                        798,
+                        461
+                    ],
+                    [
+                        798,
+                        462
+                    ],
+                    [
+                        799,
+                        463
+                    ],
+                    [
+                        802,
+                        463
+                    ],
+                    [
+                        803,
+                        462
+                    ],
+                    [
+                        804,
+                        462
+                    ],
+                    [
+                        804,
+                        461
+                    ],
+                    [
+                        806,
+                        459
+                    ],
+                    [
+                        817,
+                        459
+                    ],
+                    [
+                        818,
+                        460
+                    ],
+                    [
+                        818,
+                        462
+                    ],
+                    [
+                        820,
+                        462
+                    ],
+                    [
+                        822,
+                        460
+                    ],
+                    [
+                        824,
+                        462
+                    ],
+                    [
+                        827,
+                        462
+                    ],
+                    [
+                        827,
+                        443
+                    ],
+                    [
+                        826,
+                        442
+                    ],
+                    [
+                        826,
+                        440
+                    ],
+                    [
+                        825,
+                        439
+                    ],
+                    [
+                        825,
+                        438
+                    ],
+                    [
+                        824,
+                        437
+                    ],
+                    [
+                        824,
+                        436
+                    ],
+                    [
+                        823,
+                        435
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338585,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.176Z",
+            "updatedAt": "2023-12-02T10:56:46.176Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        793,
+                        435
+                    ],
+                    [
+                        827,
+                        463
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338584,
+            "classId": 6509133,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.175Z",
+            "updatedAt": "2023-12-02T10:56:46.175Z",
+            "tags": [],
+            "classTitle": "pedestrian",
+            "points": {
+                "exterior": [
+                    [
+                        866,
+                        436
+                    ],
+                    [
+                        865,
+                        437
+                    ],
+                    [
+                        865,
+                        441
+                    ],
+                    [
+                        862,
+                        444
+                    ],
+                    [
+                        862,
+                        449
+                    ],
+                    [
+                        863,
+                        450
+                    ],
+                    [
+                        863,
+                        451
+                    ],
+                    [
+                        864,
+                        452
+                    ],
+                    [
+                        864,
+                        461
+                    ],
+                    [
+                        865,
+                        461
+                    ],
+                    [
+                        866,
+                        460
+                    ],
+                    [
+                        867,
+                        460
+                    ],
+                    [
+                        868,
+                        461
+                    ],
+                    [
+                        870,
+                        461
+                    ],
+                    [
+                        870,
+                        456
+                    ],
+                    [
+                        871,
+                        455
+                    ],
+                    [
+                        871,
+                        451
+                    ],
+                    [
+                        872,
+                        450
+                    ],
+                    [
+                        872,
+                        442
+                    ],
+                    [
+                        869,
+                        439
+                    ],
+                    [
+                        869,
+                        437
+                    ],
+                    [
+                        868,
+                        436
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338583,
+            "classId": 6509133,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.175Z",
+            "updatedAt": "2023-12-02T10:56:46.175Z",
+            "tags": [],
+            "classTitle": "pedestrian",
+            "points": {
+                "exterior": [
+                    [
+                        862,
+                        436
+                    ],
+                    [
+                        872,
+                        461
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338582,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.175Z",
+            "updatedAt": "2023-12-02T10:56:46.175Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        911,
+                        429
+                    ],
+                    [
+                        910,
+                        430
+                    ],
+                    [
+                        908,
+                        430
+                    ],
+                    [
+                        907,
+                        431
+                    ],
+                    [
+                        905,
+                        431
+                    ],
+                    [
+                        904,
+                        432
+                    ],
+                    [
+                        903,
+                        432
+                    ],
+                    [
+                        898,
+                        437
+                    ],
+                    [
+                        898,
+                        438
+                    ],
+                    [
+                        896,
+                        440
+                    ],
+                    [
+                        896,
+                        441
+                    ],
+                    [
+                        894,
+                        443
+                    ],
+                    [
+                        894,
+                        444
+                    ],
+                    [
+                        892,
+                        446
+                    ],
+                    [
+                        892,
+                        447
+                    ],
+                    [
+                        891,
+                        448
+                    ],
+                    [
+                        889,
+                        448
+                    ],
+                    [
+                        887,
+                        446
+                    ],
+                    [
+                        880,
+                        446
+                    ],
+                    [
+                        879,
+                        447
+                    ],
+                    [
+                        879,
+                        450
+                    ],
+                    [
+                        882,
+                        450
+                    ],
+                    [
+                        883,
+                        451
+                    ],
+                    [
+                        884,
+                        451
+                    ],
+                    [
+                        885,
+                        452
+                    ],
+                    [
+                        884,
+                        453
+                    ],
+                    [
+                        883,
+                        453
+                    ],
+                    [
+                        882,
+                        454
+                    ],
+                    [
+                        879,
+                        454
+                    ],
+                    [
+                        874,
+                        459
+                    ],
+                    [
+                        874,
+                        473
+                    ],
+                    [
+                        873,
+                        474
+                    ],
+                    [
+                        873,
+                        484
+                    ],
+                    [
+                        874,
+                        485
+                    ],
+                    [
+                        874,
+                        488
+                    ],
+                    [
+                        875,
+                        489
+                    ],
+                    [
+                        875,
+                        490
+                    ],
+                    [
+                        876,
+                        491
+                    ],
+                    [
+                        878,
+                        491
+                    ],
+                    [
+                        879,
+                        492
+                    ],
+                    [
+                        885,
+                        492
+                    ],
+                    [
+                        887,
+                        490
+                    ],
+                    [
+                        887,
+                        488
+                    ],
+                    [
+                        888,
+                        487
+                    ],
+                    [
+                        895,
+                        487
+                    ],
+                    [
+                        896,
+                        488
+                    ],
+                    [
+                        903,
+                        488
+                    ],
+                    [
+                        904,
+                        489
+                    ],
+                    [
+                        904,
+                        491
+                    ],
+                    [
+                        905,
+                        492
+                    ],
+                    [
+                        905,
+                        493
+                    ],
+                    [
+                        907,
+                        495
+                    ],
+                    [
+                        907,
+                        498
+                    ],
+                    [
+                        908,
+                        499
+                    ],
+                    [
+                        909,
+                        499
+                    ],
+                    [
+                        910,
+                        500
+                    ],
+                    [
+                        914,
+                        500
+                    ],
+                    [
+                        917,
+                        497
+                    ],
+                    [
+                        917,
+                        494
+                    ],
+                    [
+                        918,
+                        493
+                    ],
+                    [
+                        918,
+                        491
+                    ],
+                    [
+                        919,
+                        490
+                    ],
+                    [
+                        927,
+                        490
+                    ],
+                    [
+                        928,
+                        491
+                    ],
+                    [
+                        946,
+                        491
+                    ],
+                    [
+                        949,
+                        494
+                    ],
+                    [
+                        958,
+                        494
+                    ],
+                    [
+                        959,
+                        493
+                    ],
+                    [
+                        959,
+                        492
+                    ],
+                    [
+                        960,
+                        491
+                    ],
+                    [
+                        981,
+                        491
+                    ],
+                    [
+                        982,
+                        492
+                    ],
+                    [
+                        982,
+                        493
+                    ],
+                    [
+                        988,
+                        499
+                    ],
+                    [
+                        1000,
+                        499
+                    ],
+                    [
+                        1001,
+                        498
+                    ],
+                    [
+                        1001,
+                        496
+                    ],
+                    [
+                        1003,
+                        494
+                    ],
+                    [
+                        1003,
+                        493
+                    ],
+                    [
+                        1004,
+                        492
+                    ],
+                    [
+                        1004,
+                        490
+                    ],
+                    [
+                        1005,
+                        489
+                    ],
+                    [
+                        1005,
+                        488
+                    ],
+                    [
+                        1006,
+                        487
+                    ],
+                    [
+                        1006,
+                        486
+                    ],
+                    [
+                        1007,
+                        485
+                    ],
+                    [
+                        1007,
+                        483
+                    ],
+                    [
+                        1008,
+                        482
+                    ],
+                    [
+                        1008,
+                        466
+                    ],
+                    [
+                        1007,
+                        465
+                    ],
+                    [
+                        1007,
+                        458
+                    ],
+                    [
+                        1006,
+                        457
+                    ],
+                    [
+                        1006,
+                        450
+                    ],
+                    [
+                        1005,
+                        449
+                    ],
+                    [
+                        998,
+                        449
+                    ],
+                    [
+                        997,
+                        448
+                    ],
+                    [
+                        995,
+                        448
+                    ],
+                    [
+                        994,
+                        447
+                    ],
+                    [
+                        991,
+                        447
+                    ],
+                    [
+                        980,
+                        436
+                    ],
+                    [
+                        979,
+                        436
+                    ],
+                    [
+                        978,
+                        435
+                    ],
+                    [
+                        977,
+                        435
+                    ],
+                    [
+                        976,
+                        434
+                    ],
+                    [
+                        975,
+                        434
+                    ],
+                    [
+                        974,
+                        433
+                    ],
+                    [
+                        973,
+                        433
+                    ],
+                    [
+                        972,
+                        432
+                    ],
+                    [
+                        971,
+                        432
+                    ],
+                    [
+                        970,
+                        431
+                    ],
+                    [
+                        962,
+                        431
+                    ],
+                    [
+                        961,
+                        430
+                    ],
+                    [
+                        943,
+                        430
+                    ],
+                    [
+                        942,
+                        429
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338581,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.175Z",
+            "updatedAt": "2023-12-02T10:56:46.175Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        873,
+                        429
+                    ],
+                    [
+                        1008,
+                        500
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338580,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.174Z",
+            "updatedAt": "2023-12-02T10:56:46.174Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        18,
+                        432
+                    ],
+                    [
+                        17,
+                        433
+                    ],
+                    [
+                        0,
+                        433
+                    ],
+                    [
+                        0,
+                        562
+                    ],
+                    [
+                        6,
+                        562
+                    ],
+                    [
+                        7,
+                        563
+                    ],
+                    [
+                        14,
+                        563
+                    ],
+                    [
+                        15,
+                        564
+                    ],
+                    [
+                        32,
+                        564
+                    ],
+                    [
+                        33,
+                        563
+                    ],
+                    [
+                        41,
+                        563
+                    ],
+                    [
+                        43,
+                        565
+                    ],
+                    [
+                        43,
+                        566
+                    ],
+                    [
+                        45,
+                        568
+                    ],
+                    [
+                        45,
+                        569
+                    ],
+                    [
+                        55,
+                        579
+                    ],
+                    [
+                        69,
+                        579
+                    ],
+                    [
+                        78,
+                        570
+                    ],
+                    [
+                        78,
+                        569
+                    ],
+                    [
+                        79,
+                        568
+                    ],
+                    [
+                        79,
+                        559
+                    ],
+                    [
+                        80,
+                        558
+                    ],
+                    [
+                        80,
+                        553
+                    ],
+                    [
+                        81,
+                        552
+                    ],
+                    [
+                        87,
+                        552
+                    ],
+                    [
+                        88,
+                        551
+                    ],
+                    [
+                        93,
+                        551
+                    ],
+                    [
+                        94,
+                        550
+                    ],
+                    [
+                        99,
+                        550
+                    ],
+                    [
+                        100,
+                        549
+                    ],
+                    [
+                        105,
+                        549
+                    ],
+                    [
+                        106,
+                        548
+                    ],
+                    [
+                        111,
+                        548
+                    ],
+                    [
+                        112,
+                        547
+                    ],
+                    [
+                        117,
+                        547
+                    ],
+                    [
+                        118,
+                        546
+                    ],
+                    [
+                        124,
+                        546
+                    ],
+                    [
+                        125,
+                        545
+                    ],
+                    [
+                        130,
+                        545
+                    ],
+                    [
+                        131,
+                        544
+                    ],
+                    [
+                        136,
+                        544
+                    ],
+                    [
+                        137,
+                        543
+                    ],
+                    [
+                        142,
+                        543
+                    ],
+                    [
+                        143,
+                        542
+                    ],
+                    [
+                        148,
+                        542
+                    ],
+                    [
+                        149,
+                        541
+                    ],
+                    [
+                        154,
+                        541
+                    ],
+                    [
+                        155,
+                        542
+                    ],
+                    [
+                        155,
+                        543
+                    ],
+                    [
+                        156,
+                        544
+                    ],
+                    [
+                        156,
+                        545
+                    ],
+                    [
+                        158,
+                        547
+                    ],
+                    [
+                        159,
+                        547
+                    ],
+                    [
+                        161,
+                        549
+                    ],
+                    [
+                        162,
+                        549
+                    ],
+                    [
+                        163,
+                        550
+                    ],
+                    [
+                        164,
+                        550
+                    ],
+                    [
+                        165,
+                        551
+                    ],
+                    [
+                        166,
+                        551
+                    ],
+                    [
+                        167,
+                        552
+                    ],
+                    [
+                        168,
+                        552
+                    ],
+                    [
+                        169,
+                        553
+                    ],
+                    [
+                        175,
+                        553
+                    ],
+                    [
+                        176,
+                        552
+                    ],
+                    [
+                        178,
+                        552
+                    ],
+                    [
+                        179,
+                        551
+                    ],
+                    [
+                        180,
+                        551
+                    ],
+                    [
+                        181,
+                        550
+                    ],
+                    [
+                        182,
+                        550
+                    ],
+                    [
+                        185,
+                        547
+                    ],
+                    [
+                        185,
+                        546
+                    ],
+                    [
+                        186,
+                        545
+                    ],
+                    [
+                        186,
+                        543
+                    ],
+                    [
+                        187,
+                        542
+                    ],
+                    [
+                        187,
+                        540
+                    ],
+                    [
+                        188,
+                        539
+                    ],
+                    [
+                        188,
+                        538
+                    ],
+                    [
+                        189,
+                        537
+                    ],
+                    [
+                        189,
+                        535
+                    ],
+                    [
+                        190,
+                        534
+                    ],
+                    [
+                        190,
+                        533
+                    ],
+                    [
+                        191,
+                        532
+                    ],
+                    [
+                        191,
+                        530
+                    ],
+                    [
+                        192,
+                        529
+                    ],
+                    [
+                        192,
+                        527
+                    ],
+                    [
+                        193,
+                        526
+                    ],
+                    [
+                        193,
+                        524
+                    ],
+                    [
+                        194,
+                        523
+                    ],
+                    [
+                        194,
+                        521
+                    ],
+                    [
+                        195,
+                        520
+                    ],
+                    [
+                        195,
+                        518
+                    ],
+                    [
+                        196,
+                        517
+                    ],
+                    [
+                        196,
+                        515
+                    ],
+                    [
+                        197,
+                        514
+                    ],
+                    [
+                        197,
+                        506
+                    ],
+                    [
+                        196,
+                        505
+                    ],
+                    [
+                        196,
+                        501
+                    ],
+                    [
+                        195,
+                        500
+                    ],
+                    [
+                        195,
+                        498
+                    ],
+                    [
+                        194,
+                        497
+                    ],
+                    [
+                        194,
+                        495
+                    ],
+                    [
+                        193,
+                        494
+                    ],
+                    [
+                        193,
+                        493
+                    ],
+                    [
+                        192,
+                        492
+                    ],
+                    [
+                        192,
+                        491
+                    ],
+                    [
+                        190,
+                        489
+                    ],
+                    [
+                        190,
+                        488
+                    ],
+                    [
+                        185,
+                        483
+                    ],
+                    [
+                        184,
+                        483
+                    ],
+                    [
+                        181,
+                        480
+                    ],
+                    [
+                        180,
+                        480
+                    ],
+                    [
+                        179,
+                        479
+                    ],
+                    [
+                        176,
+                        479
+                    ],
+                    [
+                        175,
+                        478
+                    ],
+                    [
+                        172,
+                        478
+                    ],
+                    [
+                        171,
+                        477
+                    ],
+                    [
+                        170,
+                        477
+                    ],
+                    [
+                        169,
+                        476
+                    ],
+                    [
+                        168,
+                        476
+                    ],
+                    [
+                        167,
+                        475
+                    ],
+                    [
+                        166,
+                        475
+                    ],
+                    [
+                        165,
+                        474
+                    ],
+                    [
+                        165,
+                        473
+                    ],
+                    [
+                        166,
+                        472
+                    ],
+                    [
+                        166,
+                        471
+                    ],
+                    [
+                        167,
+                        470
+                    ],
+                    [
+                        167,
+                        469
+                    ],
+                    [
+                        168,
+                        468
+                    ],
+                    [
+                        168,
+                        465
+                    ],
+                    [
+                        167,
+                        465
+                    ],
+                    [
+                        166,
+                        464
+                    ],
+                    [
+                        157,
+                        464
+                    ],
+                    [
+                        156,
+                        465
+                    ],
+                    [
+                        154,
+                        465
+                    ],
+                    [
+                        150,
+                        461
+                    ],
+                    [
+                        149,
+                        461
+                    ],
+                    [
+                        145,
+                        457
+                    ],
+                    [
+                        144,
+                        457
+                    ],
+                    [
+                        141,
+                        454
+                    ],
+                    [
+                        140,
+                        454
+                    ],
+                    [
+                        138,
+                        452
+                    ],
+                    [
+                        137,
+                        452
+                    ],
+                    [
+                        135,
+                        450
+                    ],
+                    [
+                        134,
+                        450
+                    ],
+                    [
+                        132,
+                        448
+                    ],
+                    [
+                        131,
+                        448
+                    ],
+                    [
+                        129,
+                        446
+                    ],
+                    [
+                        128,
+                        446
+                    ],
+                    [
+                        126,
+                        444
+                    ],
+                    [
+                        125,
+                        444
+                    ],
+                    [
+                        123,
+                        442
+                    ],
+                    [
+                        122,
+                        442
+                    ],
+                    [
+                        121,
+                        441
+                    ],
+                    [
+                        119,
+                        441
+                    ],
+                    [
+                        118,
+                        440
+                    ],
+                    [
+                        116,
+                        440
+                    ],
+                    [
+                        115,
+                        439
+                    ],
+                    [
+                        112,
+                        439
+                    ],
+                    [
+                        111,
+                        438
+                    ],
+                    [
+                        109,
+                        438
+                    ],
+                    [
+                        108,
+                        437
+                    ],
+                    [
+                        105,
+                        437
+                    ],
+                    [
+                        104,
+                        436
+                    ],
+                    [
+                        102,
+                        436
+                    ],
+                    [
+                        101,
+                        435
+                    ],
+                    [
+                        98,
+                        435
+                    ],
+                    [
+                        97,
+                        434
+                    ],
+                    [
+                        88,
+                        434
+                    ],
+                    [
+                        87,
+                        433
+                    ],
+                    [
+                        78,
+                        433
+                    ],
+                    [
+                        77,
+                        432
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92338579,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T10:56:46.174Z",
+            "updatedAt": "2023-12-02T10:56:46.174Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        0,
+                        432
+                    ],
+                    [
+                        197,
+                        579
+                    ]
+                ],
+                "interior": []
+            }
+        }
+    ]
+}

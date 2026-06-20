@@ -1,0 +1,186 @@
+{
+    "description": "",
+    "tags": [],
+    "size": {
+        "height": 720,
+        "width": 1280
+    },
+    "objects": [
+        {
+            "id": 92423290,
+            "classId": 6509133,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:14:10.030Z",
+            "updatedAt": "2023-12-02T11:14:10.030Z",
+            "tags": [],
+            "classTitle": "pedestrian",
+            "points": {
+                "exterior": [
+                    [
+                        776,
+                        268
+                    ],
+                    [
+                        776,
+                        271
+                    ],
+                    [
+                        775,
+                        272
+                    ],
+                    [
+                        774,
+                        272
+                    ],
+                    [
+                        774,
+                        280
+                    ],
+                    [
+                        776,
+                        282
+                    ],
+                    [
+                        776,
+                        292
+                    ],
+                    [
+                        777,
+                        292
+                    ],
+                    [
+                        778,
+                        291
+                    ],
+                    [
+                        781,
+                        291
+                    ],
+                    [
+                        781,
+                        282
+                    ],
+                    [
+                        782,
+                        281
+                    ],
+                    [
+                        782,
+                        271
+                    ],
+                    [
+                        781,
+                        270
+                    ],
+                    [
+                        780,
+                        270
+                    ],
+                    [
+                        779,
+                        269
+                    ],
+                    [
+                        779,
+                        268
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92423289,
+            "classId": 6509133,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:14:10.030Z",
+            "updatedAt": "2023-12-02T11:14:10.030Z",
+            "tags": [],
+            "classTitle": "pedestrian",
+            "points": {
+                "exterior": [
+                    [
+                        774,
+                        268
+                    ],
+                    [
+                        782,
+                        292
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92423288,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "polygon",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:14:10.030Z",
+            "updatedAt": "2023-12-02T11:14:10.030Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        609,
+                        266
+                    ],
+                    [
+                        609,
+                        275
+                    ],
+                    [
+                        610,
+                        275
+                    ],
+                    [
+                        611,
+                        274
+                    ],
+                    [
+                        620,
+                        274
+                    ],
+                    [
+                        620,
+                        269
+                    ],
+                    [
+                        617,
+                        266
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 92423287,
+            "classId": 6509132,
+            "description": "",
+            "geometryType": "rectangle",
+            "labelerLogin": "inbox@datasetninja.com",
+            "createdAt": "2023-12-02T11:14:10.029Z",
+            "updatedAt": "2023-12-02T11:14:10.029Z",
+            "tags": [],
+            "classTitle": "car",
+            "points": {
+                "exterior": [
+                    [
+                        609,
+                        266
+                    ],
+                    [
+                        620,
+                        275
+                    ]
+                ],
+                "interior": []
+            }
+        }
+    ]
+}
