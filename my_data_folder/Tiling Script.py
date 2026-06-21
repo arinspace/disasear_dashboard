@@ -1,10 +1,41 @@
+"""
+Satellite Image Tiling Script
+=============================
+Divides large satellite images into smaller tiles for training machine learning models.
+Preserves geospatial metadata (CRS, transforms) in output tiles.
+
+Functions:
+    tile_satellite_image: Split large GeoTIFF images into manageable tile sizes
+"""
+
 import rasterio
 from rasterio.windows import Window
 import os
 
 def tile_satellite_image(input_path, output_dir, tile_size=512):
-    """
-    หั่นภาพ THEOS-2 ขนาดใหญ่เป็น Tile เล็กๆ สำหรับเทรน AI
+    """Divide large satellite image into tiled GeoTIFF files.
+    
+    Splits large satellite imagery (e.g., THEOS-2) into smaller tiles for:
+    - Model training (prevents memory issues)
+    - Inference on high-resolution data
+    - Parallel processing
+    
+    Args:
+        input_path (str): Path to input satellite image (GeoTIFF format)
+        output_dir (str): Directory to save output tiles
+        tile_size (int, optional): Tile dimensions (square, default 512 pixels)
+    
+    Saves:
+        Multiple GeoTIFF files named: tile_{x}_{y}.tif
+        Each tile preserves original CRS, geospatial transform, and metadata
+    
+    Note:
+        - Creates output directory if it doesn't exist
+        - Tiles at image boundaries are smaller if not perfectly divisible
+        - Each tile retains full geospatial metadata for accuracy
+    
+    Example:
+        tile_satellite_image('THEOS2_POST_FLOOD.tif', 'train/images_post')
     """
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)

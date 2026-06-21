@@ -1,3 +1,14 @@
+"""
+U-Net Model Evaluation Script
+=============================
+Evaluates trained U-Net model on BDD100K validation dataset.
+Loads saved model and performs inference on validation images.
+
+Model: unet_bdd100k.pth
+Dataset: BDD100K validation split
+Output classes: 19 semantic classes
+"""
+
 import torch
 from torch.utils.data import DataLoader
 from unet_model import UNet

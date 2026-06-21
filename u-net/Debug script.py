@@ -1,3 +1,14 @@
+"""
+Dataset Verification and Debug Script
+======================================
+Validates dataset structure and checks if image-mask pairs exist correctly.
+Lists first 5 images and verifies corresponding mask files are present.
+
+Directories:
+    - Images: D:/geoai_train/geoai_train/datasets/train
+    - Masks: D:/geoai_train/geoai_train/datasets/train_labels
+"""
+
 import os
 
 img_dir = "D:/geoai_train/geoai_train/datasets/train"

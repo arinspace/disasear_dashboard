@@ -1,3 +1,13 @@
+"""
+BDD100K Dataset Downloader
+==========================
+Automatically downloads BDD100K dataset including images and segmentation masks.
+Configures UTF-8 encoding for console output and downloads datasets to the 'datasets' folder.
+
+Dependencies:
+    - dataset_tools: Tool for downloading datasets
+"""
+
 import dataset_tools as dtools
 
 import sys, io

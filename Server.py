@@ -21,6 +21,8 @@ CORS(app)
 
 # Global storage for hazards
 GLOBAL_HAZARDS = []
+GLOBAL_SURVIVOR = None
+GLOBAL_EXIT = None
 
 # ──────────────────────────────────────────────
 # OPTIMIZATION CORE  (ย่อจาก disaster_ai.py)
@@ -134,6 +136,112 @@ class AStarSearch:
 
         total = sum(self.map.movement_cost(dedup[i][0],dedup[i][1],
                                             dedup[i+1][0],dedup[i+1][1])
+                    for i in range(len(dedup)-1))
+        return dedup, round(total,4)
+
+
+class HillClimbing:
+    def __init__(self, dmap: DisasterMap):
+        self.map = dmap
+
+    def find_path(self, sx, sy, ex, ey, max_iter=2000):
+        cx, cy = sx, sy
+        path   = [(cx,cy)]
+        step   = 0.003
+
+        def obj(x,y): return self.map.movement_cost(x,y,ex,ey) + self.map.total_danger(x,y)*20
+
+        for _ in range(max_iter):
+            best_nx, best_ny = cx, cy
+            best_val = obj(cx, cy)
+            
+            # 8 directions for neighbors
+            improved = False
+            for angle in [i * (math.pi / 4) for i in range(8)]:
+                nx = cx + math.cos(angle)*step
+                ny = cy + math.sin(angle)*step
+                
+                val = obj(nx, ny)
+                if val < best_val:
+                    best_nx, best_ny = nx, ny
+                    best_val = val
+                    improved = True
+                    
+            if not improved:
+                break # Local minimum reached
+                
+            cx, cy = best_nx, best_ny
+            path.append((cx,cy))
+            
+            # Check if reached exit
+            if math.hypot(ex-cx, ey-cy) <= step:
+                break
+
+        path.append((ex,ey))
+        dedup = [path[0]]
+        for p in path[1:]:
+            if abs(p[0]-dedup[-1][0])>1e-6 or abs(p[1]-dedup[-1][1])>1e-6:
+                dedup.append(p)
+        total = sum(self.map.movement_cost(dedup[i][0],dedup[i][1],dedup[i+1][0],dedup[i+1][1])
+                    for i in range(len(dedup)-1))
+        return dedup, round(total,4)
+
+
+class LocalBeamSearch:
+    def __init__(self, dmap: DisasterMap):
+        self.map = dmap
+
+    def find_path(self, sx, sy, ex, ey, k=3, max_iter=1500):
+        step = 0.003
+        def obj(x,y): return self.map.movement_cost(x,y,ex,ey) + self.map.total_danger(x,y)*20
+
+        # Each state is a tuple: (cost, x, y, path)
+        states = [ (obj(sx, sy), sx, sy, [(sx,sy)]) for _ in range(k) ]
+        
+        for _ in range(max_iter):
+            all_neighbors = []
+            for cost, cx, cy, path in states:
+                if math.hypot(ex-cx, ey-cy) <= step:
+                    all_neighbors.append((cost, cx, cy, path))
+                    continue
+                    
+                for angle in [i * (math.pi / 4) for i in range(8)]:
+                    nx = cx + math.cos(angle)*step
+                    ny = cy + math.sin(angle)*step
+                    n_cost = obj(nx, ny)
+                    all_neighbors.append((n_cost, nx, ny, path + [(nx,ny)]))
+            
+            all_neighbors.sort(key=lambda x: x[0])
+            next_states = []
+            
+            for state in all_neighbors:
+                if len(next_states) >= k:
+                    break
+                too_close = False
+                for ns in next_states:
+                    if math.hypot(state[1]-ns[1], state[2]-ns[2]) < step*0.1:
+                        too_close = True
+                        break
+                if not too_close:
+                    next_states.append(state)
+            
+            idx = 0
+            while len(next_states) < k and idx < len(all_neighbors):
+                if all_neighbors[idx] not in next_states:
+                    next_states.append(all_neighbors[idx])
+                idx += 1
+                
+            states = next_states
+            
+            if math.hypot(ex-states[0][1], ey-states[0][2]) <= step:
+                break
+
+        best_path = states[0][3] + [(ex,ey)]
+        dedup = [best_path[0]]
+        for p in best_path[1:]:
+            if abs(p[0]-dedup[-1][0])>1e-6 or abs(p[1]-dedup[-1][1])>1e-6:
+                dedup.append(p)
+        total = sum(self.map.movement_cost(dedup[i][0],dedup[i][1],dedup[i+1][0],dedup[i+1][1])
                     for i in range(len(dedup)-1))
         return dedup, round(total,4)
 
@@ -276,12 +384,24 @@ def optimize():
     algo   = data.get("algorithm", "astar")
 
     t0 = time.perf_counter()
-    if algo == "sa":
+    if algo == "hc":
+        hc = HillClimbing(dmap)
+        path, cost = hc.find_path(
+            survivors[0].x, survivors[0].y, exit_x, exit_y
+        )
+        algo_name = "Hill Climbing (Local Search)"
+    elif algo == "sa":
         sa = SimulatedAnnealing(dmap)
         path, cost = sa.find_path(
             survivors[0].x, survivors[0].y, exit_x, exit_y
         )
-        algo_name = "Simulated Annealing"
+        algo_name = "Simulated Annealing (Local Search)"
+    elif algo == "beam":
+        beam = LocalBeamSearch(dmap)
+        path, cost = beam.find_path(
+            survivors[0].x, survivors[0].y, exit_x, exit_y
+        )
+        algo_name = "Local Beam Search"
     else:
         astar = AStarSearch(dmap, grid_step=0.0008)
         path, cost = astar.find_path(
@@ -360,17 +480,60 @@ def report_flood():
     เก็บ hazard ใหม่และส่งกลับ
     """
     data = request.json
+    severity = data.get("severity", 5)
+    lat = data.get("lat", 13.7563)
+    lng = data.get("lng", 100.5018)
+
+    if severity <= 3:
+        radius_m = 2000
+        offset_m = 5
+    elif severity <= 6:
+        radius_m = 20000
+        offset_m = 2000
+    else:
+        radius_m = 100000
+        offset_m = 5000
+
     new_hazard = {
         "type": "flood",
-        "lat": data.get("lat", 13.7563),
-        "lng": data.get("lng", 100.5018),
-        "severity": data.get("severity", 5),
-        "radius_m": int(200 + data.get("severity", 5) * 30),
+        "lat": lat,
+        "lng": lng,
+        "severity": severity,
+        "radius_m": radius_m,
         "confidence": data.get("confidence", 0),
         "level_label": data.get("level_label", "Unknown")
     }
     GLOBAL_HAZARDS.append(new_hazard)
     
+    user_dist_m = float(data.get("user_dist_m", 0))
+    user_dir = data.get("user_dir", "N")
+
+    bearings = {
+        "N": 0, "NE": 45, "E": 90, "SE": 135,
+        "S": 180, "SW": 225, "W": 270, "NW": 315
+    }
+    bearing_deg = bearings.get(user_dir, 0)
+    bearing_rad = math.radians(bearing_deg)
+
+    total_dist_from_center_m = radius_m + user_dist_m
+    
+    # Calculate survivor coordinates
+    lat_offset = (total_dist_from_center_m * math.cos(bearing_rad)) / 111320.0
+    lng_offset = (total_dist_from_center_m * math.sin(bearing_rad)) / (111320.0 * math.cos(math.radians(lat)))
+    survivor_lat = lat + lat_offset
+    survivor_lng = lng + lng_offset
+
+    # Calculate exit coordinates (further away in the same direction)
+    exit_dist_from_center_m = total_dist_from_center_m + offset_m
+    exit_lat_offset = (exit_dist_from_center_m * math.cos(bearing_rad)) / 111320.0
+    exit_lng_offset = (exit_dist_from_center_m * math.sin(bearing_rad)) / (111320.0 * math.cos(math.radians(lat)))
+    exit_lat = lat + exit_lat_offset
+    exit_lng = lng + exit_lng_offset
+
+    global GLOBAL_SURVIVOR, GLOBAL_EXIT
+    GLOBAL_SURVIVOR = {"lat": survivor_lat, "lng": survivor_lng}
+    GLOBAL_EXIT = {"lat": exit_lat, "lng": exit_lng}
+
     return jsonify({
         "status"   : "received",
         "hazard"   : new_hazard
@@ -378,7 +541,11 @@ def report_flood():
 
 @app.route("/api/hazards", methods=["GET"])
 def get_hazards():
-    return jsonify(GLOBAL_HAZARDS)
+    return jsonify({
+        "hazards": GLOBAL_HAZARDS,
+        "survivor": GLOBAL_SURVIVOR,
+        "exit": GLOBAL_EXIT
+    })
 
 
 if __name__ == "__main__":

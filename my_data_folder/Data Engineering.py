@@ -1,9 +1,50 @@
+"""
+Data Engineering for Flood Detection - NDWI Calculation
+========================================================
+Optimized tiled processing of satellite imagery for water detection.
+Uses NDWI (Normalized Difference Water Index) to identify water bodies from multispectral satellite data.
+
+Functions:
+    calculate_optimized_ndwi_tiled: Process large satellite images in tiles for memory efficiency
+    
+Key Optimizations:
+    - Tiled reading to prevent memory overflow
+    - CRS (Coordinate Reference System) validation
+    - Binary mask compression using INT8
+    - UINT16 intermediate representation
+"""
+
 import rasterio
 import numpy as np
 
 def calculate_optimized_ndwi_tiled(pre_image_path, post_image_path, tile_size=1024):
-    print("--- เริ่มกระบวนการคัดกรองผืนน้ำแบบ Optimized ---")
-    results = []
+    """Calculate optimized NDWI (Normalized Difference Water Index) using tiled processing.
+    
+    Processes large satellite images in tiles to detect water bodies and changes.
+    NDWI = (Green - NIR) / (Green + NIR)
+    
+    Args:
+        pre_image_path (str): Path to pre-event satellite image (multi-band GeoTIFF)
+        post_image_path (str): Path to post-event satellite image (multi-band GeoTIFF)
+        tile_size (int, optional): Tile size for processing. Defaults to 1024 pixels.
+    
+    Returns:
+        list: List of dictionaries containing:
+            - 'window': rasterio Window object for tile location
+            - 'water_mask': Binary numpy array (0=not water, 1=water)
+            - 'transform': Geospatial transform for coordinates
+    
+    Processing:
+        1. Validates CRS (Coordinate Reference System) match between images
+        2. Iterates through image tiles
+        3. Reads Green (band 3) and NIR (band 4) bands
+        4. Computes NDWI with epsilon for numerical stability
+        5. Creates binary water mask (threshold > 0.1)
+        6. Compresses to INT8 for memory efficiency
+    
+    Raises:
+        Warning if CRS doesn't match between images
+    """
     
     with rasterio.open(pre_image_path) as pre_ds, rasterio.open(post_image_path) as post_ds:
         # ⚠️ optimization: ตรวจสอบพิกัด CRS (Coordinate Reference System) ให้ตรงกัน

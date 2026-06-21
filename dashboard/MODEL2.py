@@ -1,21 +1,69 @@
+"""
+Disaster Survival AI - Route Optimization Model
+===============================================
+AI system for computing optimal evacuation routes and survival strategies.
+Uses optimization techniques including Simulated Annealing and Linear Programming.
+
+Classes:
+    DisasterSurvivalAI: Main class for route optimization and survival recommendations
+"""
+
 import math
 import random
 from scipy.optimize import linprog
 
 
 class DisasterSurvivalAI:
+    """Optimization system for disaster evacuation route planning.
+    
+    Uses cost-based optimization to find the safest evacuation zone considering:
+    - Distance to safety
+    - Proximity to disaster
+    - Severity level of disaster
+    
+    Then uses Linear Programming to allocate optimal time and resources for survival activities.
+    
+    Attributes:
+        user_loc (tuple): Current user position (x, y)
+        disaster_loc (tuple): Disaster center position (x, y)
+        severity (int): Disaster severity level 1-5
+        safe_zones (list): Available evacuation zones [(x1, y1), (x2, y2), ...]
+    """
 
     def __init__(self, user_loc, disaster_loc, severity, safe_zones):
-        self.user_loc = user_loc  # (x, y)
-        self.disaster_loc = disaster_loc  # (x, y)
-        self.severity = severity  # ระดับ 1-5
-        self.safe_zones = safe_zones  # รายการพิกัด [(x1, y1), (x2, y2), ...]
+        """Initialize Disaster Survival AI system.
+        
+        Args:
+            user_loc (tuple): User coordinates (x, y)
+            disaster_loc (tuple): Disaster center coordinates (x, y)
+            severity (int): Disaster severity 1-5 (5 = most severe)
+            safe_zones (list): Available safe zone coordinates
+        """
 
     def _calculate_distance(self, p1, p2):
+        """Calculate Euclidean distance between two points.
+        
+        Args:
+            p1 (tuple): First point (x, y)
+            p2 (tuple): Second point (x, y)
+            
+        Returns:
+            float: Euclidean distance
+        """
         return math.sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2)
 
     def optimize_route(self):
-        """ใช้หลัก Optimization (Simulated Annealing แบบย่อ) คัดเลือกจุดปลอดภัยและเส้นทาง"""
+        """Find optimal evacuation route using cost optimization.
+        
+        Cost function considers:
+        - Distance to safe zone
+        - Danger penalty based on proximity to disaster and severity
+        
+        Returns:
+            tuple: (best_zone, best_cost)
+                - best_zone: Coordinates of recommended safe zone
+                - best_cost: Computed safety score (lower is better)
+        """
         best_zone = None
         best_cost = float("inf")
 
@@ -38,7 +86,21 @@ class DisasterSurvivalAI:
         return best_zone, best_cost
 
     def optimize_survival_advice(self):
-        """ใช้ Linear Programming คัดเลือกน้ำหนักคำแนะนำที่เหมาะสมที่สุดภายใต้ข้อจำกัดเวลา"""
+        """Allocate survival resources using Linear Programming.
+        
+        Optimizes time allocation among three survival activities:
+        1. Evacuation (10 minutes)
+        2. Preparation of supplies (20 minutes)
+        3. Temporary shelter finding (5 minutes)
+        
+        Resources and priorities adjust based on disaster severity.
+        
+        Returns:
+            list: Selected survival advice strings based on LP optimization
+        
+        Algorithm:
+            Uses scipy.optimize.linprog to maximize utility function subject to time constraints
+        """
         # สมมติมีคำแนะนำ 3 แบบ: [1. อพยพทันที, 2. จัดเตรียมสิ่งของ, 3. หาสถานที่หลบซ่อนชั่วคราว]
         # คะแนนความสำคัญ (Utility) ของแต่ละคำแนะนำตามระดับความรุนแรง
         if self.severity >= 4:

@@ -77,8 +77,10 @@ select:focus, input:focus { border-color: #2196F3; }
           <div>
             <label>อัลกอริทึม</label>
             <select id="algorithm">
-              <option value="astar">A* Search</option>
-              <option value="sa">Simulated Annealing</option>
+              <option value="astar">A* Search (Pathfinding)</option>
+              <option value="hc">Hill Climbing (Optimization)</option>
+              <option value="sa">Simulated Annealing (Optimization)</option>
+              <option value="beam">Local Beam Search (Optimization)</option>
             </select>
           </div>
         </div>
@@ -110,6 +112,8 @@ let mode = null;
 let survivor = null; // {lat, lng}
 let exit = null; // {lat, lng}
 let globalHazards = [];
+let lastServerSurvivor = null;
+let lastServerExit = null;
 
 const hazardLayer = L.layerGroup().addTo(map);
 const markerLayer = L.layerGroup().addTo(map);
@@ -163,7 +167,22 @@ function fetchHazards() {
   fetch('/api/hazards')
     .then(r => r.json())
     .then(data => {
-      globalHazards = data;
+      if (Array.isArray(data)) {
+        globalHazards = data;
+      } else {
+        globalHazards = data.hazards || [];
+        if (data.survivor && JSON.stringify(data.survivor) !== JSON.stringify(lastServerSurvivor)) {
+          survivor = data.survivor;
+          lastServerSurvivor = data.survivor;
+          renderMarkers();
+          map.setView([survivor.lat, survivor.lng], 8); // ซูมแผนที่ออกเพื่อให้เห็นรัศมีขนาดใหญ่
+        }
+        if (data.exit && JSON.stringify(data.exit) !== JSON.stringify(lastServerExit)) {
+          exit = data.exit;
+          lastServerExit = data.exit;
+          renderMarkers();
+        }
+      }
       renderHazards();
     }).catch(console.error);
 }

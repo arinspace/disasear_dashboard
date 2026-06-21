@@ -1,3 +1,19 @@
+"""
+U-Net Training Script for BDD100K Segmentation
+===============================================
+Trains U-Net model on BDD100K dataset with early stopping and learning rate scheduling.
+
+Configuration:
+    - Epochs: 40
+    - Batch Size: 4
+    - Learning Rate: 0.001 with step decay
+    - Device: GPU (if available) or CPU
+    - Early Stopping: Patience = 5 epochs
+    
+Model Checkpoints:
+    - Best model saved as 'unet_bdd100k_best.pth' based on validation loss
+"""
+
 import torch
 import torch.nn as nn
 import torch.optim as optim

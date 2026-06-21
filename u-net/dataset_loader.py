@@ -1,14 +1,34 @@
+"""
+BDD100K Dataset Loader
+======================
+Dataset class for loading BDD100K segmentation dataset for training U-Net models.
+Handles image and mask loading with PyTorch DataLoader compatibility.
+"""
+
 import os
 import torch
 from torch.utils.data import Dataset
 import cv2
 
 class BDDDataset(Dataset):
+    """PyTorch Dataset for BDD100K semantic segmentation.
+    
+    Attributes:
+        root_dir (str): Root directory containing 'images' and 'labels' subdirectories
+        list_file (str): Path to text file with list of sample IDs (one per line)
+        split (str): Dataset split - 'train' or 'val'
+        transform (callable, optional): Optional transforms to apply to image/mask pairs
+    """
+    
     def __init__(self, root_dir, list_file, split="train", transform=None):
         """
-        root_dir: โฟลเดอร์หลักของ dataset เช่น D:/geoai_train/geoai_train/datasets/bdd100k
-        list_file: path ไปยัง train.txt หรือ val.txt ที่มี list ของ ID
-        split: "train" หรือ "val" เพื่อเลือกโฟลเดอร์ย่อย
+        Initialize BDD100K dataset loader.
+        
+        Args:
+            root_dir (str): Root dataset directory (e.g. D:/geoai_train/geoai_train/datasets/bdd100k)
+            list_file (str): Path to train.txt or val.txt file containing sample IDs
+            split (str): Dataset split - 'train' or 'val' to select subdirectory
+            transform (callable, optional): Optional image/mask transformation function
         """
         self.root_dir = root_dir
         self.split = split
@@ -19,9 +39,23 @@ class BDDDataset(Dataset):
             self.ids = [line.strip() for line in f.readlines() if line.strip()]
 
     def __len__(self):
+        """Return total number of samples in dataset."""
         return len(self.ids)
 
     def __getitem__(self, idx):
+        """Load image and mask for given index.
+        
+        Args:
+            idx (int): Index of sample to load
+            
+        Returns:
+            tuple: (image tensor [0-1], mask tensor) where
+                - image: torch.Tensor of shape (3, H, W) normalized to [0, 1]
+                - mask: torch.Tensor of shape (H, W) with class indices
+                
+        Raises:
+            FileNotFoundError: If image or mask file not found at expected path
+        """
         sample_id = self.ids[idx]
 
         # สร้าง path ของ image และ mask จาก ID
