@@ -7,7 +7,7 @@
 
 ## How to use 🧑‍💻
 
-### Step 1: Start the Server
+### Step 1: Start the Server 🌐
 
 Open a terminal with the conda environment and run:
 
