@@ -1,4 +1,4 @@
-# geoai_train
+# Optimization Flooding and Survive AI
 
 ระบบการคาดเดาความรุนเเรงของน้ำท่วม เเละคำนวณเส้นทางการอพยพที่ปลอดภัยที่สุด
 โดยการ optimization 
