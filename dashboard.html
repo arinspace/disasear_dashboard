@@ -61,6 +61,11 @@ select:focus, input:focus { border-color: #2196F3; }
     </div>
     <div class="sidebar-body">
       
+      <div class="control-group" id="severityPanel" style="border-left-color: #7A9BB5; background: #233342;">
+        <h3 style="color: #E8F0F8; margin-bottom: 5px;">🚨 สถานการณ์ความรุนแรง</h3>
+        <div id="overallSeverity" style="font-size: 16px; font-weight: bold; color: #7A9BB5;">รอข้อมูลวิเคราะห์...</div>
+      </div>
+
       <div class="control-group">
         <h3>📍 ตั้งค่าจุดบนแผนที่</h3>
         <p style="font-size: 12px; color: #7A9BB5; margin-bottom: 10px;">คลิกปุ่มเพื่อเปิดโหมดวางจุด แล้วคลิกบนแผนที่</p>
@@ -165,9 +170,29 @@ function renderMarkers() {
 // Fetch hazards
 function fetchHazards() {
   fetch('/api/hazards')
-    .then(r => r.json())
-    .then(data => {
-      if (Array.isArray(data)) {
+  .then(r => r.json())
+  .then(data => {
+    // Update Severity Panel
+    const sevPanel = document.getElementById('severityPanel');
+    const sevText = document.getElementById('overallSeverity');
+    if (data.hazards && data.hazards.length > 0) {
+      const h = data.hazards[0];
+      const sev = h.severity || 5;
+      let col = "#4CAF50";
+      if (sev > 6) col = "#F44336";
+      else if (sev > 3) col = "#FF9800";
+      
+      sevPanel.style.borderLeftColor = col;
+      sevText.style.color = col;
+      sevText.innerHTML = `${h.level_label || 'ไม่ระบุ'} (ระดับ: ${sev}/10)`;
+    } else {
+      sevPanel.style.borderLeftColor = "#7A9BB5";
+      sevText.style.color = "#7A9BB5";
+      sevText.innerHTML = "รอข้อมูลวิเคราะห์...";
+    }
+
+    hazardLayer.clearLayers();
+    if (Array.isArray(data)) {
         globalHazards = data;
       } else {
         globalHazards = data.hazards || [];

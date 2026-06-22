@@ -548,6 +548,110 @@ def get_hazards():
     })
 
 
+@app.route("/api/report_flood_v2", methods=["POST"])
+def report_flood_v2():
+    """
+    รับข้อมูลจาก Map Picker:
+    {
+      "survivors": [{"id","lat","lng"}, ...],
+      "hazards": [{"type","lat","lng","severity","radius_m"}, ...],
+      "severity": int,
+      "confidence": int,
+      "level_label": str
+    }
+    """
+    data = request.json
+    if not data:
+        return jsonify({"error": "No data"}), 400
+
+    survivors = data.get("survivors", [])
+    hazards = data.get("hazards", [])
+    severity = data.get("severity", 5)
+    confidence = data.get("confidence", 0)
+    level_label = data.get("level_label", "Unknown")
+
+    # Clear existing hazards to avoid duplicate stacking
+    GLOBAL_HAZARDS.clear()
+    
+    # Add hazards from map picker to global storage
+    for h in hazards:
+        new_hazard = {
+            "type": h.get("type", "flood"),
+            "lat": h.get("lat", 13.7563),
+            "lng": h.get("lng", 100.5018),
+            "severity": h.get("severity", severity),
+            "radius_m": h.get("radius_m", 500),
+            "confidence": confidence,
+            "level_label": level_label
+        }
+        GLOBAL_HAZARDS.append(new_hazard)
+
+    # Set first survivor as the global survivor
+    global GLOBAL_SURVIVOR, GLOBAL_EXIT
+    if survivors:
+        first = survivors[0]
+        GLOBAL_SURVIVOR = {"lat": first["lat"], "lng": first["lng"]}
+
+        # Calculate exit point: ensure it is safely outside the hazard radius
+        if hazards:
+            nearest_h = min(hazards, key=lambda h:
+                math.hypot(first["lat"] - h["lat"], first["lng"] - h["lng"]))
+            
+            h_lat = nearest_h.get("lat", 13.7563)
+            h_lng = nearest_h.get("lng", 100.5018)
+            h_rad_m = nearest_h.get("radius_m", 2000)
+            sev = nearest_h.get("severity", 5)
+            
+            if sev <= 3:
+                offset_m = 500
+            elif sev <= 6:
+                offset_m = 2000
+            else:
+                offset_m = 5000
+                
+            total_safe_dist_m = h_rad_m + offset_m
+            
+            # Approximations for lat/lng distance
+            dlat = first["lat"] - h_lat
+            # Adjust dlng by cos(lat) to make distance isotropic
+            cos_lat = math.cos(math.radians(h_lat))
+            dlng = (first["lng"] - h_lng) * cos_lat
+            dist_deg = math.hypot(dlat, dlng)
+            
+            safe_dist_deg = total_safe_dist_m / 111320.0
+            
+            if dist_deg > 1e-9:
+                dir_lat = dlat / dist_deg
+                dir_lng = dlng / dist_deg
+                
+                # Make sure the exit is at least safe_dist_deg from center,
+                # and if survivor is already safe, place exit further by offset
+                final_dist_deg = max(dist_deg + (offset_m / 111320.0), safe_dist_deg)
+                
+                GLOBAL_EXIT = {
+                    "lat": h_lat + dir_lat * final_dist_deg,
+                    "lng": h_lng + (dir_lng * final_dist_deg) / cos_lat
+                }
+            else:
+                # Survivor is exactly at hazard center, go North
+                GLOBAL_EXIT = {
+                    "lat": h_lat + safe_dist_deg,
+                    "lng": h_lng
+                }
+        else:
+            # No hazards, set exit 2km north
+            GLOBAL_EXIT = {
+                "lat": first["lat"] + (2000 / 111320.0),
+                "lng": first["lng"]
+            }
+
+    return jsonify({
+        "status": "received",
+        "survivors_count": len(survivors),
+        "hazards_count": len(hazards)
+    })
+
+
 if __name__ == "__main__":
     print("RescuOpt AI Server starting on http://localhost:5000")
     app.run(debug=True, port=5000)
