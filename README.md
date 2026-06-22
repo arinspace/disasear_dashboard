@@ -1,11 +1,11 @@
-# Optimization Flooding and Survive AI
+# Optimization Flooding and Survive AI 🚩
 
 ระบบการคาดเดาความรุนเเรงของน้ำท่วม เเละคำนวณเส้นทางการอพยพที่ปลอดภัยที่สุด
 โดยการ optimization 
 
-#### จัดทำโดย : นนอ.อริญชย์ หุนตระนี เเละ นนอ.อภิรักษ์ สาจันทร์
+#### 🧐 จัดทำโดย : นนอ.อริญชย์ หุนตระนี เเละ นนอ.อภิรักษ์ สาจันทร์
 
-## How to use
+## How to use 🧑‍💻
 
 ### Step 1: Start the Server
 
