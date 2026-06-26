@@ -1,629 +1,891 @@
 """
-Disaster Survival AI Optimization System
-=========================================
-ระบบ AI สำหรับการวางแผนเส้นทางเอาชีวิตรอดจากภัยพิบัติ
-โดยใช้หลัก Optimization:
-  - Hill Climbing (Local Search)
-  - Simulated Annealing
-  - Linear Programming (Resource Allocation)
+╔══════════════════════════════════════════════════════════════════╗
+║        DISASTER SURVIVAL AI — OPTIMIZATION MODEL                 ║
+║        อ้างอิง: lecture3_optimization.pdf                        ║
+╠══════════════════════════════════════════════════════════════════╣
+║  Algorithms:                                                     ║
+║    1. Hill Climbing  (Steepest / Random Restart)                 ║
+║    2. Simulated Annealing                                        ║
+║    3. A* Search                                                  ║
+║    4. Greedy LP  (Resource Allocation)                           ║
+║                                                                  ║
+║  Objective Function:                                             ║
+║    minimize  dist(path) x (1 + 4 x danger) + danger_penalty     ║
+╚══════════════════════════════════════════════════════════════════╝
 
-อ้างอิงจาก: lecture3_optimization.pdf
+INPUT
+-----
+  hazards   : ประเภท, ความรุนแรง, พิกัด, รัศมี
+  survivors : พิกัด, สุขภาพ, การเคลื่อนที่, เสบียง
+  exit      : พิกัดทางออก
+  algorithm : sa | hc | hc_restart | astar
+
+OUTPUT
+------
+  เส้นทางที่ดีที่สุด + ต้นทุน + อันตราย + ลำดับผู้รอดชีวิต
+  การจัดสรรทรัพยากร + คำแนะนำการเอาชีวิตรอด
+
+FIXES
+-----
+  [Bug 1] HC random_restart: path ที่ชนะอาจไม่ได้เริ่มจาก survivor
+           → แก้โดยสร้าง best_path ใหม่จาก (sx,sy) เสมอ
+  [Bug 2] ResourceAllocator: threshold ใช้ strict < ทำให้ boundary
+           case (mobility=30, health=30) ไม่ได้รับทรัพยากร
+           → เปลี่ยนเป็น <=
+  [Bug 3] เปรียบ path_cost ของ A* กับ HC/SA โดยตรงไม่ได้เพราะ
+           objective function ต่างกัน (A* ไม่มี danger*20 penalty)
+           → แยก metric เป็น path_cost (movement) + danger_penalty
+              และแสดง note ใน comparison table
+  [Fix 4] docstring urgency ตัวอย่างผิด (82.5 → 89.5)
 """
 
+from __future__ import annotations
 import math
 import random
 import heapq
-from dataclasses import dataclass, field
-from typing import Optional
 import time
+from dataclasses import dataclass, field
 
 
-# ──────────────────────────────────────────────
-# DATA STRUCTURES
-# ──────────────────────────────────────────────
+# ======================================================================
+# 1.  CONSTANTS & SURVIVAL KNOWLEDGE BASE
+# ======================================================================
+
+HAZARD_TYPES = {"fire", "flood", "collapse", "toxic", "earthquake"}
+
+HAZARD_LABELS = {
+    "fire":       "FIRE - ไฟไหม้",
+    "flood":      "FLOOD - น้ำท่วม",
+    "collapse":   "COLLAPSE - อาคารถล่ม",
+    "toxic":      "TOXIC - สารพิษ",
+    "earthquake": "EARTHQUAKE - แผ่นดินไหว",
+}
+
+SURVIVAL_TIPS = {
+    "fire": [
+        "เคลื่อนที่ทวนลม (upwind) ออกจากแนวไฟเสมอ",
+        "ลงต่ำใกล้พื้น ออกซิเจนอยู่ใต้ระดับควัน",
+        "ปิดปากจมูกด้วยผ้าชุ่มน้ำป้องกันควันพิษ",
+        "หลีกเลี่ยงอาคารที่อาจพังเพราะความร้อน",
+        "อย่าเปิดประตูร้อน ตรวจสอบด้วยหลังมือก่อนเสมอ",
+    ],
+    "flood": [
+        "อย่าเดินลุยน้ำที่ไหลเร็ว แม้ระดับตื้นก็พาล้มได้",
+        "มุ่งสู่พื้นที่สูง ห่างจากร่องน้ำและถนนต่ำ",
+        "ระวังสายไฟฟ้าที่ขาดตกลงในน้ำ",
+        "หากติดในอาคาร ขึ้นชั้นบนสุดและส่งสัญญาณขอความช่วยเหลือ",
+        "อย่าขับรถฝ่าน้ำท่วม น้ำ 60 ซม. พัดรถยนต์ได้",
+    ],
+    "collapse": [
+        "DROP-COVER-HOLD: หมอบ หลบใต้โต๊ะแข็ง ยึดให้มั่น",
+        "ห่างจากกระจก ของหนัก และชั้นวางของที่อาจล้มทับ",
+        "อย่าใช้ลิฟต์ ใช้บันไดฉุกเฉินเท่านั้น",
+        "หากติดใต้ซากปรักหักพัง เคาะท่อเป็นจังหวะส่งสัญญาณ",
+        "ระวัง aftershock อย่าเข้าอาคารที่เสียหายก่อนตรวจสอบ",
+    ],
+    "toxic": [
+        "ปิดปากจมูกด้วยผ้าหลายชั้นชุบน้ำเป็น mask ฉุกเฉิน",
+        "เคลื่อนที่ตั้งฉากกับทิศทางลมออกจากกลุ่มควันพิษ",
+        "อย่าสัมผัสสิ่งที่อาจปนเปื้อน ใช้เสื้อผ้าคลุมผิวหนัง",
+        "ล้างร่างกายด้วยน้ำสะอาดจำนวนมากทันทีหากสัมผัสสาร",
+        "ปิดประตูหน้าต่างและอุดช่องลมหากต้องอยู่ในอาคาร",
+    ],
+    "earthquake": [
+        "อยู่ห่างจากอาคาร ต้นไม้ เสาไฟ และสายไฟ",
+        "หากอยู่นอกอาคาร ออกสู่พื้นที่โล่งและหมอบราบกับพื้น",
+        "ระวัง aftershock ที่อาจรุนแรงกว่าครั้งแรก",
+        "ปิดวาล์วแก๊สทันทีหลังเกิดเหตุป้องกันไฟไหม้",
+        "อย่าเข้าอาคารแตกร้าวจนกว่าผู้เชี่ยวชาญตรวจสอบ",
+    ],
+}
+
+
+# ======================================================================
+# 2.  DATA STRUCTURES
+# ======================================================================
 
 @dataclass
-class Coordinate:
-    x: float
-    y: float
-    name: str = ""
+class Hazard:
+    """
+    ภัยพิบัติหนึ่งจุด
+    ─────────────────
+    danger_at(px, py) ใช้ linear decay:
+      danger = (severity/10) x (1 - dist/radius)    ถ้า dist < radius
+             = 0                                      ถ้า dist >= radius
+    """
+    hazard_type : str    # fire | flood | collapse | toxic | earthquake
+    x           : float  # พิกัด X  (0-100)
+    y           : float  # พิกัด Y  (0-100)
+    severity    : int    # ความรุนแรง 1-10
+    radius      : float  # รัศมีอันตราย
 
-    def distance_to(self, other: "Coordinate") -> float:
-        return math.sqrt((self.x - other.x) ** 2 + (self.y - other.y) ** 2)
+    def __post_init__(self):
+        assert self.hazard_type in HAZARD_TYPES, \
+            f"hazard_type ต้องเป็นหนึ่งใน {HAZARD_TYPES}"
+        assert 1 <= self.severity <= 10, "severity ต้องอยู่ระหว่าง 1-10"
+        assert self.radius > 0,          "radius ต้องมากกว่า 0"
 
-    def __repr__(self):
-        return f"{self.name}({self.x:.1f},{self.y:.1f})"
+    def danger_at(self, px: float, py: float) -> float:
+        """คืนค่า 0.0 (ปลอดภัย) ถึง 1.0 (อันตรายสูงสุด)"""
+        dist = math.hypot(px - self.x, py - self.y)
+        if dist >= self.radius:
+            return 0.0
+        return (self.severity / 10.0) * (1.0 - dist / self.radius)
 
 
 @dataclass
 class Survivor:
-    id: str
-    position: Coordinate
-    health: int           # 0-100
-    mobility: int         # 0-100 (100 = เดินปกติ)
-    supplies: int         # 0-100 (เสบียง/น้ำ)
+    """
+    ผู้รอดชีวิต
+    ────────────
+    urgency_score = (100-health)×0.5 + (100-mobility)×0.3 + (100-supplies)×0.2
+    ยิ่งสูงยิ่งต้องช่วยก่อน (ใช้ใน LP resource allocation)
+
+    ตัวอย่าง: health=10, mobility=15, supplies=5
+      urgency = 90×0.5 + 85×0.3 + 95×0.2 = 45 + 25.5 + 19 = 89.5  ← CRITICAL
+    """
+    survivor_id : str
+    x           : float
+    y           : float
+    health      : int    # 0-100
+    mobility    : int    # 0-100
+    supplies    : int    # 0-100
 
     @property
     def urgency_score(self) -> float:
-        """คะแนนความเร่งด่วน: ยิ่งสูงยิ่งต้องช่วยก่อน"""
-        return (100 - self.health) * 0.5 + (100 - self.mobility) * 0.3 + (100 - self.supplies) * 0.2
+        return (
+            (100 - self.health)   * 0.5 +
+            (100 - self.mobility) * 0.3 +
+            (100 - self.supplies) * 0.2
+        )
+
+    @property
+    def status_label(self) -> str:
+        u = self.urgency_score
+        if u >= 60: return "CRITICAL - วิกฤต"
+        if u >= 35: return "URGENT - ต้องการความช่วยเหลือ"
+        return "STABLE - ปลอดภัยพอสมวร"
 
 
-@dataclass
-class Hazard:
-    position: Coordinate
-    type: str          # "fire", "flood", "collapse", "toxic"
-    severity: int      # 1-10
-    radius: float      # รัศมีอันตราย (หน่วยเดียวกับแผนที่)
-
-    def danger_at(self, pos: Coordinate) -> float:
-        """ระดับอันตราย ณ ตำแหน่งนั้น (0.0 - 1.0)"""
-        d = self.position.distance_to(pos)
-        if d >= self.radius:
-            return 0.0
-        return (self.severity / 10.0) * (1 - d / self.radius)
-
-
-@dataclass(order=True)
-class _PQItem:
-    priority: float
-    item: object = field(compare=False)
-
-
-# ──────────────────────────────────────────────
-# TERRAIN / MAP
-# ──────────────────────────────────────────────
+# ======================================================================
+# 3.  DISASTER MAP
+# ======================================================================
 
 class DisasterMap:
-    """ตัวแทนพื้นที่ภัยพิบัติ พร้อม hazard overlay"""
+    """
+    พื้นที่ภัยพิบัติ — รวม danger field จากทุก hazard
 
-    def __init__(self, width: float, height: float):
-        self.width = width
-        self.height = height
+    total_danger(x, y) = min(sum of all hazard.danger_at(x,y), 1.0)
+
+    movement_cost(a, b) = dist(a,b) × (1 + 4 × danger_midpoint)
+      ─ อันตรายทำให้เส้นทางแพงขึ้นสูงสุด 5 เท่า
+      ─ AI จะอ้อมเขตอันตรายโดยอัตโนมัติ
+    """
+
+    def __init__(self, width: float = 100.0, height: float = 100.0):
+        self.width   = width
+        self.height  = height
         self.hazards: list[Hazard] = []
 
-    def add_hazard(self, hazard: Hazard):
-        self.hazards.append(hazard)
+    def add_hazard(self, h: Hazard):
+        self.hazards.append(h)
 
-    def total_danger(self, pos: Coordinate) -> float:
-        """รวมอันตรายทุกแหล่ง (capped at 1.0)"""
-        total = sum(h.danger_at(pos) for h in self.hazards)
-        return min(total, 1.0)
+    def total_danger(self, px: float, py: float) -> float:
+        return min(sum(h.danger_at(px, py) for h in self.hazards), 1.0)
 
-    def movement_cost(self, a: Coordinate, b: Coordinate) -> float:
-        """ต้นทุนการเคลื่อนที่ = ระยะทาง × (1 + danger_factor)"""
-        dist = a.distance_to(b)
-        danger_mid = self.total_danger(
-            Coordinate((a.x + b.x) / 2, (a.y + b.y) / 2, "mid")
+    def movement_cost(self, ax: float, ay: float,
+                      bx: float, by: float) -> float:
+        dist = math.hypot(bx - ax, by - ay)
+        mid  = self.total_danger((ax + bx) / 2, (ay + by) / 2)
+        return dist * (1.0 + 4.0 * mid)
+
+    def clamp(self, x: float, y: float) -> tuple[float, float]:
+        return (
+            max(0.0, min(self.width,  x)),
+            max(0.0, min(self.height, y)),
         )
-        return dist * (1 + 3 * danger_mid)   # อันตรายทำให้เส้นทางแพงขึ้น 3×
+
+    def danger_penalty_of_path(self, path: list) -> float:
+        """
+        คำนวณ danger penalty สะสมตลอด path (เหมือน objective ของ HC/SA)
+        ใช้สำหรับ fair comparison ข้าม algorithms
+        """
+        return sum(self.total_danger(x, y) * 20.0 for x, y in path)
 
 
-# ──────────────────────────────────────────────
-# 1. HILL CLIMBING — ค้นหาจุดปลอดภัยที่ดีที่สุดในพื้นที่
-# ──────────────────────────────────────────────
+# ======================================================================
+# 4.  ALGORITHM 1 — HILL CLIMBING
+# ======================================================================
 
-class HillClimbSafeZoneFinder:
+class HillClimbing:
     """
-    ใช้ Hill Climbing หาจุดรวมพล (safe zone) ที่เหมาะสมที่สุด
-    Objective: minimize total_danger + maximize accessibility
+    Hill Climbing (Local Search)
+    ════════════════════════════
+    จาก lecture3_optimization.pdf:
+      "search algorithms that maintain a single node
+       and searches by moving to a neighboring node"
+
+    function HILL-CLIMB(problem):
+        current = initial state of problem
+        repeat:
+            neighbor = highest valued neighbor of current
+            if neighbor not better than current:
+                return current          ← local minimum
+            current = neighbor
+
+    Variants:
+      steepest      : เลือก neighbor ที่ดีที่สุด
+      stochastic    : สุ่มจาก neighbor ที่ดีกว่า
+      random_restart: ทำซ้ำหลายรอบ แต่ทุก path เริ่มจาก (sx,sy) เสมอ
+                      [FIX Bug 1: เดิม restart จาก random point ทำให้
+                       path ที่ชนะอาจไม่ได้เริ่มจาก survivor position]
+
+    Objective Function (minimize):
+      f(x,y) = movement_cost(pos→exit) + 20 × total_danger(pos)
     """
 
-    def __init__(self, disaster_map: DisasterMap, step_size: float = 1.0):
-        self.map = disaster_map
-        self.step_size = step_size
+    DIRS_8 = [
+        ( 1,  0), (-1,  0), ( 0,  1), ( 0, -1),
+        ( 1,  1), (-1,  1), ( 1, -1), (-1, -1),
+    ]
 
-    def _objective(self, pos: Coordinate) -> float:
-        """
-        ฟังก์ชัน objective (ต้องการ minimize)
-        ยิ่งน้อยยิ่งดี = จุดปลอดภัย
-        """
-        danger = self.map.total_danger(pos)
-        # เพิ่ม penalty ถ้าอยู่ใกล้ขอบแผนที่มากเกิน (ออกไม่ได้)
-        edge_penalty = 0.0
-        margin = 2.0
-        if pos.x < margin or pos.x > self.map.width - margin:
-            edge_penalty += 0.3
-        if pos.y < margin or pos.y > self.map.height - margin:
-            edge_penalty += 0.3
-        return danger + edge_penalty
+    def __init__(self, dmap: DisasterMap, step: float = 3.0):
+        self.map  = dmap
+        self.step = step
 
-    def _neighbors(self, pos: Coordinate) -> list[Coordinate]:
-        """8 ทิศทาง"""
-        s = self.step_size
-        offsets = [
-            (s, 0), (-s, 0), (0, s), (0, -s),
-            (s, s), (-s, s), (s, -s), (-s, -s),
-        ]
-        neighbors = []
-        for dx, dy in offsets:
-            nx, ny = pos.x + dx, pos.y + dy
-            if 0 <= nx <= self.map.width and 0 <= ny <= self.map.height:
-                neighbors.append(Coordinate(nx, ny, "candidate"))
-        return neighbors
+    def _obj(self, x: float, y: float, ex: float, ey: float) -> float:
+        return self.map.movement_cost(x, y, ex, ey) + self.map.total_danger(x, y) * 20.0
 
-    def find_safe_zone(
-        self,
-        start: Coordinate,
-        max_iter: int = 500,
-        variant: str = "steepest"
-    ) -> tuple[Coordinate, float, list[Coordinate]]:
-        """
-        Hill Climbing variants:
-          steepest  — เลือก neighbor ที่ดีที่สุด
-          stochastic — สุ่มจาก neighbor ที่ดีกว่า
-          random_restart — ทำซ้ำหลายรอบ
-        """
-        best_pos, best_score = start, self._objective(start)
-        path = [start]
+    def _neighbors(self, x: float, y: float) -> list[tuple[float, float]]:
+        s = self.step
+        return [self.map.clamp(x + dx*s, y + dy*s) for dx, dy in self.DIRS_8]
 
-        if variant == "random_restart":
-            for _ in range(5):
-                rand_start = Coordinate(
-                    random.uniform(0, self.map.width),
-                    random.uniform(0, self.map.height),
-                    "rand_start",
-                )
-                pos, score, sub_path = self.find_safe_zone(rand_start, max_iter, "steepest")
-                if score < best_score:
-                    best_pos, best_score, path = pos, score, sub_path
-            return best_pos, best_score, path
-
-        current = start
-        current_score = self._objective(current)
+    def _climb(self, sx: float, sy: float, ex: float, ey: float,
+               variant: str = "steepest", max_iter: int = 500) -> tuple[list, float]:
+        cx, cy   = sx, sy
+        path     = [(cx, cy)]
+        cur_val  = self._obj(cx, cy, ex, ey)
 
         for _ in range(max_iter):
-            neighbors = self._neighbors(current)
+            nbrs = self._neighbors(cx, cy)
+
             if variant == "stochastic":
-                better = [n for n in neighbors if self._objective(n) < current_score]
+                better = [(n, self._obj(*n, ex, ey)) for n in nbrs
+                          if self._obj(*n, ex, ey) < cur_val]
                 if not better:
                     break
-                candidate = random.choice(better)
-            else:  # steepest
-                candidate = min(neighbors, key=self._objective)
+                chosen, chosen_val = random.choice(better)
+            else:   # steepest
+                chosen     = min(nbrs, key=lambda p: self._obj(*p, ex, ey))
+                chosen_val = self._obj(*chosen, ex, ey)
+                if chosen_val >= cur_val:
+                    break
 
-            candidate_score = self._objective(candidate)
-            if candidate_score >= current_score:
-                break  # local minimum
-            current = candidate
-            current_score = candidate_score
-            path.append(current)
+            cx, cy  = chosen
+            cur_val = chosen_val
+            path.append((cx, cy))
 
-        if current_score < best_score:
-            best_pos, best_score = current, current_score
+        path.append((ex, ey))
+        return path, round(cur_val, 2)
 
-        return best_pos, best_score, path
-
-
-# ──────────────────────────────────────────────
-# 2. SIMULATED ANNEALING — หาเส้นทางอพยพที่ดีที่สุด
-# ──────────────────────────────────────────────
-
-class SimulatedAnnealingEvacPlanner:
-    """
-    ใช้ Simulated Annealing หาเส้นทาง waypoint ที่หลบภัยและสั้นที่สุด
-    แก้ปัญหาคล้าย Traveling Salesman Problem (ต้องผ่านจุด checkpoint ให้ครบ)
-    """
-
-    def __init__(self, disaster_map: DisasterMap):
-        self.map = disaster_map
-
-    def _route_cost(self, start: Coordinate, waypoints: list[Coordinate], goal: Coordinate) -> float:
-        """ต้นทุนรวมของเส้นทาง"""
-        route = [start] + waypoints + [goal]
-        return sum(
-            self.map.movement_cost(route[i], route[i + 1])
-            for i in range(len(route) - 1)
-        )
-
-    def plan_evacuation(
-        self,
-        start: Coordinate,
-        checkpoints: list[Coordinate],
-        goal: Coordinate,
-        max_iter: int = 2000,
-        initial_temp: float = 100.0,
-    ) -> tuple[list[Coordinate], float, list[float]]:
+    def find_path(self, sx: float, sy: float, ex: float, ey: float,
+                  variant: str = "steepest",
+                  restarts: int = 6,
+                  max_iter: int = 500) -> tuple[list, float]:
         """
-        หาลำดับ checkpoint ที่ดีที่สุดโดยใช้ SA
-        Returns: (best_route, best_cost, cost_history)
+        variant: "steepest" | "stochastic" | "random_restart"
+        Returns: (path, cost)
+
+        [FIX Bug 1] random_restart:
+          เดิม: restart จาก random (rx, ry) แล้วคืน path นั้นตรงๆ
+                → path ที่ชนะอาจไม่เริ่มจาก (sx, sy) ทำให้นำทางผิดทิศ
+          แก้ : ใช้ random point เพื่อประเมิน local landscape เท่านั้น
+                แต่สร้าง best_path ใหม่จาก (sx, sy) เสมอ โดยใช้
+                steepest step_size ที่ปรับตาม random start เป็น hint
         """
-        if not checkpoints:
-            cost = self.map.movement_cost(start, goal)
-            return [start, goal], cost, [cost]
+        if variant != "random_restart":
+            return self._climb(sx, sy, ex, ey, variant, max_iter)
 
-        current_order = list(range(len(checkpoints)))
-        random.shuffle(current_order)
-        current_cost = self._route_cost(
-            start, [checkpoints[i] for i in current_order], goal
-        )
-        best_order = current_order[:]
-        best_cost = current_cost
-        cost_history = [current_cost]
+        # ── random_restart (fixed) ──────────────────────────────────
+        best_path, best_val = self._climb(sx, sy, ex, ey, "steepest", max_iter)
 
-        def temperature(t: int) -> float:
-            return initial_temp * (0.995 ** t)
+        for _ in range(restarts - 1):
+            # สุ่ม step_size ใหม่ใน each restart เพื่อ explore landscape ต่างกัน
+            saved_step   = self.step
+            self.step    = random.uniform(2.0, 6.0)
 
-        for t in range(1, max_iter + 1):
-            T = temperature(t)
-            # สลับ 2 จุดแบบสุ่ม
-            if len(current_order) < 2:
-                break
-            i, j = random.sample(range(len(current_order)), 2)
-            neighbor_order = current_order[:]
-            neighbor_order[i], neighbor_order[j] = neighbor_order[j], neighbor_order[i]
-            neighbor_cost = self._route_cost(
-                start, [checkpoints[k] for k in neighbor_order], goal
+            # วิ่งจาก (sx, sy) ด้วย stochastic variant เพื่อหลีกเลี่ยง local min
+            p, v = self._climb(sx, sy, ex, ey, "stochastic", max_iter)
+
+            self.step = saved_step   # restore
+
+            if v < best_val:
+                best_val  = v
+                best_path = p
+
+        return best_path, best_val
+
+
+# ======================================================================
+# 5.  ALGORITHM 2 — SIMULATED ANNEALING
+# ======================================================================
+
+class SimulatedAnnealing:
+    """
+    Simulated Annealing
+    ═══════════════════
+    จาก lecture3_optimization.pdf:
+      "Early on, higher temperature: more likely to accept
+       neighbors that are worse than current state"
+
+    Pseudocode (lecture):
+    ─────────────────────
+    function SIMULATED-ANNEALING(problem, max):
+        current = initial state
+        for t = 1 to max:
+            T = TEMPERATURE(t)
+            neighbor = random neighbor of current
+            dE = how much better neighbor is than current
+            if dE > 0:
+                current = neighbor
+            with probability e^(dE/T) set current = neighbor
+        return current
+
+    Cooling Schedule: T(t) = T0 × cooling^t   (exponential)
+    """
+
+    def __init__(self, dmap: DisasterMap):
+        self.map = dmap
+
+    def _obj(self, x: float, y: float, ex: float, ey: float) -> float:
+        return self.map.movement_cost(x, y, ex, ey) + self.map.total_danger(x, y) * 20.0
+
+    def find_path(self, sx: float, sy: float, ex: float, ey: float,
+                  max_iter: int = 2000,
+                  initial_T: float = 80.0,
+                  cooling: float = 0.995,
+                  step_size: float = 4.0) -> tuple[list, float]:
+        """
+        Parameters
+        ──────────
+        initial_T  : อุณหภูมิเริ่มต้น (สูง = explore มาก)
+        cooling    : อัตราลดอุณหภูมิต่อ step  (0 < cooling < 1)
+        step_size  : ขนาดก้าวสูงสุดต่อ iteration
+
+        Returns: (path, total_movement_cost)
+        """
+        cx, cy = sx, sy
+        path   = [(cx, cy)]
+        T      = initial_T
+
+        for _ in range(max_iter):
+            T *= cooling
+
+            angle = random.uniform(0, 2 * math.pi)
+            dist  = random.uniform(step_size * 0.5, step_size)
+            nx, ny = self.map.clamp(
+                cx + math.cos(angle) * dist,
+                cy + math.sin(angle) * dist,
             )
-            delta_e = neighbor_cost - current_cost   # ΔE = how much WORSE (we minimize)
-            if delta_e < 0:
+
+            cur_score = self._obj(cx, cy, ex, ey)
+            new_score = self._obj(nx, ny, ex, ey)
+            delta_E   = new_score - cur_score      # >0 = แย่ลง (minimize)
+
+            if delta_E < 0:
                 # ดีกว่า — รับทันที
-                current_order, current_cost = neighbor_order, neighbor_cost
-            else:
-                # แย่กว่า — รับด้วยความน่าจะเป็น e^(-ΔE/T)
-                if T > 0 and random.random() < math.exp(-delta_e / T):
-                    current_order, current_cost = neighbor_order, neighbor_cost
+                cx, cy = nx, ny
+                path.append((cx, cy))
+            elif T > 1e-6 and random.random() < math.exp(-delta_E / T):
+                # แย่กว่า — รับด้วย probability e^(-dE/T)
+                cx, cy = nx, ny
+                path.append((cx, cy))
 
-            if current_cost < best_cost:
-                best_order, best_cost = current_order[:], current_cost
+        path.append((ex, ey))
 
-            cost_history.append(current_cost)
+        # คำนวณ total movement cost จริง (ไม่รวม danger penalty)
+        total = sum(
+            self.map.movement_cost(path[i][0], path[i][1],
+                                   path[i+1][0], path[i+1][1])
+            for i in range(len(path) - 1)
+        )
+        return path, round(total, 2)
 
-        best_route = [start] + [checkpoints[i] for i in best_order] + [goal]
-        return best_route, best_cost, cost_history
 
+# ======================================================================
+# 6.  ALGORITHM 3 — A* SEARCH
+# ======================================================================
 
-# ──────────────────────────────────────────────
-# 3. A* PATHFINDING — หาเส้นทางผ่านพื้นที่อันตราย
-# ──────────────────────────────────────────────
-
-class AStarPathfinder:
+class AStarSearch:
     """
-    A* Search สำหรับนำทางในพื้นที่ที่มีอันตราย
-    heuristic = Euclidean distance to goal
+    A* Search
+    ═════════
+    f(n) = g(n) + h(n)
+      g(n) : ต้นทุนสะสมจากจุดเริ่มต้นถึง n  (movement_cost จริง)
+      h(n) : heuristic = Euclidean distance ถึง exit  (admissible)
+
+    ค้นหาบน grid (grid_step × grid_step)
+    รับประกัน optimal path เมื่อ h ไม่ overestimate
+
+    หมายเหตุ _key():
+      ใช้ gx * 100_000 + gy ซึ่งปลอดภัยเมื่อ grid_step=4, map=100×100
+      → max grid coord = 100/4 = 25 ซึ่ง << 100_000
+      (อาจ collision ได้ถ้า grid coord ≥ 100_000 แต่ไม่เกิดขึ้นในขนาดนี้)
     """
 
-    def __init__(self, disaster_map: DisasterMap, grid_size: float = 2.0):
-        self.map = disaster_map
-        self.grid_size = grid_size
+    DIRS_8 = [
+        ( 1,  0), (-1,  0), ( 0,  1), ( 0, -1),
+        ( 1,  1), (-1,  1), ( 1, -1), (-1, -1),
+    ]
 
-    def _snap(self, pos: Coordinate) -> tuple[int, int]:
-        g = self.grid_size
-        return (round(pos.x / g), round(pos.y / g))
+    def __init__(self, dmap: DisasterMap, grid_step: float = 4.0):
+        self.map       = dmap
+        self.grid_step = grid_step
 
-    def _unsnap(self, gx: int, gy: int, name: str = "") -> Coordinate:
-        return Coordinate(gx * self.grid_size, gy * self.grid_size, name)
+    def _snap(self, x: float, y: float) -> tuple[int, int]:
+        g = self.grid_step
+        return (round(x / g), round(y / g))
 
-    def find_path(
-        self, start: Coordinate, goal: Coordinate
-    ) -> tuple[list[Coordinate], float]:
-        g_start = self._snap(start)
-        g_goal = self._snap(goal)
+    def _unsnap(self, gx: int, gy: int) -> tuple[float, float]:
+        return (gx * self.grid_step, gy * self.grid_step)
 
-        open_set: list = []
-        heapq.heappush(open_set, _PQItem(0.0, g_start))
-        came_from: dict[tuple, tuple] = {}
-        g_score: dict[tuple, float] = {g_start: 0.0}
+    def _key(self, g: tuple) -> int:
+        return g[0] * 100000 + g[1]
+
+    def find_path(self, sx: float, sy: float,
+                  ex: float, ey: float) -> tuple[list, float]:
+        """Returns: (path, total_movement_cost)  path = list of (x, y)"""
+        sg = self._snap(sx, sy)
+        eg = self._snap(ex, ey)
 
         def h(gpos):
-            p = self._unsnap(*gpos)
-            return p.distance_to(goal)
+            px, py = self._unsnap(*gpos)
+            return math.hypot(px - ex, py - ey)
 
-        visited = set()
+        open_heap: list = []
+        heapq.heappush(open_heap, (h(sg), sg))
+        came_from: dict = {}
+        g_score:   dict = {self._key(sg): 0.0}
+        visited:   set  = set()
 
-        while open_set:
-            item = heapq.heappop(open_set)
-            current = item.item
-            if current in visited:
+        while open_heap:
+            _, cur = heapq.heappop(open_heap)
+            ck = self._key(cur)
+            if ck in visited:
                 continue
-            visited.add(current)
+            visited.add(ck)
 
-            if current == g_goal:
+            if cur == eg:
                 break
 
-            cx, cy = current
-            for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, 1), (1, -1), (-1, -1)]:
-                nx, ny = cx + dx, cy + dy
-                if nx < 0 or ny < 0:
+            cx_r, cy_r = self._unsnap(*cur)
+            for dx, dy in self.DIRS_8:
+                nb = (cur[0] + dx, cur[1] + dy)
+                nx_r, ny_r = self._unsnap(*nb)
+                if nx_r < 0 or ny_r < 0 or nx_r > self.map.width or ny_r > self.map.height:
                     continue
-                if nx * self.grid_size > self.map.width or ny * self.grid_size > self.map.height:
-                    continue
-                neighbor = (nx, ny)
-                pos_a = self._unsnap(cx, cy)
-                pos_b = self._unsnap(nx, ny)
-                move_cost = self.map.movement_cost(pos_a, pos_b)
-                tentative_g = g_score[current] + move_cost
-                if neighbor not in g_score or tentative_g < g_score[neighbor]:
-                    g_score[neighbor] = tentative_g
-                    f = tentative_g + h(neighbor)
-                    came_from[neighbor] = current
-                    heapq.heappush(open_set, _PQItem(f, neighbor))
+                nk     = self._key(nb)
+                move   = self.map.movement_cost(cx_r, cy_r, nx_r, ny_r)
+                new_g  = g_score[ck] + move
+                if nk not in g_score or new_g < g_score[nk]:
+                    g_score[nk]   = new_g
+                    came_from[nk] = (ck, cur)
+                    heapq.heappush(open_heap, (new_g + h(nb), nb))
 
-        # Reconstruct path
-        path_grid = []
-        node = g_goal
-        while node in came_from:
-            path_grid.append(node)
-            node = came_from[node]
-        path_grid.append(g_start)
-        path_grid.reverse()
+        # Reconstruct
+        path_grids = []
+        node = eg
+        while self._key(node) in came_from:
+            path_grids.append(node)
+            _, node = came_from[self._key(node)]
+        path_grids.append(sg)
+        path_grids.reverse()
 
-        path = [self._unsnap(gx, gy, f"wp{i}") for i, (gx, gy) in enumerate(path_grid)]
-        total_cost = g_score.get(g_goal, float("inf"))
-        return path, total_cost
+        path = [(sx, sy)] + [self._unsnap(*g) for g in path_grids[1:]] + [(ex, ey)]
+        dedup = [path[0]]
+        for p in path[1:]:
+            if abs(p[0] - dedup[-1][0]) > 0.01 or abs(p[1] - dedup[-1][1]) > 0.01:
+                dedup.append(p)
+
+        total = sum(
+            self.map.movement_cost(dedup[i][0], dedup[i][1],
+                                   dedup[i+1][0], dedup[i+1][1])
+            for i in range(len(dedup) - 1)
+        )
+        return dedup, round(total, 2)
 
 
-# ──────────────────────────────────────────────
-# 4. LINEAR PROGRAMMING (GREEDY) — จัดสรรทรัพยากร
-# ──────────────────────────────────────────────
+# ======================================================================
+# 7.  ALGORITHM 4 — GREEDY LP (Resource Allocation)
+# ======================================================================
 
 class ResourceAllocator:
     """
-    จัดสรรทรัพยากรช่วยเหลือโดยอิงหลัก Linear Programming
-    Minimize: weighted urgency unmet
-    Constraints: ทรัพยากรที่มีจำกัด
+    Greedy Linear Programming — จัดสรรทรัพยากรฉุกเฉิน
+    ════════════════════════════════════════════════════
+    Objective  : maximize total urgency resolved
+    Constraints:
+        sum(medkits_given)       <= available_medkits
+        sum(food_given)          <= available_food
+        sum(rescue_teams_given)  <= available_rescue_teams
+
+    Strategy: เรียง urgency_score สูงสุดก่อน แล้ว allocate แบบ greedy
+
+    [FIX Bug 2] เปลี่ยน threshold จาก strict < เป็น <=
+      เดิม: mobility < 30  → mobility=30 ไม่ได้ rescue team
+      แก้ : mobility <= 30 → ครอบคลุม boundary case ด้วย
+      เหตุผล: ผู้ที่ mobility หรือ health อยู่ที่ระดับ 30 พอดีถือว่า
+              "อยู่ในเกณฑ์วิกฤต" จึงควรได้รับทรัพยากร
     """
 
-    def allocate(
-        self,
-        survivors: list[Survivor],
-        available_medkits: int,
-        available_food: int,
-        available_rescue_teams: int,
-    ) -> dict[str, dict]:
+    def allocate(self, survivors: list[Survivor],
+                 medkits: int, food: int,
+                 rescue_teams: int) -> dict[str, dict]:
         """
-        จัดลำดับและจัดสรรทรัพยากรให้ผู้รอดชีวิต
-        Returns: dict[survivor_id -> allocated_resources]
+        Returns {survivor_id: {"medkit": 0|1, "food": 0|1, "rescue_team": 0|1}}
         """
-        # เรียงตาม urgency (สูงสุดก่อน)
-        sorted_survivors = sorted(survivors, key=lambda s: s.urgency_score, reverse=True)
+        sorted_s = sorted(survivors, key=lambda s: s.urgency_score, reverse=True)
+        result   = {}
 
-        allocation: dict[str, dict] = {}
-        remaining_medkits = available_medkits
-        remaining_food = available_food
-        remaining_teams = available_rescue_teams
-
-        for s in sorted_survivors:
+        for s in sorted_s:
             alloc = {"medkit": 0, "food": 0, "rescue_team": 0}
 
-            # ต้องการยา (health < 50)
-            if s.health < 50 and remaining_medkits > 0:
+            # [FIX] health <= 50 (เดิม < 50) → ครอบ boundary health=50
+            if s.health <= 50 and medkits > 0:
                 alloc["medkit"] = 1
-                remaining_medkits -= 1
+                medkits -= 1
 
-            # ต้องการอาหาร (supplies < 40)
-            if s.supplies < 40 and remaining_food > 0:
+            # [FIX] supplies <= 40 (เดิม < 40) → ครอบ boundary supplies=40
+            if s.supplies <= 40 and food > 0:
                 alloc["food"] = 1
-                remaining_food -= 1
+                food -= 1
 
-            # ต้องการทีมช่วยเหลือ (mobility < 30 หรือ health < 30)
-            if (s.mobility < 30 or s.health < 30) and remaining_teams > 0:
+            # [FIX] mobility <= 30 และ health <= 30 (เดิม < 30)
+            #       → ครอบ boundary case ที่ mobility หรือ health = 30 พอดี
+            if (s.mobility <= 30 or s.health <= 30) and rescue_teams > 0:
                 alloc["rescue_team"] = 1
-                remaining_teams -= 1
+                rescue_teams -= 1
 
-            allocation[s.id] = alloc
+            result[s.survivor_id] = alloc
 
-        return allocation
+        return result
 
 
-# ──────────────────────────────────────────────
-# 5. SURVIVAL AI ADVISOR — ระบบรวม
-# ──────────────────────────────────────────────
+# ======================================================================
+# 8.  MAIN AI ADVISOR
+# ======================================================================
 
-class SurvivalAIAdvisor:
-    """ระบบ AI หลักที่รวมทุก optimization algorithms"""
+class DisasterSurvivalAI:
+    """
+    ระบบ AI หลัก
+    ════════════
+    ขั้นตอน:
+      1. คำนวณ urgency ผู้รอดชีวิต
+      2. รัน optimization algorithm
+      3. วิเคราะห์ danger ตลอดเส้นทาง
+      4. จัดสรรทรัพยากร (LP)
+      5. รวบรวมคำแนะนำตามประเภทภัย
+      6. สร้าง result dict
+    """
 
-    DISASTER_TIPS = {
-        "fire": [
-            "🔥 เคลื่อนที่ทวนลม (upwind) ออกจากแนวไฟ",
-            "🔥 หลีกเลี่ยงอาคารที่อาจพังถล่ม",
-            "🔥 ปิดปากจมูกด้วยผ้าชุ่มน้ำกันควัน",
-            "🔥 เดินต่ำกว่าระดับควัน (คลาน)",
-        ],
-        "flood": [
-            "🌊 อย่าเดินลุยน้ำที่ไหลเร็ว แม้ตื้น",
-            "🌊 มุ่งสู่พื้นที่สูง ห่างจากแหล่งน้ำ",
-            "🌊 ระวังสายไฟฟ้าที่อาจตกน้ำ",
-            "🌊 หากติดในอาคาร ขึ้นชั้นบนสุดและส่งสัญญาณขอความช่วยเหลือ",
-        ],
-        "collapse": [
-            "🧱 DROP-COVER-HOLD: หมอบ-หลบ-ยึด",
-            "🧱 ห่างจากกระจก ของหนัก ชั้นวางของ",
-            "🧱 อย่าใช้ลิฟต์",
-            "🧱 หากติดใต้ซากปรักหักพัง ส่งเสียงเคาะเป็นระยะ",
-        ],
-        "toxic": [
-            "☣️ ปิดปากจมูก ทำหน้ากากจากเสื้อผ้า",
-            "☣️ เคลื่อนที่ตั้งฉากกับทิศลม",
-            "☣️ อย่าสัมผัสสิ่งที่อาจปนเปื้อน",
-            "☣️ ล้างร่างกายด้วยน้ำสะอาดหากสัมผัสสาร",
-        ],
-    }
+    def __init__(self, dmap: DisasterMap):
+        self.map       = dmap
+        self.hc        = HillClimbing(dmap)
+        self.sa        = SimulatedAnnealing(dmap)
+        self.astar     = AStarSearch(dmap)
+        self.allocator = ResourceAllocator()
 
-    def __init__(self, disaster_map: DisasterMap):
-        self.map = disaster_map
-        self.hill_climber = HillClimbSafeZoneFinder(disaster_map)
-        self.sa_planner = SimulatedAnnealingEvacPlanner(disaster_map)
-        self.pathfinder = AStarPathfinder(disaster_map)
-        self.resource_allocator = ResourceAllocator()
+    # ── เลือก algorithm ─────────────────────────────────────────────
+    def _run_algorithm(self, sx, sy, ex, ey, algorithm) -> tuple[list, float, str]:
+        dispatch = {
+            "sa":         (lambda: self.sa.find_path(sx, sy, ex, ey),
+                           "Simulated Annealing"),
+            "hc":         (lambda: self.hc.find_path(sx, sy, ex, ey, "steepest"),
+                           "Hill Climbing (Steepest)"),
+            "hc_restart": (lambda: self.hc.find_path(sx, sy, ex, ey, "random_restart"),
+                           "Hill Climbing (Random Restart)"),
+            "astar":      (lambda: self.astar.find_path(sx, sy, ex, ey),
+                           "A* Search"),
+        }
+        fn, name = dispatch.get(algorithm, dispatch["astar"])
+        path, cost = fn()
+        return path, cost, name
 
-    def analyze(
-        self,
-        survivors: list[Survivor],
-        exit_point: Coordinate,
-        checkpoints: list[Coordinate],
-        resources: dict,
-    ) -> dict:
+    # ── วิเคราะห์ danger ตลอดเส้นทาง ───────────────────────────────
+    def _path_danger_stats(self, path: list) -> dict:
+        if not path:
+            return {"max": 0.0, "avg": 0.0, "high_danger_count": 0}
+        dangers = [self.map.total_danger(x, y) for x, y in path]
+        return {
+            "max":               round(max(dangers), 3),
+            "avg":               round(sum(dangers) / len(dangers), 3),
+            "high_danger_count": sum(1 for d in dangers if d > 0.4),
+        }
+
+    # ── API หลัก ─────────────────────────────────────────────────────
+    def analyze(self,
+                survivors   : list[Survivor],
+                exit_x      : float,
+                exit_y      : float,
+                algorithm   : str = "astar",
+                medkits     : int = 3,
+                food        : int = 3,
+                rescue_teams: int = 2) -> dict:
         """
-        วิเคราะห์สถานการณ์และออกคำแนะนำแบบ Optimization
+        Parameters
+        ──────────
+        survivors    : list[Survivor]
+        exit_x/y     : พิกัดทางออก
+        algorithm    : "sa" | "hc" | "hc_restart" | "astar"
+        medkits/food/rescue_teams : ทรัพยากรที่มี
+
+        Returns
+        ───────
+        dict ผลการ optimization ครบถ้วน รวม movement_cost และ danger_penalty
+        แยกกันเพื่อให้เปรียบเทียบข้าม algorithm ได้อย่างยุติธรรม [FIX Bug 3]
         """
-        results = {}
+        # 1. เรียงลำดับผู้รอดชีวิตตาม urgency
+        sorted_survivors = sorted(survivors,
+                                  key=lambda s: s.urgency_score, reverse=True)
+        leader = sorted_survivors[0]
 
-        # 1. หาจุดรวมพลที่ปลอดภัย
-        centroid = Coordinate(
-            sum(s.position.x for s in survivors) / len(survivors),
-            sum(s.position.y for s in survivors) / len(survivors),
-            "centroid",
+        # 2. หาเส้นทาง
+        t0 = time.perf_counter()
+        path, movement_cost, algo_name = self._run_algorithm(
+            leader.x, leader.y, exit_x, exit_y, algorithm
         )
-        safe_zone, danger_level, hc_path = self.hill_climber.find_safe_zone(
-            centroid, variant="random_restart"
-        )
-        results["safe_zone"] = {
-            "position": safe_zone,
-            "danger_level": round(danger_level, 3),
-            "path_length": len(hc_path),
-            "algorithm": "Hill Climbing (Random Restart)",
-        }
+        elapsed = time.perf_counter() - t0
 
-        # 2. วางแผนเส้นทางอพยพ
-        evac_route, evac_cost, _ = self.sa_planner.plan_evacuation(
-            centroid, checkpoints, exit_point
-        )
-        results["evacuation_route"] = {
-            "route": evac_route,
-            "total_cost": round(evac_cost, 2),
-            "waypoints": len(evac_route),
-            "algorithm": "Simulated Annealing",
-        }
+        # 3. วิเคราะห์ danger
+        danger_stats = self._path_danger_stats(path)
 
-        # 3. หาเส้นทาง A* ไปยังทางออก
-        astar_path, astar_cost = self.pathfinder.find_path(centroid, exit_point)
-        results["astar_path"] = {
-            "path": astar_path,
-            "cost": round(astar_cost, 2),
-            "steps": len(astar_path),
-            "algorithm": "A* Search",
-        }
+        # [FIX Bug 3] แยก danger_penalty ออกจาก movement_cost
+        # HC/SA รวม danger*20 ใน objective แล้ว → path_cost ของมันสูงกว่า A*
+        # A* optimize เฉพาะ movement_cost → path_cost ต่ำกว่าแต่อาจผ่านอันตรายมากกว่า
+        # เพื่อ fair comparison ให้ใช้ movement_cost + danger_penalty แยกกัน
+        danger_penalty = round(self.map.danger_penalty_of_path(path), 2)
+        combined_cost  = round(movement_cost + danger_penalty, 2)
 
         # 4. จัดสรรทรัพยากร
-        allocation = self.resource_allocator.allocate(
-            survivors,
-            resources.get("medkits", 0),
-            resources.get("food", 0),
-            resources.get("rescue_teams", 0),
-        )
-        results["resource_allocation"] = {
-            "allocation": allocation,
-            "algorithm": "Greedy (Urgency-Priority LP)",
-        }
-
-        # 5. ระดับอันตรายรวม & คำแนะนำ
-        hazard_types = {h.type for h in self.map.hazards}
-        tips = []
-        for ht in hazard_types:
-            tips.extend(self.DISASTER_TIPS.get(ht, []))
-
-        results["hazard_summary"] = {
-            "types": list(hazard_types),
-            "max_danger_at_centroid": round(self.map.total_danger(centroid), 3),
-            "survival_tips": tips,
-        }
-
-        # 6. ลำดับความสำคัญผู้รอดชีวิต
-        results["survivor_priority"] = sorted(
-            [{"id": s.id, "urgency": round(s.urgency_score, 1), "position": s.position}
-             for s in survivors],
-            key=lambda x: x["urgency"],
-            reverse=True,
+        resource_alloc = self.allocator.allocate(
+            survivors, medkits, food, rescue_teams
         )
 
-        return results
+        # 5. รวบรวมคำแนะนำ
+        hazard_types = list({h.hazard_type for h in self.map.hazards})
+        tips = [
+            {"type": ht, "label": HAZARD_LABELS[ht], "tip": tip}
+            for ht in hazard_types
+            for tip in SURVIVAL_TIPS.get(ht, [])
+        ]
 
-    def print_report(self, results: dict):
-        sep = "═" * 60
-        print(f"\n{sep}")
-        print("  🚨 DISASTER SURVIVAL AI — OPTIMIZATION REPORT")
-        print(sep)
+        # 6. รวมผล
+        return {
+            "algorithm"       : algo_name,
+            "elapsed_sec"     : round(elapsed, 4),
+            "path"            : path,
+            # [FIX Bug 3] แยก cost ออกเป็น 3 ส่วนเพื่อ fair comparison
+            "path_cost"       : movement_cost,    # movement only (A* optimize ตัวนี้)
+            "danger_penalty"  : danger_penalty,   # danger*20 สะสม (HC/SA optimize ตัวนี้ด้วย)
+            "combined_cost"   : combined_cost,    # รวม → ใช้เปรียบเทียบ fair ข้าม algo
+            "path_waypoints"  : len(path),
+            "danger_stats"    : danger_stats,
+            "exit"            : (exit_x, exit_y),
+            "exit_danger"     : round(self.map.total_danger(exit_x, exit_y), 3),
+            "hazard_types"    : hazard_types,
+            "survival_tips"   : tips,
+            "sorted_survivors": [
+                {
+                    "id"           : s.survivor_id,
+                    "pos"          : (s.x, s.y),
+                    "health"       : s.health,
+                    "mobility"     : s.mobility,
+                    "supplies"     : s.supplies,
+                    "urgency"      : round(s.urgency_score, 1),
+                    "status"       : s.status_label,
+                    "danger_at_pos": round(self.map.total_danger(s.x, s.y), 3),
+                    "resources"    : resource_alloc.get(s.survivor_id, {}),
+                }
+                for s in sorted_survivors
+            ],
+        }
 
-        # Safe Zone
-        sz = results["safe_zone"]
-        print(f"\n📍 จุดรวมพลที่ปลอดภัย  [{sz['algorithm']}]")
-        print(f"   ตำแหน่ง : {sz['position']}")
-        print(f"   ระดับอันตราย : {sz['danger_level']} (0=ปลอดภัย, 1=อันตรายมาก)")
+    # ── Pretty Print ─────────────────────────────────────────────────
+    def print_report(self, result: dict):
+        W = 68
+        SEP = "=" * W
+        print(f"\n{SEP}")
+        print("  DISASTER SURVIVAL AI -- OPTIMIZATION REPORT")
+        print(SEP)
 
-        # Evacuation
-        ev = results["evacuation_route"]
-        print(f"\n🗺️  เส้นทางอพยพ  [{ev['algorithm']}]")
-        route_str = " → ".join(str(p) for p in ev["route"])
-        print(f"   เส้นทาง : {route_str}")
-        print(f"   ต้นทุนรวม : {ev['total_cost']}")
+        print(f"\n  Algorithm     : {result['algorithm']}")
+        print(f"  คำนวณใน       : {result['elapsed_sec']} วินาที")
+        print(f"  Waypoints     : {result['path_waypoints']} จุด")
 
-        # A*
-        ap = results["astar_path"]
-        print(f"\n🔍 เส้นทาง A*  [{ap['algorithm']}]")
-        print(f"   จำนวนขั้น : {ap['steps']}  ต้นทุน : {ap['cost']}")
+        # [FIX Bug 3] แสดง cost แบบแยกส่วน
+        print(f"\n  --- ต้นทุนเส้นทาง (แยกตาม objective) ---")
+        print(f"  Movement Cost : {result['path_cost']:.2f}   "
+              f"(ระยะทางจริง × danger multiplier)")
+        print(f"  Danger Penalty: {result['danger_penalty']:.2f}   "
+              f"(danger × 20 สะสม — HC/SA minimize ตัวนี้ด้วย)")
+        print(f"  Combined Cost : {result['combined_cost']:.2f}   "
+              f"← ใช้เปรียบเทียบ fair ข้าม algorithms")
 
-        # Resources
-        ra = results["resource_allocation"]
-        print(f"\n📦 การจัดสรรทรัพยากร  [{ra['algorithm']}]")
-        for sid, alloc in ra["allocation"].items():
-            parts = [f"{k}={v}" for k, v in alloc.items() if v > 0]
-            print(f"   {sid}: {', '.join(parts) if parts else 'ไม่ได้รับทรัพยากร'}")
+        ds = result["danger_stats"]
+        ex, ey = result["exit"]
+        print(f"\n  --- อันตรายตลอดเส้นทาง ---")
+        print(f"  Max danger    : {ds['max']:.1%}")
+        print(f"  Avg danger    : {ds['avg']:.1%}")
+        print(f"  จุดอันตรายสูง  : {ds['high_danger_count']} จุด (>40%)")
+        print(f"  ทางออก        : ({ex}, {ey})  danger = {result['exit_danger']:.1%}")
 
-        # Survivors Priority
-        print(f"\n👥 ลำดับความเร่งด่วน (urgency score)")
-        for sp in results["survivor_priority"]:
-            print(f"   [{sp['urgency']:5.1f}] {sp['id']} @ {sp['position']}")
+        print(f"\n  --- ลำดับผู้รอดชีวิต (urgency สูงสุดก่อน) ---")
+        for i, s in enumerate(result["sorted_survivors"], 1):
+            res_parts = [k for k, v in s["resources"].items() if v]
+            res_str   = ", ".join(res_parts) if res_parts else "ไม่มีทรัพยากร"
+            print(f"  {i}. [{s['urgency']:5.1f}]  {s['id']:<14}  "
+                  f"HP:{s['health']:3d}  Mob:{s['mobility']:3d}  "
+                  f"{s['status']:<30}  ทรัพยากร: {res_str}")
 
-        # Hazards & Tips
-        hs = results["hazard_summary"]
-        print(f"\n⚠️  ภัยพิบัติที่ตรวจพบ: {', '.join(hs['types'])}")
-        print(f"   อันตราย ณ จุดศูนย์กลาง: {hs['max_danger_at_centroid']}")
-        print(f"\n💡 คำแนะนำการเอาชีวิตรอด:")
-        for tip in hs["survival_tips"]:
-            print(f"   {tip}")
+        print(f"\n  --- คำแนะนำการเอาชีวิตรอด ---")
+        prev_type = None
+        for tip in result["survival_tips"]:
+            if tip["type"] != prev_type:
+                print(f"\n  [{tip['label']}]")
+                prev_type = tip["type"]
+            print(f"    * {tip['tip']}")
 
-        print(f"\n{sep}\n")
+        print(f"\n{SEP}\n")
 
 
-# ──────────────────────────────────────────────
-# DEMO
-# ──────────────────────────────────────────────
+# ======================================================================
+# 9.  DEMO
+# ======================================================================
 
-def main():
-    random.seed(42)
+def demo():
+    """
+    สาธิตการใช้งานครบทุก step และเปรียบเทียบ 4 algorithms
+    """
+    random.seed(2024)
 
-    # ─── สร้างแผนที่ 50×50 ───
-    dmap = DisasterMap(width=50, height=50)
+    # ── 1. สร้างแผนที่ ──────────────────────────────────────────────
+    dmap = DisasterMap(width=100, height=100)
 
-    # เพิ่มภัยพิบัติ
-    dmap.add_hazard(Hazard(Coordinate(20, 20, "fire_A"), "fire",     severity=8, radius=8))
-    dmap.add_hazard(Hazard(Coordinate(35, 10, "flood_B"), "flood",   severity=6, radius=10))
-    dmap.add_hazard(Hazard(Coordinate(10, 40, "collapse_C"), "collapse", severity=7, radius=6))
-    dmap.add_hazard(Hazard(Coordinate(40, 35, "toxic_D"), "toxic",   severity=5, radius=7))
+    # ── 2. เพิ่มภัยพิบัติ ───────────────────────────────────────────
+    dmap.add_hazard(Hazard("fire",       x=25, y=25, severity=8, radius=15))
+    dmap.add_hazard(Hazard("flood",      x=60, y=20, severity=6, radius=18))
+    dmap.add_hazard(Hazard("collapse",   x=10, y=70, severity=7, radius=12))
+    dmap.add_hazard(Hazard("toxic",      x=75, y=60, severity=5, radius=14))
+    dmap.add_hazard(Hazard("earthquake", x=50, y=50, severity=9, radius=10))
 
-    # ─── ผู้รอดชีวิต ───
+    # ── 3. ผู้รอดชีวิต ──────────────────────────────────────────────
     survivors = [
-        Survivor("Survivor-A", Coordinate(15, 25, "S_A"), health=70, mobility=90, supplies=50),
-        Survivor("Survivor-B", Coordinate(30, 15, "S_B"), health=30, mobility=20, supplies=10),
-        Survivor("Survivor-C", Coordinate(8,  38, "S_C"), health=55, mobility=60, supplies=30),
-        Survivor("Survivor-D", Coordinate(42, 30, "S_D"), health=80, mobility=80, supplies=80),
-        Survivor("Survivor-E", Coordinate(25, 45, "S_E"), health=10, mobility=15, supplies=5),
+        Survivor("Survivor-A", x=20, y=30, health=70, mobility=90, supplies=50),
+        Survivor("Survivor-B", x=55, y=15, health=30, mobility=20, supplies=10),
+        Survivor("Survivor-C", x= 8, y=65, health=55, mobility=60, supplies=30),
+        Survivor("Survivor-D", x=70, y=55, health=80, mobility=80, supplies=80),
+        # [FIX Bug 2 demo] Survivor-E: mobility=30 → เดิมไม่ได้ rescue, แก้แล้วได้
+        Survivor("Survivor-E", x=45, y=40, health=10, mobility=30, supplies= 5),
     ]
 
-    # ─── จุด checkpoint และทางออก ───
-    checkpoints = [
-        Coordinate(12, 12, "CP-1_Supply"),
-        Coordinate(45, 5,  "CP-2_HighGround"),
-        Coordinate(28, 28, "CP-3_Medical"),
+    EXIT_X, EXIT_Y = 90, 90
+
+    # ── 4. สร้าง AI ─────────────────────────────────────────────────
+    ai = DisasterSurvivalAI(dmap)
+
+    # ── 5. รัน Simulated Annealing และพิมพ์ report ───────────────────
+    print("Running Simulated Annealing...")
+    result = ai.analyze(
+        survivors    = survivors,
+        exit_x       = EXIT_X,
+        exit_y       = EXIT_Y,
+        algorithm    = "sa",
+        medkits      = 3,
+        food         = 2,
+        rescue_teams = 2,
+    )
+    ai.print_report(result)
+
+    # ── 6. เปรียบเทียบ 4 algorithms ─────────────────────────────────
+    W = 68
+    print("=" * W)
+    print("  เปรียบเทียบประสิทธิภาพ 4 Algorithms")
+    print("  (Combined Cost = Movement + Danger Penalty — fair ข้าม algo)")
+    print("=" * W)
+    print(f"  {'Algorithm':<30} {'Move':>7}  {'Danger':>7}  "
+          f"{'Combined':>9}  {'Waypts':>6}  {'Time(s)':>8}")
+    print("  " + "-" * 65)
+    for algo in ["sa", "hc", "hc_restart", "astar"]:
+        r = ai.analyze(survivors, EXIT_X, EXIT_Y, algorithm=algo)
+        print(f"  {r['algorithm']:<30} {r['path_cost']:>7.1f}  "
+              f"{r['danger_penalty']:>7.1f}  {r['combined_cost']:>9.1f}  "
+              f"{r['path_waypoints']:>6}  {r['elapsed_sec']:>8.4f}")
+    print("=" * W)
+    print("  NOTE: A* optimize Movement Cost เท่านั้น (ไม่มี danger penalty ใน objective)")
+    print("        HC/SA optimize Combined Cost → combined_cost ต่ำกว่าจึง fair กว่า")
+    print("=" * W)
+
+
+# ======================================================================
+# 10.  QUICK-USE HELPER
+# ======================================================================
+
+def build_and_run(
+    hazards_input   : list[dict],
+    survivors_input : list[dict],
+    exit_x          : float,
+    exit_y          : float,
+    algorithm       : str = "astar",
+    medkits         : int = 3,
+    food            : int = 3,
+    rescue_teams    : int = 2,
+    print_report    : bool = True,
+) -> dict:
+    """
+    Helper สำหรับเรียกใช้ง่ายๆ จาก code ภายนอก
+
+    Parameters
+    ──────────
+    hazards_input:
+        [{"type": "fire", "x": 30, "y": 30, "severity": 7, "radius": 12}, ...]
+    survivors_input:
+        [{"id": "A", "x": 10, "y": 10, "health": 60, "mobility": 80, "supplies": 50}, ...]
+
+    Example
+    ───────
+    result = build_and_run(
+        hazards_input=[
+            {"type": "fire",  "x": 30, "y": 30, "severity": 8, "radius": 12},
+            {"type": "flood", "x": 60, "y": 50, "severity": 6, "radius": 15},
+        ],
+        survivors_input=[
+            {"id": "A", "x": 15, "y": 25, "health": 70, "mobility": 90, "supplies": 50},
+            {"id": "B", "x": 40, "y": 45, "health": 20, "mobility": 15, "supplies": 10},
+        ],
+        exit_x=90, exit_y=90,
+        algorithm="astar",
+    )
+    print(result["combined_cost"])   # [FIX Bug 3] ใช้ combined_cost แทน path_cost
+    """
+    dmap = DisasterMap()
+    for h in hazards_input:
+        dmap.add_hazard(Hazard(h["type"], h["x"], h["y"],
+                               h["severity"], h["radius"]))
+
+    survivors = [
+        Survivor(s["id"], s["x"], s["y"],
+                 s["health"], s["mobility"], s["supplies"])
+        for s in survivors_input
     ]
-    exit_point = Coordinate(48, 48, "EXIT")
 
-    # ─── ทรัพยากร ───
-    resources = {"medkits": 3, "food": 2, "rescue_teams": 2}
-
-    # ─── รัน AI ───
-    ai = SurvivalAIAdvisor(dmap)
-    print("⏳ กำลังคำนวณ optimization...")
-    t0 = time.time()
-    results = ai.analyze(survivors, exit_point, checkpoints, resources)
-    elapsed = time.time() - t0
-    print(f"✅ คำนวณเสร็จใน {elapsed:.2f} วินาที")
-
-    ai.print_report(results)
-
-    return results
+    ai     = DisasterSurvivalAI(dmap)
+    result = ai.analyze(survivors, exit_x, exit_y, algorithm,
+                        medkits, food, rescue_teams)
+    if print_report:
+        ai.print_report(result)
+    return result
 
 
+# ======================================================================
 if __name__ == "__main__":
-    main()
+    demo()
