@@ -28,4 +28,6 @@ cd d:\geoai_train\geoai_train\Flood-detection
 python main.py  
 
 one click run : run start_rescuopt.bat this file is auto cmd file to start the flood detection process
+
+optimize_test.py : this file is for testing the optimization process, you can run it to see how the optimization works
 ```
