@@ -8,6 +8,8 @@ a reference line without crashing on empty detections or invalid geometry.
 
 import math
 import os
+import threading
+import requests
 
 import cv2
 import numpy
@@ -22,6 +24,15 @@ CONF_THRESHOLD = 0.5
 MODEL_PATH = os.path.join(os.path.dirname(__file__), "best.pt")
 OUTPUT_VIDEO_PATH = "Output Video.mp4"
 SUPPORTED_VIDEO_EXTENSIONS = {".mp4", ".avi", ".mov", ".mkv", ".webm"}
+
+
+def send_report_async(payload):
+    def target():
+        try:
+            requests.post("http://localhost:5000/api/report_flood", json=payload, timeout=2)
+        except Exception:
+            pass
+    threading.Thread(target=target, daemon=True).start()
 
 MODEL = None
 
@@ -181,7 +192,7 @@ def draw_status(pil_image, font, label, fill):
     draw.text((936, 98), label, font=font, fill=fill)
 
 
-def yolo(video_path, firstCoordinate_x, firstCoordinate_y, secondCoordinate_x, secondCoordinate_y, pixelsInAMeter, tipHeight, warningLevel):
+def yolo(video_path, firstCoordinate_x, firstCoordinate_y, secondCoordinate_x, secondCoordinate_y, pixelsInAMeter, tipHeight, warningLevel, lat=13.7563, lng=100.5018):
     """
     Process video for flood detection using YOLOv8 and water level measurement.
 
@@ -192,6 +203,7 @@ def yolo(video_path, firstCoordinate_x, firstCoordinate_y, secondCoordinate_x, s
     distances = []
     detections_processed = 0
     frames_processed = 0
+    last_sent_status = None
 
     cap, fps, width, height = validate_video_input(video_path, pixelsInAMeter)
     output_video = cv2.VideoWriter(
@@ -258,10 +270,28 @@ def yolo(video_path, firstCoordinate_x, firstCoordinate_y, secondCoordinate_x, s
                 draw.text((1013, 134), str(max_distance), font=font, fill=(0, 0, 0))
                 if max_distance >= warningLevel:
                     draw.text((936, 98), "WARNING!!!", font=font, fill=(255, 0, 0))
+                    status_str = "WARNING!!!"
+                    severity = 8
                 else:
                     draw.text((936, 98), "SAFE", font=font, fill=(0, 255, 0))
+                    status_str = "SAFE"
+                    severity = 4
             else:
                 draw_status(pil_image, font, "NO FLOOD", (0, 255, 0))
+                status_str = "NO FLOOD"
+                severity = 0
+
+            # Send periodic/state-change reports to the server
+            if (frames_processed == 1) or (status_str != last_sent_status) or (frames_processed % 150 == 0):
+                last_sent_status = status_str
+                payload = {
+                    "severity": severity,
+                    "lat": lat,
+                    "lng": lng,
+                    "confidence": int(CONF_THRESHOLD * 100),
+                    "level_label": f"YOLO Video ({status_str})"
+                }
+                send_report_async(payload)
 
             result_frame = cv2.cvtColor(numpy.array(pil_image), cv2.COLOR_RGB2BGR)
             cv2.imshow("YOLOv8 Inference", result_frame)

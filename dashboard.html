@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RescuOpt AI - Flood Evacuation</title>
+<title>RescuOpt AI - Modular Evacuation System</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
@@ -43,8 +43,9 @@ select:focus, input:focus { border-color: #2196F3; }
 .stat { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #2A3A4A; font-size: 13px; }
 .stat:last-child { border-bottom: none; }
 .tip-item { padding: 6px 10px; margin: 4px 0; border-radius: 4px; font-size: 12px; background: rgba(33,150,243,0.15); border-left: 3px solid #2196F3; }
-
-/* Custom Scrollbar */
+.switch-group { display: flex; gap: 15px; margin-top: 8px; flex-wrap: wrap; }
+.toggle-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #7A9BB5; cursor: pointer; }
+.toggle-item input[type="checkbox"] { accent-color: #2196F3; width: 16px; height: 16px; cursor: pointer; }
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #0F1923; }
 ::-webkit-scrollbar-thumb { background: #2A3A4A; border-radius: 3px; }
@@ -56,45 +57,77 @@ select:focus, input:focus { border-color: #2196F3; }
 <div class="container">
   <div class="sidebar">
     <div class="sidebar-header">
-      <h1>💧 RESCUOPT AI</h1>
+      <h1>RESCUOPT AI</h1>
       <p>Flood Detection & Evacuation System</p>
     </div>
     <div class="sidebar-body">
       
       <div class="control-group" id="severityPanel" style="border-left-color: #7A9BB5; background: #233342;">
-        <h3 style="color: #E8F0F8; margin-bottom: 5px;">🚨 สถานการณ์ความรุนแรง</h3>
+        <h3 style="color: #E8F0F8; margin-bottom: 5px;">สถานการณ์ความรุนแรง</h3>
         <div id="overallSeverity" style="font-size: 16px; font-weight: bold; color: #7A9BB5;">รอข้อมูลวิเคราะห์...</div>
       </div>
 
       <div class="control-group">
-        <h3>📍 ตั้งค่าจุดบนแผนที่</h3>
+        <h3>ตั้งค่าจุดบนแผนที่</h3>
         <p style="font-size: 12px; color: #7A9BB5; margin-bottom: 10px;">คลิกปุ่มเพื่อเปิดโหมดวางจุด แล้วคลิกบนแผนที่</p>
         <div class="btn-group">
-          <button class="btn btn-success" onclick="setMode('survivor')">👤 จุดเริ่มต้น</button>
-          <button class="btn btn-warning" onclick="setMode('exit')">🚪 ทางออก</button>
+          <button class="btn btn-success" onclick="setMode('survivor')">จุดเริ่มต้น</button>
+          <button class="btn btn-warning" onclick="setMode('exit')">ทางออก</button>
         </div>
         <div id="modeIndicator" class="mode-indicator mode-none">คลิกปุ่มเพื่อเลือกโหมด</div>
       </div>
 
       <div class="control-group">
-        <h3>⚙️ การค้นหาเส้นทาง</h3>
+        <h3>การค้นหาเส้นทาง</h3>
         <div class="row">
           <div>
-            <label>อัลกอริทึม</label>
+            <label>ขั้นตอนวิธี</label>
             <select id="algorithm">
-              <option value="astar">A* Search (Pathfinding)</option>
-              <option value="hc">Hill Climbing (Optimization)</option>
-              <option value="sa">Simulated Annealing (Optimization)</option>
-              <option value="beam">Local Beam Search (Optimization)</option>
+              <option value="astar">A* Search (Grid)</option>
+              <option value="bfs">BFS (Breadth-First Search)</option>
+              <option value="greedy">Greedy Best-First Search</option>
+              <option value="sa">Simulated Annealing</option>
+              <option value="hc">Hill Climbing (Steepest)</option>
+              <option value="hc_restart">Hill Climbing (Random Restart)</option>
+              <option value="ga">Genetic Algorithm</option>
+              <option value="backtrack">Backtracking Search</option>
+              <option value="ac3">Arc Consistency (AC-3)</option>
             </select>
           </div>
         </div>
-        <button class="btn btn-primary" onclick="runOptimization()" style="margin-top:10px">⚡ ค้นหาเส้นทางหลบภัย</button>
+        <div class="row" style="margin-top:6px">
+          <div>
+            <label>Grid Step (m)</label>
+            <input type="range" id="gridStep" min="10" max="100" value="40" step="5">
+            <div class="range-value" id="gridStepVal" style="text-align:center;font-size:12px;color:#7A9BB5;margin-top:2px">40</div>
+          </div>
+        </div>
+        <div class="row" style="margin-top:6px">
+          <div>
+            <label>รัศมีอันตราย (m)</label>
+            <input type="range" id="hazardRadius" min="100" max="5000" value="500" step="50">
+            <div class="range-value" id="hazardRadiusVal" style="text-align:center;font-size:12px;color:#7A9BB5;margin-top:2px">500</div>
+          </div>
+        </div>
       </div>
+
+      <div class="control-group" style="border-left-color: #9C27B0;">
+        <h3>Constraint Satisfaction (CSP)</h3>
+        <div class="switch-group">
+          <label class="toggle-item">
+            <input type="checkbox" id="cspEnabled" checked> Hard Constraints
+          </label>
+          <label class="toggle-item">
+            <input type="checkbox" id="cspScoring" checked> Soft Scoring
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="runOptimization()" style="margin-top:10px">ค้นหาเส้นทางหลบภัย</button>
 
       <div id="resultsPanel" class="results-panel">
         <div class="control-group" style="border-left-color:#4CAF50">
-          <h3 style="color:#4CAF50">📊 ผลลัพธ์การค้นหา</h3>
+          <h3 style="color:#4CAF50">ผลลัพธ์การค้นหา</h3>
           <div id="resultsContent"></div>
         </div>
       </div>
@@ -114,8 +147,8 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
 }).addTo(map);
 
 let mode = null;
-let survivor = null; // {lat, lng}
-let exit = null; // {lat, lng}
+let survivor = null;
+let exit = null;
 let globalHazards = [];
 let lastServerSurvivor = null;
 let lastServerExit = null;
@@ -124,16 +157,24 @@ const hazardLayer = L.layerGroup().addTo(map);
 const markerLayer = L.layerGroup().addTo(map);
 const routeLayer = L.layerGroup().addTo(map);
 
+document.getElementById('gridStep').addEventListener('input', function() {
+  document.getElementById('gridStepVal').textContent = this.value;
+});
+
+document.getElementById('hazardRadius').addEventListener('input', function() {
+  document.getElementById('hazardRadiusVal').textContent = this.value;
+});
+
 function setMode(m) {
   mode = m;
   const ind = document.getElementById('modeIndicator');
   if (m === 'survivor') {
     ind.className = 'mode-indicator mode-survivor';
-    ind.textContent = '👤 กำลังวางจุดเริ่มต้น';
+    ind.textContent = 'กำลังวางจุดเริ่มต้น';
     map.getContainer().style.cursor = 'crosshair';
   } else if (m === 'exit') {
     ind.className = 'mode-indicator mode-exit';
-    ind.textContent = '🚪 กำลังวางทางออก';
+    ind.textContent = 'กำลังวางทางออก';
     map.getContainer().style.cursor = 'crosshair';
   } else {
     ind.className = 'mode-indicator mode-none';
@@ -158,21 +199,19 @@ function renderMarkers() {
   markerLayer.clearLayers();
   if (survivor) {
     L.circleMarker(survivor, { color: '#4CAF50', fillColor: '#4CAF50', fillOpacity: 1, radius: 8, weight: 3 })
-      .addTo(markerLayer).bindPopup('👤 จุดเริ่มต้น').openPopup();
+      .addTo(markerLayer).bindPopup('จุดเริ่มต้น').openPopup();
   }
   if (exit) {
     L.marker(exit, {
       icon: L.divIcon({ html: '<div style="font-size:32px; filter: drop-shadow(0 0 10px #FF9800);">🚪</div>', className: '', iconSize: [32,32], iconAnchor: [16,16] })
-    }).addTo(markerLayer).bindPopup('🚪 ทางออก');
+    }).addTo(markerLayer).bindPopup('ทางออก');
   }
 }
 
-// Fetch hazards
 function fetchHazards() {
   fetch('/api/hazards')
   .then(r => r.json())
   .then(data => {
-    // Update Severity Panel
     const sevPanel = document.getElementById('severityPanel');
     const sevText = document.getElementById('overallSeverity');
     if (data.hazards && data.hazards.length > 0) {
@@ -200,7 +239,6 @@ function fetchHazards() {
           survivor = data.survivor;
           lastServerSurvivor = data.survivor;
           renderMarkers();
-          map.setView([survivor.lat, survivor.lng], 8); // ซูมแผนที่ออกเพื่อให้เห็นรัศมีขนาดใหญ่
         }
         if (data.exit && JSON.stringify(data.exit) !== JSON.stringify(lastServerExit)) {
           exit = data.exit;
@@ -214,28 +252,32 @@ function fetchHazards() {
 
 function renderHazards() {
   hazardLayer.clearLayers();
+  const radius = parseInt(document.getElementById('hazardRadius').value);
   globalHazards.forEach(h => {
     let color = '#2196F3';
     if(h.severity >= 8) color = '#F44336';
     else if(h.severity >= 5) color = '#FF9800';
 
     const circle = L.circle([h.lat, h.lng], {
-      color: color, fillColor: color, fillOpacity: 0.3, radius: h.radius_m || 200, weight: 2
+      color: color, fillColor: color, fillOpacity: 0.3, radius: radius, weight: 2
     }).addTo(hazardLayer);
     
     circle.bindPopup(`<div style="font-family:'Segoe UI'; color:#333;">
-      <b>🌊 พื้นที่น้ำท่วม</b><br>
+      <b>พื้นที่อันตราย</b><br>
       ความรุนแรง: ${h.severity}/10<br>
-      คำอธิบาย: ${h.level_label}<br>
-      ความมั่นใจ: ${h.confidence}%</div>`);
+      คำอธิบาย: ${h.level_label || 'Unknown'}<br>
+      ความมั่นใจ: ${h.confidence}%<br>
+      รัศมี: ${radius} m</div>`);
   });
 }
 
-// Update hazards every 3 seconds
+document.getElementById('hazardRadius').addEventListener('change', function() {
+  renderHazards();
+});
+
 setInterval(fetchHazards, 3000);
 fetchHazards();
 
-// Optimize route
 function runOptimization() {
   if (!survivor || !exit) {
     alert("กรุณาวางจุดเริ่มต้นและทางออกบนแผนที่");
@@ -253,7 +295,14 @@ function runOptimization() {
     user_lng: survivor.lng,
     exit_lat: exit.lat,
     exit_lng: exit.lng,
-    algorithm: document.getElementById('algorithm').value
+    algorithm: document.getElementById('algorithm').value,
+    grid_step: parseInt(document.getElementById('gridStep').value),
+    hazard_radius: parseInt(document.getElementById('hazardRadius').value),
+    constraints: {
+      enabled: document.getElementById('cspEnabled').checked,
+      hard_check: document.getElementById('cspEnabled').checked,
+      soft_scoring: document.getElementById('cspScoring').checked,
+    }
   };
 
   fetch('/api/optimize', {
@@ -263,14 +312,18 @@ function runOptimization() {
   })
   .then(r => r.json())
   .then(data => {
-    btn.textContent = '⚡ ค้นหาเส้นทางหลบภัย';
+    btn.textContent = 'ค้นหาเส้นทางหลบภัย';
     btn.disabled = false;
+    
+    if (data.status === 'error') {
+      alert("ข้อผิดพลาด: " + (data.error || "ไม่ทราบสาเหตุ"));
+      return;
+    }
     
     if (data.path && data.path.length > 0) {
       const polyline = L.polyline(data.path, { color: '#4CAF50', weight: 6, opacity: 0.8, dashArray: '10, 8' }).addTo(routeLayer);
       map.fitBounds(polyline.getBounds().pad(0.2));
       
-      // Highlight danger points
       if (data.danger_points) {
         data.danger_points.forEach(p => {
           L.circleMarker([p.lat, p.lng], { color: '#F44336', fillColor: '#F44336', fillOpacity: 0.8, radius: 6 })
@@ -283,7 +336,7 @@ function runOptimization() {
   })
   .catch(err => {
     console.error(err);
-    btn.textContent = '⚡ ค้นหาเส้นทางหลบภัย';
+    btn.textContent = 'ค้นหาเส้นทางหลบภัย';
     btn.disabled = false;
     alert("เกิดข้อผิดพลาดในการค้นหาเส้นทาง");
   });
@@ -293,23 +346,38 @@ function showResults(data) {
   const panel = document.getElementById('resultsPanel');
   panel.classList.add('show');
   
+  const m = data.metrics || {};
+  const csp = data.csp;
+  
   let html = `
     <div class="result-card">
-      <h4>🤖 Algorithm: ${data.algorithm}</h4>
-      <div class="stat"><span>⏱ เวลาคำนวณ</span><span>${data.elapsed_sec} วิ</span></div>
-      <div class="stat"><span>📍 ระยะทาง (Waypoints)</span><span>${data.waypoints} จุด</span></div>
-      <div class="stat"><span>💰 Cost เส้นทาง</span><span style="color:#FF9800">${data.path_cost.toFixed(1)}</span></div>
+      <h4>Algorithm: ${data.algorithm}</h4>
+      <div class="stat"><span>เวลาคำนวณ</span><span>${m.executionTime || data.elapsed_sec || 0} วินาที</span></div>
+      <div class="stat"><span>Waypoints</span><span>${data.waypoints || 0} จุด</span></div>
+      <div class="stat"><span>Travel Distance</span><span style="color:#FF9800">${(m.travelDistance || 0).toFixed(1)}</span></div>
+      ${data.extra ? `<div class="stat"><span>Detail</span><span style="font-size:10px">${data.extra}</span></div>` : ''}
     </div>
     <div class="result-card">
-      <h4>⚠️ ระดับความอันตราย (Danger)</h4>
-      <div class="stat"><span>🔴 สูงสุด</span><span style="color:${data.danger_stats.max > 0.6 ? '#F44336' : '#E8F0F8'}">${(data.danger_stats.max*100).toFixed(1)}%</span></div>
-      <div class="stat"><span>🟡 เฉลี่ย</span><span>${(data.danger_stats.avg*100).toFixed(1)}%</span></div>
+      <h4>ระดับความอันตราย (Danger)</h4>
+      <div class="stat"><span>สูงสุด</span><span style="color:${(m.maxDanger || 0) > 0.6 ? '#F44336' : '#E8F0F8'}">${((m.maxDanger || 0)*100).toFixed(1)}%</span></div>
+      <div class="stat"><span>เฉลี่ย</span><span>${((m.averageDanger || 0)*100).toFixed(1)}%</span></div>
     </div>
-    <div class="result-card">
-      <h4>💡 คำแนะนำ</h4>
   `;
-  
-  // Clean up duplicate tips for same hazard type
+
+  if (csp && csp.total !== undefined) {
+    html += `<div class="result-card">
+      <h4>CSP Score: ${(csp.total * 100).toFixed(1)}%</h4>`;
+    if (csp.scores) {
+      Object.entries(csp.scores).forEach(([k, v]) => {
+        html += `<div class="stat"><span>${k}</span><span>${(v * 100).toFixed(1)}%</span></div>`;
+      });
+    }
+    html += `</div>`;
+  }
+
+  html += `<div class="result-card">
+      <h4>คำแนะนำ</h4>`;
+
   const uniqueTips = [];
   if(data.tips && data.tips.length > 0) {
     const seenTips = new Set();
@@ -330,7 +398,6 @@ function showResults(data) {
   
   document.getElementById('resultsContent').innerHTML = html;
   
-  // Smooth scroll to bottom
   const sidebar = document.querySelector('.sidebar-body');
   sidebar.scrollTo({ top: sidebar.scrollHeight, behavior: 'smooth' });
 }

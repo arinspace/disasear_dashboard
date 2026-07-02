@@ -778,9 +778,25 @@ class FloodApp(tk.Tk):
             self.analyzed_radius_m = rad_map.get(level, 500)
 
             # นำค่าที่คำนวณได้ไปอัปเดตจุดภัยพิบัติที่ผู้ใช้ปักไว้
-            for h in self.map_hazards:
-                h["severity"] = self.analyzed_severity
-                h["radius_m"] = self.analyzed_radius_m
+            if not self.map_hazards and level not in ("none", "error"):
+                self.map_hazards = [{
+                    "type": "flood",
+                    "lat": 13.7563,
+                    "lng": 100.5018,
+                    "severity": self.analyzed_severity,
+                    "radius_m": self.analyzed_radius_m
+                }]
+            else:
+                for h in self.map_hazards:
+                    h["severity"] = self.analyzed_severity
+                    h["radius_m"] = self.analyzed_radius_m
+
+            if not self.map_survivors and level not in ("none", "error"):
+                self.map_survivors = [{
+                    "id": "S1",
+                    "lat": 13.7650,
+                    "lng": 100.5100
+                }]
 
             # ส่งข้อมูลไป Server (ใช้ข้อมูลจาก Map Picker)
             try:
@@ -794,7 +810,7 @@ class FloodApp(tk.Tk):
                 res = requests.post("http://localhost:5000/api/report_flood_v2", json=payload)
                 if res.status_code == 200:
                     messagebox.showinfo("สำเร็จ", "ส่งข้อมูลไปยัง Dashboard สำเร็จ")
-                    webbrowser.open("http://localhost:5000")
+                    webbrowser.open("http://127.0.0.1:5000/dashboard/disaster_nav.html")
                 else:
                     messagebox.showwarning("แจ้งเตือน", f"ส่งข้อมูลไม่สำเร็จ: {res.status_code}")
             except Exception as e:
